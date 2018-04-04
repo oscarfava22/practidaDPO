@@ -1,0 +1,26 @@
+[
+    {
+        "id": "01",
+        "title":"Pizza",
+        "price":"8.00",
+        "units":"10"
+    },
+    {
+        "id": "02",
+        "title":"Burger",
+        "price":"5.00",
+        "units":"20"
+    },
+    {
+        "id": "03",
+        "title":"Salad",
+        "price":"4.00",
+        "units":"30"
+    },
+    {
+        "id": "04",
+        "title":"Chicken",
+        "price":"6.00",
+        "units":"40"
+    }
+]
