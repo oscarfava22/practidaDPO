@@ -19,12 +19,14 @@ public class SelectorViewListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (loginModel.getLoginState()) {
+        /*if (loginModel.getLoginState()) {
             mainView.setSVSelectedButton(e.getActionCommand());
             mainView.setGestionView(e.getActionCommand());
         } else {
             mainView.showLoginDialog();
-        }
+        }*/
+        mainView.setSVSelectedButton(e.getActionCommand());
+        mainView.setGestionView(e.getActionCommand());
 
     }
 }

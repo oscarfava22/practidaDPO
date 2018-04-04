@@ -19,8 +19,8 @@ public class StatusBarView extends JPanel {
         setLayout(new BorderLayout());
         statusLabel = new JLabel("Status: ");
         statusLabel.setForeground(Color.GRAY);
-        status = new JLabel("Not Connected");
-        status.setForeground(Color.RED);
+        status = new JLabel("Connected");
+        status.setForeground(Color.GREEN);
         jpStatus = new JPanel(new FlowLayout());
         jpStatus.setOpaque(false);
         jpStatus.add(statusLabel);

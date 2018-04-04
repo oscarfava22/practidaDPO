@@ -1,6 +1,7 @@
 package reserva.view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class AutenticacioView extends JFrame {
@@ -22,14 +23,32 @@ public class AutenticacioView extends JFrame {
         //CENTER
         final JPanel jcbCenter = new JPanel();
         jcbCenter.setLayout(new BoxLayout(jcbCenter, BoxLayout.Y_AXIS));
+
+        //name text
         jtfName = new JTextField("Nom");
-        jtfPassword = new JTextField("Contrassenya");
         final JPanel jpLeftCenter = new JPanel();
+        jpLeftCenter.setLayout(new GridLayout(1,2));
+        jpLeftCenter.setBorder(new EmptyBorder(10,10,10,10));
         final JLabel jlNomUser = new JLabel("Introdueix nom d'usuari: ");
         jpLeftCenter.add(jlNomUser);
         jpLeftCenter.add(jtfName);
-        jcbCenter.add(jpLeftCenter);
-        jcbCenter.add(jtfPassword);
+        final JPanel jpCenterUp = new JPanel();
+        jpCenterUp.add(jpLeftCenter);
+
+        //contrassenya text
+        jtfPassword = new JTextField("Contrassenya");
+        final JPanel jpRightCenter = new JPanel();
+        jpRightCenter.setLayout(new GridLayout(1,2));
+        jpRightCenter.setBorder(new EmptyBorder(10,10,10,10));
+        final JLabel jlContra = new JLabel("Introdueix una contrassenya: ");
+        jpRightCenter.add(jlContra);
+        jpRightCenter.add(jtfPassword);
+        final JPanel jpCenterDown = new JPanel();
+        jpCenterDown.add(jpRightCenter);
+
+        //add to center layout
+        jcbCenter.add(jpCenterUp);
+        jcbCenter.add(jpCenterDown);
 
         //SOUTH
         JPanel jpSouth = new JPanel();

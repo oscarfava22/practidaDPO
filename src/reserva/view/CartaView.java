@@ -1,4 +1,4 @@
-package servidor.view;
+package reserva.view;
 
 public class CartaView {
 }
