@@ -107,7 +107,6 @@ public class LoginModel {
     }
 
 
-
     public boolean getLoginState() {
         return loginState;
     }

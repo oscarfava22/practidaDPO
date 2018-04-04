@@ -69,7 +69,7 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        loginDialogView.initView(mainViewModel);
+        //loginDialogView.initView(mainViewModel);
 
     }
 

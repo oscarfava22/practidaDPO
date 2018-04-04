@@ -9,6 +9,7 @@ import java.awt.*;
 public class GestionMesasView extends JPanel {
 
     private int nMesas;
+    private JLabel jlTitle;
 
     private JPanel jpGeneral;
 
@@ -18,6 +19,16 @@ public class GestionMesasView extends JPanel {
     /**
      *
      */
+
+    public GestionMesasView() {
+        setLayout(new BorderLayout());
+
+        jlTitle = new JLabel();
+        jlTitle.setHorizontalAlignment(SwingConstants.CENTER);
+
+        add(jlTitle, BorderLayout.NORTH);
+    }
+
     public GestionMesasView(int nMesas) {
         this.nMesas = nMesas;
 
@@ -42,7 +53,7 @@ public class GestionMesasView extends JPanel {
      * @param mainViewModel
      */
     public void initView(MainViewModel mainViewModel) {
-        //jlTitle.setText(mainViewModel.getGestionMesas());
+        jlTitle.setText(mainViewModel.getGestionMesas());
     }
 
 
@@ -52,7 +63,7 @@ public class GestionMesasView extends JPanel {
      */
     public void registerControllers(MouseInputListener gestionMesasViewListener) {
 
-        //jlTitle.addMouseListener(gestionMesasViewListener);
+        jlTitle.addMouseListener(gestionMesasViewListener);
 
     }
 }
