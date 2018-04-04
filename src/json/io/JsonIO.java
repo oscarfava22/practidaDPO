@@ -47,6 +47,10 @@ public class JsonIO {
 
     /**
      * Writes a specific json file from object T, if T is not given it defaults to Object and stores it as such.
+     * The object to write has to have the following property:
+     *  1. It has to have a getter method with the default name for all attributes it wants to write
+     *  2. If you want the getter method to not have the default name of the property in the file, it has to have the
+     *  annotation @JsonGetter("JsonProperyName")
      * @param toWrite The object to write to file
      * @param url The url of the file
      * @param <T> The type of the object to write
@@ -59,5 +63,4 @@ public class JsonIO {
 
         writer.writeValue(new File(url),toWrite);
     }
-
 }
