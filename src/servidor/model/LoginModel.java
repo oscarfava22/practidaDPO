@@ -1,4 +1,4 @@
-package model;
+package servidor.model;
 
 import javax.swing.*;
 import java.awt.*;

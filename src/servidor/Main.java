@@ -1,8 +1,9 @@
-import controller.*;
-import model.LoginModel;
-import model.MainViewModel;
-import view.LoginDialogView;
-import view.MainView;
+package servidor;
+
+import servidor.controller.*;
+import servidor.model.LoginModel;
+import servidor.model.MainViewModel;
+import servidor.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;

@@ -1,16 +1,16 @@
-package controller;
+package servidor.controller;
 
-import view.MainView;
+import servidor.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
-public class GestionCartaViewListener implements MouseInputListener {
+public class GestionPedidosViewListener implements MouseInputListener {
 
     private MainView mainView;
 
-    public GestionCartaViewListener(MainView mainView) {
+    public GestionPedidosViewListener(MainView mainView) {
         this.mainView = mainView;
     }
 

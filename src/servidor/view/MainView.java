@@ -1,7 +1,7 @@
-package view;
+package servidor.view;
 
-import model.LoginModel;
-import model.MainViewModel;
+import servidor.model.LoginModel;
+import servidor.model.MainViewModel;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;

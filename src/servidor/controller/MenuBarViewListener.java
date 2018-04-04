@@ -1,6 +1,6 @@
-package controller;
+package servidor.controller;
 
-import view.MainView;
+import servidor.view.MainView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,23 +1,21 @@
-package controller;
+package servidor.controller;
 
-import view.GestionMesasView;
-import view.MainView;
+import servidor.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
-public class GestionMesasViewListener implements MouseInputListener {
+public class GestionTop5ViewListener implements MouseInputListener {
 
     private MainView mainView;
 
-    public GestionMesasViewListener(MainView mainView) {
+    public GestionTop5ViewListener(MainView mainView) {
         this.mainView = mainView;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (e.getSource().getClass().equals(JButton.class)) {
             JButton jb = (JButton) e.getSource();
             System.out.println(jb.getText());
@@ -27,7 +25,6 @@ public class GestionMesasViewListener implements MouseInputListener {
             JLabel jl = (JLabel) e.getSource();
             System.out.println(jl.getText());
         }
-
     }
 
     @Override

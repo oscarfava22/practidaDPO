@@ -1,16 +1,16 @@
-package controller;
+package servidor.controller;
 
-import view.MainView;
+import servidor.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
-public class GestionPedidosViewListener implements MouseInputListener {
+public class GestionMesasViewListener implements MouseInputListener {
 
     private MainView mainView;
 
-    public GestionPedidosViewListener(MainView mainView) {
+    public GestionMesasViewListener(MainView mainView) {
         this.mainView = mainView;
     }
 
@@ -26,6 +26,7 @@ public class GestionPedidosViewListener implements MouseInputListener {
             JLabel jl = (JLabel) e.getSource();
             System.out.println(jl.getText());
         }
+
     }
 
     @Override

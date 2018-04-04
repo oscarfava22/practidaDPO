@@ -1,6 +1,6 @@
-package view;
+package servidor.view;
 
-import model.MainViewModel;
+import servidor.model.MainViewModel;
 
 import javax.swing.*;
 import java.awt.*;

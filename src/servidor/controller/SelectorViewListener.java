@@ -1,7 +1,7 @@
-package controller;
+package servidor.controller;
 
-import model.LoginModel;
-import view.MainView;
+import servidor.model.LoginModel;
+import servidor.view.MainView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

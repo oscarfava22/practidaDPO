@@ -1,21 +1,22 @@
-package controller;
+package servidor.controller;
 
-import view.MainView;
+import servidor.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
-public class GestionTop5ViewListener implements MouseInputListener {
+public class GestionCartaViewListener implements MouseInputListener {
 
     private MainView mainView;
 
-    public GestionTop5ViewListener(MainView mainView) {
+    public GestionCartaViewListener(MainView mainView) {
         this.mainView = mainView;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
         if (e.getSource().getClass().equals(JButton.class)) {
             JButton jb = (JButton) e.getSource();
             System.out.println(jb.getText());
