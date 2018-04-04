@@ -3,12 +3,20 @@ package reserva.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CartaView extends JFrame{
 
-    public CartaView (int numEntrants, int numPrimers, int numBegudes, int numPostres) {
+    private final JButton jbPagar;
+    private ArrayList<JButton> jButtonsAfegirUnitat;
+    private ArrayList<JButton> jButtonsTreureUnitat;
+    private ArrayList<JButton> jButtonsAfegir;
+    private ArrayList<JLabel> jLabelsUnits;
+
+    public CartaView (int numEntrants, int numPrimers, int numBegudes, int numPostres, int numAfegits) {
 
         setSize(800,600);
         setTitle("Carta");
@@ -17,37 +25,41 @@ public class CartaView extends JFrame{
 
         //North
 
-        JMenuBar jmbNorth = new JMenuBar();
-        jmbNorth.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        JTabbedPane jtpNorth = new JTabbedPane();
 
-        JMenu jmNorth = new JMenu();
+        JTabbedPane jtpCenter = new JTabbedPane();
+
+        Image image = null;
         try {
-            Image image = ImageIO.read(new File("data/ic_shopping_basket_black_24dp_2x.png"));
+            image = ImageIO.read(new File("data/logo24x24black.png"));
             Icon icon = new ImageIcon(image);
-            jmNorth.setIcon(icon);
+            jtpNorth.addTab("Carta", icon, jtpCenter);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //jmNorth.setIcon((UIManager.getIcon("OptionPane.errorIcon")));
-        jmbNorth.add(jmNorth);
 
-        JMenuItem jmi1 = new JMenuItem("Productos:");
-        JMenuItem jmi2 = new JMenuItem("Pan con tomate - x2");
-        jmNorth.add(jmi1);
-        jmNorth.add(jmi2);
+        JPanel jpCesta = new JPanel(new GridLayout(numAfegits, 1));
+        for(int i = 0; i < numAfegits; i++) {
+            jpCesta.add(new ItemCartaView("Nom afegit", 10, "Esborrar"));
+        }
 
-        getContentPane().add(jmbNorth, BorderLayout.PAGE_START);
+        try {
+            image = ImageIO.read(new File("data/ic_shopping_basket_black_24dp_2x.png"));
+            Icon icon = new ImageIcon(image);
+            jtpNorth.addTab("Cesta", icon, jpCesta);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        getContentPane().add(jtpNorth, BorderLayout.CENTER);
 
         //Center
-
-        JTabbedPane jtpCenter = new JTabbedPane();
 
         //Taula Entrants
 
         JPanel jpEntrants2 = new JPanel(new GridLayout(numEntrants,1));
 
         for(int i = 0; i < numEntrants; i++) {
-            jpEntrants2.add(new ItemCartaView("Nom entrant", 10));
+            jpEntrants2.add(new ItemCartaView("Nom entrant", 10, "Afegir"));
         }
 
         JScrollPane jpEntrants = new JScrollPane(jpEntrants2);
@@ -59,7 +71,7 @@ public class CartaView extends JFrame{
         JPanel jpPrimers2 = new JPanel(new GridLayout(numPrimers,1));
 
         for(int i = 0; i < numPrimers; i++) {
-            jpPrimers2.add(new ItemCartaView("Nom primer", 5));
+            jpPrimers2.add(new ItemCartaView("Nom primer", 5, "Afegir"));
         }
 
         JScrollPane jpPrimers = new JScrollPane(jpPrimers2);
@@ -70,7 +82,7 @@ public class CartaView extends JFrame{
         JPanel jpBegudes2 = new JPanel(new GridLayout(numBegudes,1));
 
         for(int i = 0; i < numBegudes; i++) {
-            jpBegudes2.add(new ItemCartaView("Nom beguda", 10));
+            jpBegudes2.add(new ItemCartaView("Nom beguda", 10, "Afegir"));
         }
 
         JScrollPane jpBegudes = new JScrollPane(jpBegudes2);
@@ -81,31 +93,29 @@ public class CartaView extends JFrame{
         JPanel jpPostres2 = new JPanel(new GridLayout(numPostres,1));
 
         for(int i = 0; i < numPostres; i++) {
-            jpPostres2.add(new ItemCartaView("Nom postre", 10));
+            jpPostres2.add(new ItemCartaView("Nom postre", 10, "Afegir"));
         }
 
         JScrollPane jpPostres = new JScrollPane(jpPostres2);
         jtpCenter.addTab("Postres", jpPostres);
 
-        getContentPane().add(jtpCenter, BorderLayout.CENTER);
-
         //South
         JPanel jpSouth = new JPanel(new BorderLayout());
 
-        JButton jbVeureEstat = new JButton("Veure estat");
-        JButton jbPagar = new JButton("Pagar");
+        jbPagar = new JButton("Pagar");
 
-        JPanel jpWest = new JPanel(new FlowLayout());
-        jpWest.add(jbVeureEstat);
 
         JPanel jpEast = new JPanel(new FlowLayout());
         jpEast.add(jbPagar);
 
-        jpSouth.add(jpWest, BorderLayout.LINE_START);
         jpSouth.add(jpEast, BorderLayout.LINE_END);
 
         getContentPane().add(jpSouth, BorderLayout.PAGE_END);
 
         setVisible(true);
+    }
+
+    public void registerControllers (ActionListener actionListener) {
+
     }
 }

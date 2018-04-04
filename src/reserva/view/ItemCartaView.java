@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ItemCartaView extends JPanel {
 
-    public ItemCartaView (String nom, int unitats) {
+    public ItemCartaView (String nom, int unitats, String textButton) {
 
         this.setLayout(new GridLayout(1, 5));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -30,7 +30,7 @@ public class ItemCartaView extends JPanel {
         jpAfegirUnitats.add(container);
         jpAfegirUnitats.add(jbTreureUnitats);
 
-        JButton jbAfegir = new JButton("Afegir");
+        JButton jbAfegir = new JButton(textButton);
         JPanel jpAfegir = new JPanel();
         jpAfegir.setLayout(new BoxLayout(jpAfegir, BoxLayout.Y_AXIS));
         //jpAfegir.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
