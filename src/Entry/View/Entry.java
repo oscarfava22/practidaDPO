@@ -2,6 +2,7 @@ package Entry.View;
 
 
 import Entry.View.Panels.InitPanel;
+import Entry.View.Panels.ReservePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.event.MouseListener;
 public class Entry extends JFrame{
 
     public static final String INIT = "Init_Panel";
-    public static final String RESERVAR = "Test";
+    public static final String RESERVE = "ReservePanel Panel";
 
     private final InitPanel initPanel;
 
@@ -23,9 +24,8 @@ public class Entry extends JFrame{
 
         initPanel = new InitPanel(imageIcon);
         add(initPanel,INIT);
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Cambio"));
-        add(panel,"Test");
+        ReservePanel reservePanel = new ReservePanel();
+        add(reservePanel,RESERVE);
     }
 
     public void switchPanel(String name){

@@ -15,7 +15,7 @@ public class InitController extends MouseAdapter{
 
     @Override
     public void mouseClicked(MouseEvent e){
-        view.switchPanel(Entry.RESERVAR);
+        view.switchPanel(Entry.RESERVE);
     }
 
 }
