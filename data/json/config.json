@@ -1,0 +1,12 @@
+{
+  "num_taules": "5",
+  "bbdd_info": {
+      "ip": "localhost",
+      "name": "Restaurant BBDD",
+      "connection_port": "85",
+      "user": "user",
+      "password": "password"
+  },
+  "port_recepcio": "25",
+  "port_reserva": "18"
+}

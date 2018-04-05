@@ -14,6 +14,8 @@ public class GestionTop5View extends JPanel {
 
         setLayout(new BorderLayout());
 
+
+
         jlTitle = new JLabel("Top 5");
         jlTitle.setHorizontalAlignment(SwingConstants.CENTER);
         add(jlTitle, BorderLayout.NORTH);
