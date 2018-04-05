@@ -12,15 +12,15 @@ import java.io.FileReader;
 
 public class GestionMesasView extends JPanel {
 
-    public static final int AUX_MAX_RESERVAS = 40;
+    public static final int AUX_MAX_RESERVAS = 50;
     public static final int AUX_NUMBER_TABLES = 5;
 
     private int nMesas;
 
     private JScrollPane jspListaMesas;
         private JPanel jpListaMesas;
+            private JPanel[] jpMesas;
             private JButton[] jbMesas;
-
     private JPanel jpRight;
         private JLabel jlMesaNumero;
         private JPanel jpReservas;
@@ -40,12 +40,30 @@ public class GestionMesasView extends JPanel {
     public GestionMesasView() {
         setLayout(new BorderLayout());
 
+        try {
+            nMesas = getNumberOfTables();
+            jpMesas = new JPanel[nMesas];
+            jbMesas = new JButton[nMesas];
+        } catch (FileNotFoundException e) {
+            nMesas = 0;
+            jbMesas = null;
+            jpMesas = null;
+        }
+
         //PANEL SCROLLABLE A LA IZQUIERDA
-        jspListaMesas = new JScrollPane();
-        jpListaMesas = new JPanel(new GridLayout());
+        //jspListaMesas = new JScrollPane();
+        jpListaMesas = new JPanel(new GridLayout(nMesas, 1));
+
         //TODO RELLENAR LA LISTA SEGÚN EL NÚMERO DE MESAS QUE TENGAMOS EN EL .JSON
-        // (fuera del constructor)
-        jspListaMesas.add(jpListaMesas);
+        for (int i = 0; i < nMesas; i++){
+            jpMesas[i] = new JPanel(new BorderLayout());
+            jbMesas[i] = new JButton("Mesa " + Integer.toString(i + 1));
+            jpMesas[i].add(jbMesas[i], BorderLayout.CENTER);
+            jpMesas[i].setMinimumSize(new Dimension(0, 75));
+            jpListaMesas.add(jpMesas[i]);
+        }
+
+        jspListaMesas = new JScrollPane(jpListaMesas);
         //Size
         jspListaMesas.setMinimumSize(new Dimension(200, 0));
         jspListaMesas.setPreferredSize(new Dimension(200, 0));
@@ -136,9 +154,10 @@ public class GestionMesasView extends JPanel {
         Object obj = parser.parse(file);
         //Creem un jsonObject que ho englobarà TOT
         JsonObject dades = (JsonObject) obj;
-        
+        nMesas = dades.get("num_taules").getAsInt();
+        System.out.println("Numero de taules: " + nMesas);
         //TODO get Json file and get the number of tables that the restaurant disposes
-        return AUX_NUMBER_TABLES;
+        return nMesas;
     }
 
 
