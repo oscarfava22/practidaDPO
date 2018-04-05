@@ -1,5 +1,5 @@
 {
-  "num_taules": "5",
+  "num_taules": "30",
   "bbdd_info": {
       "ip": "localhost",
       "name": "Restaurant BBDD",
