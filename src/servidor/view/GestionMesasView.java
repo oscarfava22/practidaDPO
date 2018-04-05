@@ -59,7 +59,7 @@ public class GestionMesasView extends JPanel {
         jpRight.setPreferredSize(new Dimension(200, 0));
 
         //Titulo
-        jlMesaNumero = new JLabel("Mesa 1");
+        jlMesaNumero = new JLabel("Mesa X");
         jlMesaNumero.setHorizontalAlignment(SwingConstants.CENTER);
         jpRight.add(jlMesaNumero, BorderLayout.PAGE_START);
 
@@ -72,19 +72,19 @@ public class GestionMesasView extends JPanel {
         jpListaReservasMesa.setBorder(BorderFactory.createTitledBorder("Reservas"));
         Font titleFont = new Font(getFont().getName(), Font.BOLD, getFont().getSize());
         JLabel jlNombreReserva = new JLabel("Nombre de la Reserva");
-        jlNombreReserva.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.BLACK));
+        jlNombreReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
         jlNombreReserva.setHorizontalAlignment(SwingConstants.CENTER);
         jlNombreReserva.setVerticalAlignment(SwingConstants.NORTH);
         jlNombreReserva.setFont(titleFont);
         jpListaReservasMesa.add(jlNombreReserva);
         JLabel jlHoraReserva = new JLabel("Hora (hh:mm)");
-        jlHoraReserva.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.BLACK));
+        jlHoraReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
         jlHoraReserva.setHorizontalAlignment(SwingConstants.CENTER);
         jlHoraReserva.setVerticalAlignment(SwingConstants.NORTH);
         jlHoraReserva.setFont(titleFont);
         jpListaReservasMesa.add(jlHoraReserva);
         JLabel jlFechaReserva = new JLabel("Fecha (dd/mm/aaaa)");
-        jlFechaReserva.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.BLACK));
+        jlFechaReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
         jlFechaReserva.setHorizontalAlignment(SwingConstants.CENTER);
         jlFechaReserva.setVerticalAlignment(SwingConstants.NORTH);
         jlFechaReserva.setFont(titleFont);
