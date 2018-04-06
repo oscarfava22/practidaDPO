@@ -18,6 +18,7 @@ public class ReserveController implements ActionListener{
             case ReservePanel.NOW:
                 //TODO llamar al metodo:
                 //TODO validateData(view.numPersonas,new Date())
+                view.switchPanel(Entry.LANDING);
                 break;
             case ReservePanel.LATER:
                 //TODO IR al siguiente panel

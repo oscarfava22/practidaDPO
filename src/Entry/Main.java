@@ -1,6 +1,8 @@
 package Entry;
 
+import Entry.Controller.DatePickerController;
 import Entry.Controller.InitController;
+import Entry.Controller.LandingController;
 import Entry.Controller.ReserveController;
 import Entry.View.Entry;
 
@@ -24,7 +26,9 @@ public class Main {
                     Entry entry = new Entry(imageIcon);
                     MouseListener init = new InitController(entry);
                     ActionListener reserve = new ReserveController(entry);
-                    entry.addListeners(init,reserve);
+                    ActionListener picker = new DatePickerController(entry);
+                    ActionListener landing = new LandingController(entry);
+                    entry.addListeners(init,reserve,picker,landing);
 
                     entry.setVisible(true);
                 } catch (IOException e) {

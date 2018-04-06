@@ -2,6 +2,7 @@ package Entry.View.Panels.DatePickerPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class DatePickerPanel extends JPanel {
 
@@ -51,6 +52,10 @@ public class DatePickerPanel extends JPanel {
         thirdPanel.add(button,BorderLayout.PAGE_END);
         add(thirdPanel);
 
-
     }
+
+    public void relateControllers(ActionListener reserve) {
+        button.addActionListener(reserve);
+    }
+
 }
