@@ -1,5 +1,7 @@
 package Entry.Constants;
 
+import java.text.SimpleDateFormat;
+
 public class Constants {
     public static final String INIT = "Init_Panel";
     public static final String RESERVE = "Reserve_Panel";
@@ -10,4 +12,6 @@ public class Constants {
     public static final String LATER = "Button later";
 
     public static final String DAY = "Day";
+
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy:mm:dd:HH:mm");
 }
