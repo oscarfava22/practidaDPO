@@ -1,6 +1,7 @@
 package Entry.View;
 
 
+import Entry.Constants.Constants;
 import Entry.View.Panels.DatePickerPanel.DatePickerPanel;
 import Entry.View.Panels.InitPanel;
 import Entry.View.Panels.LandingPanel;
@@ -12,11 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 public class Entry extends JFrame{
-
-    public static final String INIT = "Init_Panel";
-    public static final String RESERVE = "Reserve_Panel";
-    public static final String DATE_PICKER = "DatePicker_Panel";
-    public static final String LANDING = "Landing_Panel";
 
     private final InitPanel initPanel;
     private final ReservePanel reservePanel;
@@ -31,13 +27,13 @@ public class Entry extends JFrame{
         setLayout(new CardLayout());
 
         initPanel = new InitPanel(imageIcon);
-        add(initPanel,INIT);
+        add(initPanel, Constants.INIT);
         reservePanel = new ReservePanel();
-        add(reservePanel,RESERVE);
+        add(reservePanel,Constants.RESERVE);
         dpp = new DatePickerPanel();
-        add(dpp,DATE_PICKER);
+        add(dpp,Constants.DATE_PICKER);
         landingPanel = new LandingPanel();
-        add(landingPanel,LANDING);
+        add(landingPanel,Constants.LANDING);
     }
 
     public void switchPanel(String name){

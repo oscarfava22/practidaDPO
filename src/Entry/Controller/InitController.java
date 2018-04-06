@@ -1,5 +1,6 @@
 package Entry.Controller;
 
+import Entry.Constants.Constants;
 import Entry.View.Entry;
 
 import java.awt.event.MouseAdapter;
@@ -15,7 +16,7 @@ public class InitController extends MouseAdapter{
 
     @Override
     public void mouseClicked(MouseEvent e){
-        view.switchPanel(Entry.RESERVE);
+        view.switchPanel(Constants.RESERVE);
     }
 
 }

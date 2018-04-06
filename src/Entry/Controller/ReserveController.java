@@ -1,5 +1,6 @@
 package Entry.Controller;
 
+import Entry.Constants.Constants;
 import Entry.View.Entry;
 import Entry.View.Panels.ReservePanel;
 
@@ -18,11 +19,11 @@ public class ReserveController implements ActionListener{
             case ReservePanel.NOW:
                 //TODO llamar al metodo:
                 //TODO validateData(view.numPersonas,new Date())
-                view.switchPanel(Entry.LANDING);
+                view.switchPanel(Constants.LANDING);
                 break;
             case ReservePanel.LATER:
                 //TODO IR al siguiente panel
-                view.switchPanel(Entry.DATE_PICKER);
+                view.switchPanel(Constants.DATE_PICKER);
                 break;
         }
     }

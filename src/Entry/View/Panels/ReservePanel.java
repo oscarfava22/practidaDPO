@@ -1,13 +1,12 @@
 package Entry.View.Panels;
 
+import Entry.Constants.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class ReservePanel extends JPanel {
-
-    public static final String NOW = "Button now";
-    public static final String LATER = "Button later";
 
     private final JButton now;
     private final JButton later;
@@ -41,8 +40,8 @@ public class ReservePanel extends JPanel {
     }
 
     public void relateControllers(ActionListener reserve) {
-        now.setActionCommand(NOW);
-        later.setActionCommand(LATER);
+        now.setActionCommand(Constants.NOW);
+        later.setActionCommand(Constants.LATER);
         now.addActionListener(reserve);
         later.addActionListener(reserve);
     }

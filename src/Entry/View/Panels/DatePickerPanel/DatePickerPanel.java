@@ -1,12 +1,12 @@
 package Entry.View.Panels.DatePickerPanel;
 
+import Entry.Constants.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DatePickerPanel extends JPanel {
-
-    public static final String DAY = "Day";
 
     private Integer[] days;
     private final JButton button;
@@ -27,7 +27,7 @@ public class DatePickerPanel extends JPanel {
         for(int i=0;i<years.length;i++){
             years[i] = i+2018;
         }
-        firstPanel.add(new ComboLabelPanel<>(DAY, days));
+        firstPanel.add(new ComboLabelPanel<>(Constants.DAY, days));
         firstPanel.add(new ComboLabelPanel<>("Month",months));
         firstPanel.add(new ComboLabelPanel<>("Year",years));
 

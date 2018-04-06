@@ -1,5 +1,6 @@
 package Entry.Controller;
 
+import Entry.Constants.Constants;
 import Entry.View.Entry;
 
 import java.awt.event.ActionEvent;
@@ -14,6 +15,6 @@ public class LandingController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        view.switchPanel(Entry.INIT);
+        view.switchPanel(Constants.INIT);
     }
 }
