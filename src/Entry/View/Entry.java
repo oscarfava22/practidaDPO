@@ -1,19 +1,23 @@
 package Entry.View;
 
 
+import Entry.View.Panels.DatePickerPanel.DatePickerPanel;
 import Entry.View.Panels.InitPanel;
 import Entry.View.Panels.ReservePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 public class Entry extends JFrame{
 
     public static final String INIT = "Init_Panel";
-    public static final String RESERVE = "ReservePanel Panel";
+    public static final String RESERVE = "Reserve_Panel";
+    public static final String DATE_PICKER = "DatePicker_Panel";
 
     private final InitPanel initPanel;
+    private final ReservePanel reservePanel;
 
     public Entry(ImageIcon imageIcon) {
         setTitle("Entrada");
@@ -24,8 +28,10 @@ public class Entry extends JFrame{
 
         initPanel = new InitPanel(imageIcon);
         add(initPanel,INIT);
-        ReservePanel reservePanel = new ReservePanel();
+        reservePanel = new ReservePanel();
         add(reservePanel,RESERVE);
+        DatePickerPanel dpp = new DatePickerPanel();
+        add(dpp,DATE_PICKER);
     }
 
     public void switchPanel(String name){
@@ -33,7 +39,8 @@ public class Entry extends JFrame{
         cl.show(getContentPane(),name);
     }
 
-    public void addListeners(MouseListener init){
+    public void addListeners(MouseListener init, ActionListener reserve){
         initPanel.relateControllers(init);
+        reservePanel.relateControllers(reserve);
     }
 }

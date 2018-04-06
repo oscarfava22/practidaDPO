@@ -1,11 +1,13 @@
 package Entry;
 
 import Entry.Controller.InitController;
+import Entry.Controller.ReserveController;
 import Entry.View.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +23,8 @@ public class Main {
                     ImageIcon imageIcon = new ImageIcon(ImageIO.read(file));
                     Entry entry = new Entry(imageIcon);
                     MouseListener init = new InitController(entry);
-                    entry.addListeners(init);
+                    ActionListener reserve = new ReserveController(entry);
+                    entry.addListeners(init,reserve);
 
                     entry.setVisible(true);
                 } catch (IOException e) {

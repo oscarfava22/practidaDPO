@@ -2,6 +2,7 @@ package Entry.View.Panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ReservePanel extends JPanel {
 
@@ -37,5 +38,12 @@ public class ReservePanel extends JPanel {
         add(center,BorderLayout.CENTER);
         add(bottom,BorderLayout.PAGE_END);
 
+    }
+
+    public void relateControllers(ActionListener reserve) {
+        now.setActionCommand(NOW);
+        later.setActionCommand(LATER);
+        now.addActionListener(reserve);
+        later.addActionListener(reserve);
     }
 }
