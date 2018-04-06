@@ -5,6 +5,9 @@ import java.awt.*;
 
 public class ReservePanel extends JPanel {
 
+    public static final String NOW = "Button now";
+    public static final String LATER = "Button later";
+
     private final JButton now;
     private final JButton later;
     private final JTextField howMany;
