@@ -13,7 +13,7 @@ import java.io.FileReader;
 public class GestionMesasView extends JPanel {
 
     public static final int AUX_MAX_RESERVAS = 50;
-    public static final int AUX_NUMBER_TABLES = 5;
+    public static int NUMBER_TABLES;
 
     private int nMesas;
 
@@ -40,15 +40,10 @@ public class GestionMesasView extends JPanel {
     public GestionMesasView() {
         setLayout(new BorderLayout());
 
-        try {
-            nMesas = getNumberOfTables();
-            jpMesas = new JPanel[nMesas];
-            jbMesas = new JButton[nMesas];
-        } catch (FileNotFoundException e) {
-            nMesas = 0;
-            jbMesas = null;
-            jpMesas = null;
-        }
+        nMesas = NUMBER_TABLES;
+        jpMesas = new JPanel[nMesas];
+        jbMesas = new JButton[nMesas];
+
 
         //PANEL SCROLLABLE A LA IZQUIERDA
         //jspListaMesas = new JScrollPane();
@@ -142,22 +137,6 @@ public class GestionMesasView extends JPanel {
 
         add(jpRight, BorderLayout.CENTER);
 
-    }
-
-
-    public int getNumberOfTables() throws FileNotFoundException {
-        JsonParser parser = new JsonParser();
-
-        //LLEGIR JSON I ESTRUCTURARLO A LES NOSTRES DADES
-        //llegirem l'arxiu "laSallers.json" ubicat a la carpeta "src" del projecte
-        FileReader file = new FileReader("data/json/config.json");
-        Object obj = parser.parse(file);
-        //Creem un jsonObject que ho englobarà TOT
-        JsonObject dades = (JsonObject) obj;
-        nMesas = dades.get("num_taules").getAsInt();
-        System.out.println("Numero de taules: " + nMesas);
-        //TODO get Json file and get the number of tables that the restaurant disposes
-        return nMesas;
     }
 
 

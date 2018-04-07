@@ -2,6 +2,7 @@ package servidor.model;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import servidor.view.GestionMesasView;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -16,6 +17,12 @@ public class MesasManager {
         mesas = new LinkedList<>();
         //Obtener mesas del config.json
         getMesasFromJsonArray(jsonObjectFromConfigFile);
+        for (int i = 0; i < mesas.size(); i++){
+            Mesa mesa = mesas.get(i);
+            System.out.println("Mesa " + i + ":");
+            System.out.println("    ID: " + mesa.getId());
+            System.out.println("    NUM. COMENSALES: " + mesa.getNumComensales());
+        }
     }
 
     //Getters & Setters
@@ -45,9 +52,10 @@ public class MesasManager {
         for (int i = 0; i < mesasJsonArray.size(); i++){
             JsonObject jsonMesa = mesasJsonArray.get(i).getAsJsonObject();
             String idMesa = jsonMesa.get("id").getAsString();
-            int numComensales = jsonMesa.get("numCOmensales").getAsInt();
+            int numComensales = jsonMesa.get("numComensales").getAsInt();
             Mesa nuevaMesa = new Mesa(idMesa, numComensales);
             addMesa(nuevaMesa);
         }
+        GestionMesasView.NUMBER_TABLES = mesas.size();
     }
 }
