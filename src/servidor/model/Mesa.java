@@ -6,7 +6,7 @@ public class Mesa {
     private int numComensales;
 
     //Constructor
-    public Mesa(int numComensales, String id) {
+    public Mesa(String id, int numComensales) {
         this.numComensales = numComensales;
         this.id = id;
     }
