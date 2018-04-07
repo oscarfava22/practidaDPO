@@ -20,18 +20,22 @@ public class SelectorView extends JPanel {
         jbGestionMesas = new JButton();
         jbGestionMesas.setFocusPainted(false);
         jbGestionMesas.setBackground(Color.GRAY);
+        jbGestionMesas.setBorderPainted(false);
 
         jbGestionCarta = new JButton();
         jbGestionCarta.setFocusPainted(false);
         jbGestionCarta.setBackground(Color.GRAY);
+        jbGestionCarta.setBorderPainted(false);
 
         jbGestionPedidos = new JButton();
         jbGestionPedidos.setFocusPainted(false);
         jbGestionPedidos.setBackground(Color.GRAY);
+        jbGestionPedidos.setBorderPainted(false);
 
         jbTop5 = new JButton();
         jbTop5.setFocusPainted(false);
         jbTop5.setBackground(Color.GRAY);
+        jbTop5.setBorderPainted(false);
 
         add(jbGestionMesas);
         add(jbGestionCarta);

@@ -36,13 +36,8 @@ public class LoginDialogViewListener implements MouseInputListener {
 
             switch (jb.getText()) {
                 case "Save":
-
-
-                    break;
-
+                break;
             }
-
-
         }
 
         if (e.getSource().getClass().equals(JLabel.class)) {
