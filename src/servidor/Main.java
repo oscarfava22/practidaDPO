@@ -3,6 +3,7 @@ package servidor;
 import servidor.controller.*;
 import servidor.model.LoginModel;
 import servidor.model.MainViewModel;
+import servidor.network.Server;
 import servidor.view.MainView;
 
 import javax.swing.*;
@@ -16,7 +17,8 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
+                Server data = new Server();
+                /*TODO Hacer que las views y el modelo estén dentro del Server (que extiende de thread): HABLARLO EN CLASE*/
                 MainViewModel mainViewModel = new MainViewModel();
                 LoginModel loginModel = new LoginModel();
 
