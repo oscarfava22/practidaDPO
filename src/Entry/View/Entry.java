@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
-import java.util.Date;
 
 public class Entry extends JFrame{
 
@@ -62,5 +61,13 @@ public class Entry extends JFrame{
 
     public void setLandingName() {
         landingPanel.setName(reservePanel.getName());
+    }
+
+    public int reserveNotEmpty() {
+        return reservePanel.notEmpty();
+    }
+
+    public void showErrorMessage(String s) {
+        JOptionPane.showMessageDialog(this,s,"Error", JOptionPane.ERROR_MESSAGE);
     }
 }

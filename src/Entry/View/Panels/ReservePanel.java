@@ -53,4 +53,18 @@ public class ReservePanel extends JPanel {
     public String getName(){
         return name.getText();
     }
+
+    public int notEmpty(){
+        boolean validation = name.getText()!=null&&!name.getText().isEmpty()
+                                &&howMany.getText()!=null&&!howMany.getText().isEmpty();
+        if(validation){
+            try{
+                Integer.parseInt(howMany.getText());
+                return 0;
+            }catch (NumberFormatException ex){
+                return 1;
+            }
+        }
+        return -1;
+    }
 }
