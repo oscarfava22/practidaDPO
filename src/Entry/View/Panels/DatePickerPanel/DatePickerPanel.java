@@ -8,28 +8,22 @@ import java.awt.event.ActionListener;
 
 public class DatePickerPanel extends JPanel {
 
-    private Integer[] days;
     private final JButton button;
+    private final ComboLabelPanel<Integer> day;
+    private final ComboLabelPanel<Integer> month;
+    private final ComboLabelPanel<Integer> year;
+    private final ComboLabelPanel<Integer> hour;
+    private final ComboLabelPanel<Integer> minute;
 
     public DatePickerPanel(){
         setLayout(new GridLayout(3,1));
         JPanel firstPanel = new JPanel();
-        //TODO hacer que empieze el dia de hoy
-        days = new Integer[31];
-        Integer[] months = new Integer[12];
-        Integer[] years = new Integer[10];
-        for(int i = 0; i< days.length; i++){
-            days[i] = i+1;
-        }
-        for(int i=0;i<months.length;i++){
-            months[i] = i+1;
-        }
-        for(int i=0;i<years.length;i++){
-            years[i] = i+2018;
-        }
-        firstPanel.add(new ComboLabelPanel<>(Constants.DAY, days));
-        firstPanel.add(new ComboLabelPanel<>("Month",months));
-        firstPanel.add(new ComboLabelPanel<>("Year",years));
+        day = new ComboLabelPanel<>("Day");
+        firstPanel.add(day);
+        month = new ComboLabelPanel<>("Month");
+        firstPanel.add(month);
+        year = new ComboLabelPanel<>("Year");
+        firstPanel.add(year);
 
         add(firstPanel);
 
@@ -42,8 +36,10 @@ public class DatePickerPanel extends JPanel {
         for(int i=0;i<minutes.length;i++){
             minutes[i] = i;
         }
-        secondPanel.add(new ComboLabelPanel<>("Hour",hours));
-        secondPanel.add(new ComboLabelPanel<>("Minute",minutes));
+        hour = new ComboLabelPanel<>("Hour");
+        secondPanel.add(hour);
+        minute = new ComboLabelPanel<>("Minute");
+        secondPanel.add(minute);
 
         add(secondPanel);
 
@@ -54,8 +50,25 @@ public class DatePickerPanel extends JPanel {
 
     }
 
-    public void relateControllers(ActionListener reserve) {
-        button.addActionListener(reserve);
+    public void updateTimes(Integer[] year, Integer[] month, Integer[] day, Integer[] hour, Integer[] minute
+                                ,boolean keepCurrentSelection){
+        this.year.setItems(year,keepCurrentSelection);
+        this.month.setItems(month,keepCurrentSelection);
+        this.day.setItems(day,keepCurrentSelection);
+        this.hour.setItems(hour,keepCurrentSelection);
+        this.minute.setItems(minute,keepCurrentSelection);
     }
 
+    public void relateControllers(ActionListener reserve, ActionListener dateController) {
+        button.addActionListener(reserve);
+        year.relateListeners(dateController);
+        month.relateListeners(dateController);
+        hour.relateListeners(dateController);
+    }
+
+    public String getSelectedTime() {
+        return new StringBuilder().append(year.getSelectedItem()).append(":").append(month.getSelectedItem())
+                .append(":").append(day.getSelectedItem()).append(":").append(hour.getSelectedItem())
+                .append(":").append(minute.getSelectedItem()).toString();
+    }
 }

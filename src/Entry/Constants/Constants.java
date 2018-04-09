@@ -11,7 +11,5 @@ public class Constants {
     public static final String NOW = "Button now";
     public static final String LATER = "Button later";
 
-    public static final String DAY = "Day";
-
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy:mm:dd:HH:mm");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy:MM:dd:HH:mm");
 }

@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.Date;
 
 public class Entry extends JFrame{
 
@@ -41,10 +42,20 @@ public class Entry extends JFrame{
         cl.show(getContentPane(),name);
     }
 
-    public void addListeners(MouseListener init, ActionListener reserve,ActionListener picker, ActionListener landing){
+    public void addListeners(MouseListener init, ActionListener reserve,ActionListener picker, ActionListener landing
+                                ,ActionListener dateController){
         initPanel.relateControllers(init);
         reservePanel.relateControllers(reserve);
-        dpp.relateControllers(picker);
+        dpp.relateControllers(picker,dateController);
         landingPanel.relateControllers(landing);
+    }
+
+    public void updateTimes(Integer[] year, Integer[] month, Integer[] day, Integer[] hour, Integer[] minute
+                                ,boolean keepCurrentSelection){
+        dpp.updateTimes(year,month,day,hour,minute,keepCurrentSelection);
+    }
+
+    public String getSelectedDate() {
+        return dpp.getSelectedTime();
     }
 }

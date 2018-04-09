@@ -16,12 +16,12 @@ public class ReserveController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
-            case ReservePanel.NOW:
+            case Constants.NOW:
                 //TODO llamar al metodo:
                 //TODO validateData(view.numPersonas,new Date())
                 view.switchPanel(Constants.LANDING);
                 break;
-            case ReservePanel.LATER:
+            case Constants.LATER:
                 //TODO IR al siguiente panel
                 view.switchPanel(Constants.DATE_PICKER);
                 break;

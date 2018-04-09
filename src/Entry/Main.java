@@ -1,10 +1,8 @@
 package Entry;
 
-import Entry.Controller.DatePickerController;
-import Entry.Controller.InitController;
-import Entry.Controller.LandingController;
-import Entry.Controller.ReserveController;
+import Entry.Controller.*;
 import Entry.View.Entry;
+import Entry.View.Panels.DatePickerPanel.DatePickerPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,7 +26,9 @@ public class Main {
                     ActionListener reserve = new ReserveController(entry);
                     ActionListener picker = new DatePickerController(entry);
                     ActionListener landing = new LandingController(entry);
-                    entry.addListeners(init,reserve,picker,landing);
+                    DateController dateController = new DateController(entry);
+                    dateController.updateView(false);
+                    entry.addListeners(init,reserve,picker,landing,dateController);
 
                     entry.setVisible(true);
                 } catch (IOException e) {
