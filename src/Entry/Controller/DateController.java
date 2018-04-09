@@ -5,9 +5,11 @@ import Entry.View.Entry;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Date;
 
-public class DateController implements ActionListener{
+public class DateController implements ItemListener{
     private Entry view;
     private boolean toggle;
 
@@ -15,16 +17,21 @@ public class DateController implements ActionListener{
         this.view = view;
         toggle=true;
     }
-
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void itemStateChanged(ItemEvent e) {
         if(toggle){
             toggle=false;
             updateView(true);
             toggle=true;
         }
-
     }
+    //@Override
+    //public void actionPerformed(ActionEvent e) {
+        //if(toggle){
+            //toggle=false;
+            //toggle=true;
+        //}
+    //}
 
     public void updateView(boolean keepCurrentSelection){
         String[] data;
@@ -95,5 +102,6 @@ public class DateController implements ActionListener{
         }
         return day;
     }
+
 
 }

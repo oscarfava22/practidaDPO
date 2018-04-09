@@ -10,6 +10,7 @@ import Entry.View.Panels.ReservePanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class Entry extends JFrame{
     }
 
     public void addListeners(MouseListener init, ActionListener reserve,ActionListener picker, ActionListener landing
-                                ,ActionListener dateController){
+                                ,ItemListener dateController){
         initPanel.relateControllers(init);
         reservePanel.relateControllers(reserve);
         dpp.relateControllers(picker,dateController);
@@ -57,5 +58,9 @@ public class Entry extends JFrame{
 
     public String getSelectedDate() {
         return dpp.getSelectedTime();
+    }
+
+    public void setLandingName() {
+        landingPanel.setName(reservePanel.getName());
     }
 }

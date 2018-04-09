@@ -11,6 +11,7 @@ public class ReservePanel extends JPanel {
     private final JButton now;
     private final JButton later;
     private final JTextField howMany;
+    private final JTextField name;
 
     public ReservePanel(){
         //TODO Make pretty
@@ -18,6 +19,7 @@ public class ReservePanel extends JPanel {
         now = new JButton("Reservar ahora");
         later = new JButton("Reservar futuro");
         howMany = new JTextField();
+        name = new JTextField();
 
         JPanel center = new JPanel(new GridLayout(3,2));
         JPanel centerLeft = new JPanel();
@@ -31,6 +33,8 @@ public class ReservePanel extends JPanel {
 
         JPanel bottom = new JPanel();
         bottom.setLayout(new BoxLayout(bottom,BoxLayout.PAGE_AXIS));
+        bottom.add(new JLabel("Nombre reserva"));
+        bottom.add(name);
         bottom.add(new JLabel("Cuantas personas"));
         bottom.add(howMany);
 
@@ -44,5 +48,9 @@ public class ReservePanel extends JPanel {
         later.setActionCommand(Constants.LATER);
         now.addActionListener(reserve);
         later.addActionListener(reserve);
+    }
+
+    public String getName(){
+        return name.getText();
     }
 }

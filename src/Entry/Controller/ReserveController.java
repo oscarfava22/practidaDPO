@@ -19,6 +19,7 @@ public class ReserveController implements ActionListener{
             case Constants.NOW:
                 //TODO llamar al metodo:
                 //TODO validateData(view.numPersonas,new Date())
+                view.setLandingName();
                 view.switchPanel(Constants.LANDING);
                 break;
             case Constants.LATER:

@@ -2,6 +2,7 @@ package Entry.View.Panels.DatePickerPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
 public  class ComboLabelPanel<T> extends JPanel{
     private  JComboBox<T> comboBox;
@@ -32,7 +33,7 @@ public  class ComboLabelPanel<T> extends JPanel{
         getParent().paintAll(getParent().getGraphics());
     }
 
-    public void relateListeners(ActionListener al){
-        comboBox.addActionListener(al);
+    public void relateListeners(ItemListener al){
+        comboBox.addItemListener(al);
     }
 }

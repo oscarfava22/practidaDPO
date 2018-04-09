@@ -16,6 +16,7 @@ public class DatePickerController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         //TODO readDate
+        view.setLandingName();
         view.switchPanel(Constants.LANDING);
     }
 }

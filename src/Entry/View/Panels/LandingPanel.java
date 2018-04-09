@@ -46,9 +46,12 @@ public class LandingPanel extends JPanel{
         add(ok,BorderLayout.PAGE_END);
     }
 
-    public void setData(String tableID, String tablePassword){
+    public void setName(String tableID){
         this.tableID.setText(tableID);
-        this.tablePassword.setText(tablePassword);
+    }
+
+    public void setPassword(String password){
+        this.tablePassword.setText(password);
     }
 
     public void relateControllers(ActionListener ok) {

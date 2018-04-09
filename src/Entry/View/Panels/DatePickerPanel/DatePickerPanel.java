@@ -5,6 +5,7 @@ import Entry.Constants.Constants;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
 public class DatePickerPanel extends JPanel {
 
@@ -59,7 +60,7 @@ public class DatePickerPanel extends JPanel {
         this.minute.setItems(minute,keepCurrentSelection);
     }
 
-    public void relateControllers(ActionListener reserve, ActionListener dateController) {
+    public void relateControllers(ActionListener reserve, ItemListener dateController) {
         button.addActionListener(reserve);
         year.relateListeners(dateController);
         month.relateListeners(dateController);
