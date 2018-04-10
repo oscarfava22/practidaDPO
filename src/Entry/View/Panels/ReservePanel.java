@@ -67,4 +67,13 @@ public class ReservePanel extends JPanel {
         }
         return -1;
     }
+
+    public int getNumOfPeople() {
+        return Integer.parseInt(howMany.getText());
+    }
+
+    public void clear() {
+        name.setText("");
+        howMany.setText("");
+    }
 }

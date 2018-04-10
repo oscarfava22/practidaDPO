@@ -70,4 +70,20 @@ public class Entry extends JFrame{
     public void showErrorMessage(String s) {
         JOptionPane.showMessageDialog(this,s,"Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    public int getNumOfPeople() {
+        return reservePanel.getNumOfPeople();
+    }
+
+    public void setPassword(String password) {
+        landingPanel.setPassword(password);
+    }
+
+    public void clear() {
+        reservePanel.clear();
+    }
+
+    public String getReserveName() {
+        return reservePanel.getName();
+    }
 }

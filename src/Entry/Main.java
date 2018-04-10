@@ -1,8 +1,10 @@
 package Entry;
 
 import Entry.Controller.*;
+import Entry.Model.Network.Client;
 import Entry.View.Entry;
 import Entry.View.Panels.DatePickerPanel.DatePickerPanel;
+import json.io.JsonIO;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,9 +24,10 @@ public class Main {
                 try {
                     ImageIcon imageIcon = new ImageIcon(ImageIO.read(file));
                     Entry entry = new Entry(imageIcon);
+                    Client client = (Client)JsonIO.readJson(Client.class,"data/json/entry/config.json");
                     MouseListener init = new InitController(entry);
-                    ActionListener reserve = new ReserveController(entry);
-                    ActionListener picker = new DatePickerController(entry);
+                    ActionListener reserve = new ReserveController(entry,client);
+                    ActionListener picker = new DatePickerController(entry,client);
                     ActionListener landing = new LandingController(entry);
                     DateController dateController = new DateController(entry);
                     dateController.updateView(false);
