@@ -3,6 +3,7 @@ package servidor.model;
 public class Plato {
 
     private String id;
+    private String type;
     private String title;
     private String price;
     private String units;
@@ -11,8 +12,9 @@ public class Plato {
 
     }
 
-    public Plato(String id, String title, String price, String units) {
+    public Plato(String id, String type, String title, String price, String units) {
         setId(id);
+        setType(type);
         setTitle(title);
         setPrice(price);
         setUnits(units);
@@ -24,6 +26,14 @@ public class Plato {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTitle() {

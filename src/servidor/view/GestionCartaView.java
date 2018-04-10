@@ -87,6 +87,10 @@ public class GestionCartaView extends JPanel {
         return platosOptionsView.getUnitsText();
     }
 
+    public String getTypeText() {
+        return platosOptionsView.getTypeText();
+    }
+
     public void refreshPlatos(LinkedList<Plato> platos, PlatosViewListener platosViewListener) {
         platosView.refreshPlatos(platos, platosViewListener);
     }

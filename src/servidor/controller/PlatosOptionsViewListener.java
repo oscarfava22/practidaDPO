@@ -15,6 +15,8 @@ public class PlatosOptionsViewListener implements MouseInputListener {
     private PlatosManager platosManager;
     private PlatosViewListener platosViewListener;
 
+    private String[] productsTypes = { "Entrante", "Plato Principal", "Postre", "Bebidas" };
+
     public PlatosOptionsViewListener(MainView mainView, PlatosManager platosManager, PlatosViewListener platosViewListener) {
         this.mainView = mainView;
         this.platosManager = platosManager;
@@ -61,6 +63,12 @@ public class PlatosOptionsViewListener implements MouseInputListener {
                                     "Update Product Info", JOptionPane.YES_NO_OPTION);
 
                             if (option == JOptionPane.YES_OPTION) {
+
+                                for(int i = 0; i < productsTypes.length; i++) {
+                                    if(productsTypes[i].equals(mainView.getTypeText())) {
+                                        platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setType(String.valueOf(i));
+                                    }
+                                }
 
                                 platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setTitle(mainView.getTitleText());
                                 platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setPrice(mainView.getPriceText());
@@ -117,13 +125,20 @@ public class PlatosOptionsViewListener implements MouseInputListener {
                             int option2 = JOptionPane.showConfirmDialog(null,
                                     "Create New Product?",
                                     "New Product Info", JOptionPane.YES_NO_OPTION);
-
+                            System.out.println(mainView.getTypeText());
                             if (option2 == JOptionPane.YES_OPTION) {
-                                //Se crea un nuevo plato y se le asigna un nuevo Id
-                                platosManager.getPlatos().add(new Plato(SerialGenerator.getId().toString(),
-                                        mainView.getTitleText(),
-                                        mainView.getPriceText(),
-                                        mainView.getUnitsText()));
+
+                                for(int i = 0; i < productsTypes.length; i++) {
+                                    if(productsTypes[i].equals(mainView.getTypeText())) {
+                                        //Se crea un nuevo plato y se le asigna un nuevo Id
+                                        System.out.println(String.valueOf(i));
+                                        platosManager.getPlatos().add(new Plato(SerialGenerator.getId().toString(),
+                                                String.valueOf(i),
+                                                mainView.getTitleText(),
+                                                mainView.getPriceText(),
+                                                mainView.getUnitsText()));
+                                    }
+                                }
 
                                 mainView.setOptionsEditState(false);
                                 mainView.setAddProductState(false);
