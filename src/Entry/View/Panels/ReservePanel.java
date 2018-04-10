@@ -6,13 +6,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel used to generate a new reservation
+ */
 public class ReservePanel extends JPanel {
 
+    /**
+     * Button to generate a reservation now
+     */
     private final JButton now;
+
+    /**
+     * Button to generate a reservation later
+     */
     private final JButton later;
+
+    /**
+     * How many people in the reservation
+     */
     private final JTextField howMany;
+
+    /**
+     * The name of the reservation
+     */
     private final JTextField name;
 
+    /**
+     * Creates a new reservation panel
+     */
     public ReservePanel(){
         //TODO Make pretty
         setLayout(new BorderLayout());
@@ -43,6 +64,11 @@ public class ReservePanel extends JPanel {
 
     }
 
+
+    /**
+     * Relates the controllers needed for a reservation panel
+     * @param reserve the action listener for the buttons
+     */
     public void relateControllers(ActionListener reserve) {
         now.setActionCommand(Constants.NOW);
         later.setActionCommand(Constants.LATER);
@@ -50,10 +76,18 @@ public class ReservePanel extends JPanel {
         later.addActionListener(reserve);
     }
 
+    /**
+     * Returns the name of the reservation
+     * @return the name of the reservation
+     */
     public String getName(){
         return name.getText();
     }
 
+    /**
+     * Checks the data of the reservation to see if it is correct
+     * @return 0 if everything is allright, 1 if the number of people is not a number,-1 if one of both fields are empty
+     */
     public int notEmpty(){
         boolean validation = name.getText()!=null&&!name.getText().isEmpty()
                                 &&howMany.getText()!=null&&!howMany.getText().isEmpty();
@@ -68,10 +102,16 @@ public class ReservePanel extends JPanel {
         return -1;
     }
 
+    /**
+     * @return returns the number of people of the reservation
+     */
     public int getNumOfPeople() {
         return Integer.parseInt(howMany.getText());
     }
 
+    /**
+     * Clears the textfields of the panel
+     */
     public void clear() {
         name.setText("");
         howMany.setText("");

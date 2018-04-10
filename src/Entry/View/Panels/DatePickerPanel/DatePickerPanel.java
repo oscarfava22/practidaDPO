@@ -7,15 +7,44 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
+/**
+ * Allows to pick a date for the reservation
+ */
 public class DatePickerPanel extends JPanel {
 
+    /**
+     * JButton to finish selecting the date
+     */
     private final JButton button;
+
+    /**
+     * Panel of the day
+     */
     private final ComboLabelPanel<Integer> day;
+
+    /**
+     * Panel of the month
+     */
     private final ComboLabelPanel<Integer> month;
+
+    /**
+     * Panel of the year
+     */
     private final ComboLabelPanel<Integer> year;
+
+    /**
+     * Panel of the hour
+     */
     private final ComboLabelPanel<Integer> hour;
+
+    /**
+     * Panel of the minute
+     */
     private final ComboLabelPanel<Integer> minute;
 
+    /**
+     * Creates a new date picker panel
+     */
     public DatePickerPanel(){
         setLayout(new GridLayout(3,1));
         JPanel firstPanel = new JPanel();
@@ -29,14 +58,6 @@ public class DatePickerPanel extends JPanel {
         add(firstPanel);
 
         JPanel secondPanel = new JPanel();
-        Integer[] hours = new Integer[24];
-        Integer[] minutes = new Integer[60];
-        for(int i=0;i<hours.length;i++){
-            hours[i] = i;
-        }
-        for(int i=0;i<minutes.length;i++){
-            minutes[i] = i;
-        }
         hour = new ComboLabelPanel<>("Hour");
         secondPanel.add(hour);
         minute = new ComboLabelPanel<>("Minute");
@@ -51,6 +72,15 @@ public class DatePickerPanel extends JPanel {
 
     }
 
+    /**
+     * Updates the data set of all jcomboboxes to select the date
+     * @param year the new year dataset
+     * @param month the new month dataset
+     * @param day the new day dataset
+     * @param hour the new hour dataset
+     * @param minute the new minute dataset
+     * @param keepCurrentSelection if the current selection has to change
+     */
     public void updateTimes(Integer[] year, Integer[] month, Integer[] day, Integer[] hour, Integer[] minute
                                 ,boolean keepCurrentSelection){
         this.year.setItems(year,keepCurrentSelection);
@@ -60,6 +90,11 @@ public class DatePickerPanel extends JPanel {
         this.minute.setItems(minute,keepCurrentSelection);
     }
 
+    /**
+     * Relates the controllers for the datepicker
+     * @param reserve ActionListener to finish the reservation
+     * @param dateController ItemListener to update years and months
+     */
     public void relateControllers(ActionListener reserve, ItemListener dateController) {
         button.addActionListener(reserve);
         year.relateListeners(dateController);
@@ -67,6 +102,10 @@ public class DatePickerPanel extends JPanel {
         hour.relateListeners(dateController);
     }
 
+    /**
+     * Returns the time selected by the picker separated by ':'
+     * @return the time currently selected
+     */
     public String getSelectedTime() {
         return new StringBuilder().append(year.getSelectedItem()).append(":").append(month.getSelectedItem())
                 .append(":").append(day.getSelectedItem()).append(":").append(hour.getSelectedItem())

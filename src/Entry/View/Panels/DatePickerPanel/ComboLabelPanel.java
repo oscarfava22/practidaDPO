@@ -4,10 +4,22 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
-public  class ComboLabelPanel<T> extends JPanel{
+/**
+ * Creates a label-comboBox pair
+ * @param <T> the type of the combo box
+ */
+class ComboLabelPanel<T> extends JPanel{
+
+    /**
+     * Combobox of the pair
+     */
     private  JComboBox<T> comboBox;
 
-    public ComboLabelPanel(String title){
+    /**
+     * Creates the pair with a given title
+     * @param title the title of the pair
+     */
+    ComboLabelPanel(String title){
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         comboBox = new JComboBox<>();
         JLabel tit = new JLabel(title);
@@ -15,11 +27,20 @@ public  class ComboLabelPanel<T> extends JPanel{
         this.add(comboBox);
     }
 
-    public T getSelectedItem(){
+    /**
+     * Returns the currently selected item
+     * @return the currently selected item
+     */
+    T getSelectedItem(){
         return (T)comboBox.getSelectedItem();
     }
 
-    public void setItems(T[] newItems,boolean keepCurrentSelection){
+    /**
+     * Sets all the new items of the comboBox
+     * @param newItems the new items of the combo box
+     * @param keepCurrentSelection if the selected item has to be mantined
+     */
+    void setItems(T[] newItems,boolean keepCurrentSelection){
         T selectedItem = (T)comboBox.getSelectedItem();
         comboBox.removeAllItems();
         for(T item:newItems){
@@ -33,7 +54,11 @@ public  class ComboLabelPanel<T> extends JPanel{
         getParent().paintAll(getParent().getGraphics());
     }
 
-    public void relateListeners(ItemListener al){
+    /**
+     * Relates the Item listenr to the JComboBox
+     * @param al ItemListener for the combo box
+     */
+    void relateListeners(ItemListener al){
         comboBox.addItemListener(al);
     }
 }

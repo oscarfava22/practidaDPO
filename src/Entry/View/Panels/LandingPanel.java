@@ -4,13 +4,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel used to show the data of the reservation
+ */
 public class LandingPanel extends JPanel{
 
-
+    /**
+     * the name of the reservation
+     */
     private final JLabel tableID;
+
+    /**
+     * the password of the reservation
+     */
     private final JLabel tablePassword;
+
+    /**
+     * Ok button
+     */
     private final JButton ok;
 
+    /**
+     * Creates a new landing panel
+     */
     public LandingPanel(){
         setLayout(new BorderLayout());
         tableID = new JLabel("FILLER");
@@ -46,14 +62,26 @@ public class LandingPanel extends JPanel{
         add(ok,BorderLayout.PAGE_END);
     }
 
+    /**
+     * sets the name of the reservation id
+     * @param tableID the name of the reservation
+     */
     public void setName(String tableID){
         this.tableID.setText(tableID);
     }
 
+    /**
+     * sets the password for the reservation
+     * @param password the password of the reservation
+     */
     public void setPassword(String password){
         this.tablePassword.setText(password);
     }
 
+    /**
+     * Relates the controller for the ok listener
+     * @param ok the acton listener for the button
+     */
     public void relateControllers(ActionListener ok) {
         this.ok.addActionListener(ok);
     }
