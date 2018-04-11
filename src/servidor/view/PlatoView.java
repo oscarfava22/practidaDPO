@@ -9,7 +9,6 @@ import java.awt.*;
 
 public class PlatoView extends JPanel {
 
-
     private Border compounBorder =  BorderFactory.createCompoundBorder(
                                     BorderFactory.createLineBorder(Color.DARK_GRAY),
                                     BorderFactory.createEmptyBorder(10,10,10,10));
@@ -49,12 +48,14 @@ public class PlatoView extends JPanel {
         add(jlTitle);
         add(jlPrice);
         add(jlUnits);
+
+        //setBorder(new LineBorder(Color.RED, 2));
     }
 
 
     public PlatoView(Plato plato) {
         this();
-        setJlLabels(plato.getId(), plato.getId(), plato.getTitle(), plato.getPrice(), plato.getUnits());
+        setJlLabels(String.valueOf(plato.getId()), String.valueOf(plato.getId()), plato.getTitle(), String.valueOf(plato.getPrice()), String.valueOf(plato.getUnits()));
     }
     
     private void setJlLabels(String index, String id, String title, String price, String units) {
@@ -123,15 +124,22 @@ public class PlatoView extends JPanel {
     public void setLabelsBackground(boolean state) {
 
         if (state) {
+            //setBorder(new LineBorder(Color.ORANGE, 2));
             jlId.setBackground(Color.CYAN);
             jlTitle.setBackground(Color.CYAN);
             jlPrice.setBackground(Color.CYAN);
             jlUnits.setBackground(Color.CYAN);
+
         } else {
+            //setBorder(new LineBorder(Color.DARK_GRAY, 2));
+
             jlId.setBackground(Color.GRAY);
             jlTitle.setBackground(Color.LIGHT_GRAY);
             jlPrice.setBackground(Color.LIGHT_GRAY);
             jlUnits.setBackground(Color.LIGHT_GRAY);
+        }
+        if(jlUnits.getText().equals("0")) {
+            jlUnits.setForeground(Color.RED);
         }
     }
 }

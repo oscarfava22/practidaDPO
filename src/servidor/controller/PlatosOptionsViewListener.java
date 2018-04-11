@@ -66,13 +66,15 @@ public class PlatosOptionsViewListener implements MouseInputListener {
 
                                 for(int i = 0; i < productsTypes.length; i++) {
                                     if(productsTypes[i].equals(mainView.getTypeText())) {
-                                        platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setType(String.valueOf(i));
+
+                                        platosManager.updatePlato(new Plato(
+                                                        Long.parseLong(mainView.getIdText()),
+                                                        String.valueOf(i),
+                                                        mainView.getTitleText(),
+                                                        Float.parseFloat(mainView.getPriceText()),
+                                                        Integer.parseInt(mainView.getUnitsText())));
                                     }
                                 }
-
-                                platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setTitle(mainView.getTitleText());
-                                platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setPrice(mainView.getPriceText());
-                                platosManager.getPlatos().get(Integer.parseInt(mainView.getIdText()) - 1).setUnits(mainView.getUnitsText());
 
                                 mainView.setOptionsEditState(false);
                                 mainView.refreshPlatos(platosManager.getPlatos(), platosViewListener);
@@ -80,10 +82,6 @@ public class PlatosOptionsViewListener implements MouseInputListener {
                             } else if(option == JOptionPane.NO_OPTION) {
                                 mainView.setOptionsEditState(true);
                             }
-
-                        } else {
-                            JOptionPane.showMessageDialog(mainView, "Incorrect Info",
-                                    "Update Product Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
@@ -99,11 +97,7 @@ public class PlatosOptionsViewListener implements MouseInputListener {
 
                         if (option == JOptionPane.YES_OPTION) {
 
-                            for(int i = 0; i < platosManager.getPlatos().size(); i++) {
-                                if(platosManager.getPlatos().get(i).getId().equals(mainView.getIdText())) {
-                                    platosManager.getPlatos().remove(i);
-                                }
-                            }
+                            platosManager.removePlato(Long.parseLong(mainView.getIdText()));
 
                             mainView.resetTextFields();
                             mainView.setOptionsEditState(false);
@@ -132,11 +126,11 @@ public class PlatosOptionsViewListener implements MouseInputListener {
                                     if(productsTypes[i].equals(mainView.getTypeText())) {
                                         //Se crea un nuevo plato y se le asigna un nuevo Id
                                         System.out.println(String.valueOf(i));
-                                        platosManager.getPlatos().add(new Plato(SerialGenerator.getId().toString(),
+                                        platosManager.getPlatos().add(new Plato(SerialGenerator.getProductId(),
                                                 String.valueOf(i),
                                                 mainView.getTitleText(),
-                                                mainView.getPriceText(),
-                                                mainView.getUnitsText()));
+                                                Float.parseFloat(mainView.getPriceText()),
+                                                Integer.parseInt(mainView.getUnitsText())));
                                     }
                                 }
 
@@ -147,10 +141,6 @@ public class PlatosOptionsViewListener implements MouseInputListener {
                             } else if(option2 == JOptionPane.NO_OPTION) {
                                 mainView.setOptionsEditState(true);
                             }
-
-                        } else {
-                            JOptionPane.showMessageDialog(mainView, "Incorrect Info", "New Product Error",
-                                    JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
@@ -191,9 +181,37 @@ public class PlatosOptionsViewListener implements MouseInputListener {
 
         if (!mainView.getTitleText().equals("")) {
             if(!mainView.getPriceText().equals("")){
-                if(mainView.getUnitsText().equals("")){ error_type = 1; }
-            } else { error_type = 2; }
-        } else { error_type = 3; }
+                try {
+                    Float.parseFloat(mainView.getPriceText());
+                    if(!mainView.getUnitsText().equals("")) {
+                        try {
+                            Integer.parseInt(mainView.getUnitsText());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(mainView, "Incorrect Info - Incorrect Units Format",
+                                    "New Product Error", JOptionPane.ERROR_MESSAGE);
+                            error_type = 4;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(mainView, "Incorrect Info - Empty Units",
+                                                     "New Product Error", JOptionPane.ERROR_MESSAGE);
+                        error_type = 1;
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(mainView, "Incorrect Info - Incorrect Price Format",
+                                                 "New Product Error", JOptionPane.ERROR_MESSAGE);
+                    error_type = 5;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(mainView, "Incorrect Info - Empty Price",
+                                             "New Product Error", JOptionPane.ERROR_MESSAGE);
+                error_type = 2;
+            }
+        } else {
+            JOptionPane.showMessageDialog(mainView, "Incorrect Info - Empty Title", "New Product Error",
+                    JOptionPane.ERROR_MESSAGE);
+            error_type = 3;
+        }
 
         return error_type;
     }

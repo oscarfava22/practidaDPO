@@ -60,4 +60,8 @@ public class StatusBarView extends JPanel {
         }
         //updateUI();
     }
+
+    public void setConnectedDevices(Integer count) {
+        connectedDevices.setText(count.toString());
+    }
 }

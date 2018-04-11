@@ -12,7 +12,6 @@ import java.util.LinkedList;
 
 public class GestionCartaView extends JPanel {
 
-    private JLabel jlTitle;
     private JScrollPane jspCarta;
     private JPanel jpCarta;
     private PlatosView platosView;
@@ -22,8 +21,7 @@ public class GestionCartaView extends JPanel {
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.ORANGE, 10));
-        jlTitle = new JLabel();
-        jlTitle.setHorizontalAlignment(SwingConstants.CENTER);
+
         jpCarta = new JPanel(new BorderLayout());
         jspCarta = new JScrollPane();
         jspCarta.getViewport().setView(jpCarta);
@@ -33,18 +31,17 @@ public class GestionCartaView extends JPanel {
 
     public void initView(MainViewModel mainViewModel, LinkedList<Plato> platos) {
 
-        jlTitle.setText(mainViewModel.getGestionCarta());
         platosView = new PlatosView();
         platosView.initPlatos(platos);
         platosOptionsView = new PlatosOptionsView();
         jpCarta.add(platosView, BorderLayout.NORTH);
+        //add(platosView, BorderLayout.CENTER);
         add(platosOptionsView, BorderLayout.LINE_START);
     }
 
     public void registerControllers(MouseInputListener gestionCartaViewListener, PlatosViewListener platosViewListener,
                                     PlatosOptionsViewListener platosOptionsViewListener) {
 
-        jlTitle.addMouseListener(gestionCartaViewListener);
         platosView.registerControllers(platosViewListener);
         platosOptionsView.registerControllers(platosOptionsViewListener);
     }

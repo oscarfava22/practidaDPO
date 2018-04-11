@@ -77,7 +77,7 @@ public class SelectorView extends JPanel {
         }
 
         if (jbGestionPedidos.getText().equals(buttonId)) {
-            jbGestionPedidos.setBackground(Color.ORANGE);
+            jbGestionPedidos.setBackground(Color.CYAN);
         } else {
             jbGestionPedidos.setBackground(Color.GRAY);
         }

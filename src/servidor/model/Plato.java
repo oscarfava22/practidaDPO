@@ -1,18 +1,65 @@
 package servidor.model;
 
-public class Plato {
+import java.io.Serializable;
 
-    private String id;
+public class Plato implements Serializable {
+
+    private long id;
     private String type;
     private String title;
-    private String price;
-    private String units;
+    private float price;
+    private int units;
 
     public Plato() {
 
     }
 
-    public Plato(String id, String type, String title, String price, String units) {
+    public Plato(long id, String type, String title, float price, int units) {
+        this();
+        setPlato(id, type, title, price, units);
+    }
+
+    public synchronized long getId() {
+        return id;
+    }
+
+    public synchronized void setId(long id) {
+        this.id = id;
+    }
+
+    public synchronized String getType() {
+        return type;
+    }
+
+    public synchronized void setType(String type) {
+        this.type = type;
+    }
+
+    public synchronized String getTitle() {
+        return title;
+    }
+
+    public synchronized void setTitle(String title) {
+        this.title = title;
+    }
+
+    public synchronized float getPrice() {
+        return price;
+    }
+
+    public synchronized void setPrice(float price) {
+        this.price = price;
+    }
+
+    public synchronized int getUnits() {
+        return units;
+    }
+
+    public synchronized void setUnits(int units) {
+        this.units = units;
+    }
+
+    public synchronized void setPlato(long id, String type, String title, float price, int units) {
         setId(id);
         setType(type);
         setTitle(title);
@@ -20,43 +67,19 @@ public class Plato {
         setUnits(units);
     }
 
-    public String getId() {
-        return id;
+    public synchronized void updateUnits(int units) {
+        this.units += units;
     }
 
-    public void setId(String id) {
-        this.id = id;
+
+    public synchronized void updatePlato(String type, String title, float price, int units) {
+        setType(type);
+        setTitle(title);
+        setPrice(price);
+        setUnits(units);
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getUnits() {
-        return units;
-    }
-
-    public void setUnits(String units) {
-        this.units = units;
+    public synchronized void updatePlato(Plato plato) {
+        updatePlato(plato.getType(), plato.getTitle(), plato.getPrice(), plato.getUnits());
     }
 }

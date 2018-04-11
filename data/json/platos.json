@@ -1,26 +1,26 @@
 [
     {
-      "type":"0",
-    "title":"Pizza",
-    "price":"8.00",
-    "units":"10"
+      "type": "0",
+      "title":"Pizza",
+      "price": 8.0,
+      "units": 20
     },
     {
-      "type":"1",
-      "title":"Burger",
-      "price":"5.00",
-      "units":"20"
+      "type": "1",
+      "title": "Burger",
+      "price": 9,
+      "units": 30
     },
     {
-      "type":"2",
-      "title":"Salad",
-      "price":"4.00",
-      "units":"30"
+      "type": "2",
+      "title": "Salad",
+      "price": 4.50,
+      "units": 40
     },
     {
-      "type":"3",
-      "title":"Chicken",
-      "price":"6.00",
-      "units":"40"
+      "type": "3",
+      "title": "Chicken",
+      "price": 5.40,
+      "units": 50
     }
 ]

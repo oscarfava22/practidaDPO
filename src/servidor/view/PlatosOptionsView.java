@@ -61,13 +61,11 @@ public class PlatosOptionsView extends JPanel {
         jtfId = new JTextField();
         jtfId.setPreferredSize(new Dimension(100,30));
         jtfId.setEditable(false);
-
         jlType = new JLabel("Type:");
         jcbType = new JComboBox(productsTypes);
         jcbType.setEditable(editState);
         jcbType.setEnabled(editState);
         jcbType.setSelectedItem(null);
-
         jlTitle = new JLabel("Title:");
         jtfTitle = new JTextField();
         jtfTitle.setPreferredSize(new Dimension(100,30));
@@ -87,7 +85,6 @@ public class PlatosOptionsView extends JPanel {
         jbUpdate = new JButton("Update");
         jbUpdate.setEnabled(false);
         jbUpdate.setFocusPainted(false);
-
         jbCancel = new JButton("Cancel");
         jbCancel.setFocusPainted(false);
         jbCancel.setEnabled(false);
@@ -97,10 +94,8 @@ public class PlatosOptionsView extends JPanel {
 
         jpId = new JPanel(new GridLayout(1,2,10,10));
         jpId.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
-
         jpType = new JPanel(new GridLayout(1,2,10,10));
         jpType.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
-
         jpTitle = new JPanel(new GridLayout(1,2,10,10));
         jpTitle.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
         jpPrice = new JPanel(new GridLayout(1,2,10,10));
@@ -112,10 +107,8 @@ public class PlatosOptionsView extends JPanel {
 
         jpId.add(jlId);
         jpId.add(jtfId);
-
         jpType.add(jlType);
         jpType.add(jcbType);
-
         jpTitle.add(jlTitle);
         jpTitle.add(jtfTitle);
         jpPrice.add(jlPrice);
@@ -129,9 +122,7 @@ public class PlatosOptionsView extends JPanel {
         jpButtons.add(jbDelete);
 
         jpPlatoOptions.add(jpId);
-
         jpPlatoOptions.add(jpType);
-
         jpPlatoOptions.add(jpTitle);
         jpPlatoOptions.add(jpPrice);
         jpPlatoOptions.add(jpUnits);
@@ -153,11 +144,11 @@ public class PlatosOptionsView extends JPanel {
 
     public void setOptionsText(Plato plato) {
 
-        jtfId.setText(plato.getId());
+        jtfId.setText(String.valueOf(plato.getId()));
         jcbType.setSelectedIndex(Integer.parseInt(plato.getType()));
         jtfTitle.setText(plato.getTitle());
-        jtfPrice.setText(plato.getPrice());
-        jtfUnits.setText(plato.getUnits());
+        jtfPrice.setText(String.valueOf(plato.getPrice()));
+        jtfUnits.setText(String.valueOf(plato.getUnits()));
     }
 
     public void resetTextFields() {
@@ -172,7 +163,6 @@ public class PlatosOptionsView extends JPanel {
 
         editState = state;
         jtfId.setEditable(false);
-        jcbType.setEditable(editState);
         jcbType.setEnabled(editState);
         jtfTitle.setEditable(editState);
         jtfPrice.setEditable(editState);
@@ -190,7 +180,6 @@ public class PlatosOptionsView extends JPanel {
         addState = state;
         resetTextFields();
         jtfId.setEditable(false);
-        jcbType.setEditable(addState);
         jcbType.setEnabled(addState);
         if(addState) {
             jcbType.setSelectedIndex(0);

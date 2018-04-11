@@ -56,7 +56,7 @@ public class PlatosViewListener implements MouseInputListener {
                 //Default State
                 mainView.setOptionsEditState(false);
                 for(int i = 0; i < platosManager.getPlatos().size(); i++) {
-                    if(platosManager.getPlatos().get(i).getId().equals(cl.getId())) {
+                    if(platosManager.getPlatos().get(i).getId() == Long.parseLong(cl.getId())) {
                         mainView.setOptionsText(platosManager.getPlato(i));
                         break;
                     }

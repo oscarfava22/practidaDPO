@@ -3,7 +3,11 @@ package servidor;
 import json.io.JsonIO;
 import servidor.controller.*;
 import servidor.model.*;
+<<<<<<< Updated upstream
 import servidor.network.Server;
+=======
+import servidor.network.Server2;
+>>>>>>> Stashed changes
 import servidor.view.MainView;
 
 import javax.swing.*;
@@ -22,7 +26,12 @@ public class Main {
                 MainViewModel mainViewModel = new MainViewModel();
                 LoginModel loginModel = new LoginModel();
                 PlatosManager platosManager = new PlatosManager();
+<<<<<<< Updated upstream
                 MesasManager mesasManager = new MesasManager(Server.getJsonObjectFromConfigFile());
+=======
+                ReservasManager reservasManager = new ReservasManager();
+                PedidosManager pedidosManager = new PedidosManager();
+>>>>>>> Stashed changes
 
                 MainView mainView = new MainView();
                 mainView.initView(mainViewModel, loginModel, platosManager.getPlatos());
@@ -53,7 +62,13 @@ public class Main {
                                              platosViewListener,
                                              platosOptionsViewListener);
 
+<<<<<<< Updated upstream
                 Server server = new Server(mesasManager);
+=======
+                Server2 server2 = new Server2(mainView, platosManager);
+                server2.start();
+
+>>>>>>> Stashed changes
             }
         });
     }

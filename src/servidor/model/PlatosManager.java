@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public class PlatosManager {
 
     private LinkedList<Plato> platos;
+    private String[] productsTypes = { "Entrante", "Plato Principal", "Postre", "Bebidas" };
 
     public PlatosManager() {
 
@@ -18,8 +19,10 @@ public class PlatosManager {
             Plato[] pls = (Plato[]) JsonIO.readJson(Plato[].class, "/data/json/platos.json");
             platos.addAll(Arrays.asList(pls));
 
+            System.out.println("Num Platos: " + platos.size());
+
             for (Plato plato : platos) {
-                plato.setId(SerialGenerator.getId().toString());
+                plato.setId(SerialGenerator.getProductId());
             }
 
         } catch (IOException e) {
@@ -40,13 +43,31 @@ public class PlatosManager {
         platos.add(plato);
     }
 
-    public void addPlato(String id, String type, String title, String price, String units) {
+    public void addPlato(long id, String type, String title, float price, int units) {
         Plato plato = new Plato(id, type, title, price, units);
         platos.add(plato);
     }
 
     public LinkedList<Plato> getPlatos() {
         return platos;
+    }
+
+    public void updatePlato(Plato plato) {
+
+        for(Plato pl : platos) {
+            if (pl.getId() == plato.getId()) {
+                pl.updatePlato(plato);
+            }
+        }
+    }
+
+    public void removePlato(long id) {
+
+        for(int i = 0; i < platos.size(); i++) {
+            if (platos.get(i).getId() == id){
+                platos.remove(i);
+            }
+        }
     }
 
 }

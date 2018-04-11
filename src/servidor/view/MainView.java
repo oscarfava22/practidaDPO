@@ -57,6 +57,7 @@ public class MainView extends JFrame {
         selectorView.initView(mainViewModel);
         gestionMesasView.initView(mainViewModel);
         gestionCartaView.initView(mainViewModel, platos);
+        gestionPedidosView.initView(mainViewModel);
         settingsDialogView.initView(mainViewModel);
 
         statusBarView.initView(loginModel);
@@ -212,6 +213,7 @@ public class MainView extends JFrame {
         gestionCartaView.resetTextFields();
     }
 
+<<<<<<< Updated upstream
     public MenuBarView getMenuBarView() {
         return menuBarView;
     }
@@ -290,5 +292,9 @@ public class MainView extends JFrame {
 
     public void setStatusBarView(StatusBarView statusBarView) {
         this.statusBarView = statusBarView;
+=======
+    public void setConnectedDevices(Integer count) {
+        statusBarView.setConnectedDevices(count);
+>>>>>>> Stashed changes
     }
 }

@@ -8,24 +8,22 @@ import java.awt.*;
 
 public class GestionPedidosView extends JPanel {
 
-    private JLabel jlTitle;
+    private PedidosView pedidosView;
 
     public GestionPedidosView() {
 
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createLineBorder(Color.CYAN, 10));
 
-        jlTitle = new JLabel("Pedidos");
-        jlTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        add(jlTitle, BorderLayout.NORTH);
-
+        pedidosView = new PedidosView();
+        add(pedidosView, BorderLayout.CENTER);
     }
 
     public void initView(MainViewModel mainViewModel) {
-        jlTitle.setText(mainViewModel.getGestionPedidos());
+
     }
 
     public void registerControllers(MouseInputListener gestionPedidosViewListener) {
 
-        jlTitle.addMouseListener(gestionPedidosViewListener);
     }
 }
