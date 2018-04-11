@@ -37,7 +37,7 @@ public class MainView extends JFrame {
 
         jpGestionView = new JPanel(new BorderLayout());
 
-        //gestionMesasView = new GestionMesasView();
+        gestionMesasView = new GestionMesasView();
         gestionCartaView = new GestionCartaView();
         gestionPedidosView = new GestionPedidosView();
         gestionTop5View = new GestionTop5View();
@@ -55,7 +55,7 @@ public class MainView extends JFrame {
     public void initView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos) {
 
         selectorView.initView(mainViewModel);
-        //gestionMesasView.initView(mainViewModel);
+        gestionMesasView.initView(mainViewModel);
         gestionCartaView.initView(mainViewModel, platos);
         settingsDialogView.initView(mainViewModel);
 
@@ -93,7 +93,7 @@ public class MainView extends JFrame {
         selectorView.registerControllers(selectorViewListener);
         menuBarView.registerControllers(menuBarViewListener);
 
-        //gestionMesasView.registerControllers(gestionMesasViewListener);
+        gestionMesasView.registerControllers(gestionMesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener, platosViewListener, platosOptionsViewListener);
         gestionPedidosView.registerControllers(gestionPedidosViewListener);
         gestionTop5View.registerControllers(gestionTop5ViewListener);
@@ -198,6 +198,10 @@ public class MainView extends JFrame {
 
     public String getUnitsText() {
         return gestionCartaView.getUnitsText();
+    }
+
+    public  String getTypeText() {
+        return gestionCartaView.getTypeText();
     }
 
     public void refreshPlatos(LinkedList<Plato> platos, PlatosViewListener platosViewListener) {

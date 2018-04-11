@@ -40,8 +40,8 @@ public class PlatosManager {
         platos.add(plato);
     }
 
-    public void addPlato(String id, String title, String price, String units) {
-        Plato plato = new Plato(id, title, price, units);
+    public void addPlato(String id, String type, String title, String price, String units) {
+        Plato plato = new Plato(id, type, title, price, units);
         platos.add(plato);
     }
 

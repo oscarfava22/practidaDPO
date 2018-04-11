@@ -20,11 +20,6 @@ public class PlatosViewListener implements MouseInputListener {
     @Override
     public void mouseClicked(java.awt.event.MouseEvent e) {
 
-        if (e.getSource().getClass().equals(JButton.class)) {
-            JButton jb = (JButton) e.getSource();
-            System.out.println(jb.getText());
-        }
-
         if (e.getSource().getClass().equals(CustomLabel.class)) {
 
             CustomLabel cl = (CustomLabel) e.getSource();
