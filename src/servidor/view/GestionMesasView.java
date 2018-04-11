@@ -32,11 +32,13 @@ public class GestionMesasView extends JPanel {
             private JPanel jpListaMesas;
                 private JPanel[] jpMesas;
                     private JLabel[] jlIdMesas;
-                    private JLabel[] jlNumComensalesMesas;
-
-                private JButton[] jbMesas;
+                    private JPanel[] jpSouthMesa;
+                        private JLabel[] jlNumComensalesMesas;
+                        private JButton[] jbMesas;
     private JPanel jpRight;
         private JPanel jpReservas;
+            private JPanel jpMesaSelected;
+                private JLabel jlIdMesaSelected;
             private JScrollPane jspReservasMesa;
                 private JPanel jpListaReservasMesa;
                     private JLabel[] jlNombresReserva;
@@ -116,6 +118,13 @@ public class GestionMesasView extends JPanel {
 
         jspReservasMesa = new JScrollPane(jpListaReservasMesa);
         jpReservas.add(jspReservasMesa, BorderLayout.CENTER);
+
+        jpMesaSelected = new JPanel(new BorderLayout());
+        jpMesaSelected.add(new JLabel("Mesa: "), BorderLayout.LINE_START);
+        jlIdMesaSelected = new JLabel("Ninguna mesa seleccionada");
+        jpMesaSelected.add(jlIdMesaSelected, BorderLayout.CENTER);
+        jpReservas.add(jpMesaSelected, BorderLayout.PAGE_START);
+
         jpRight.add(jpReservas, BorderLayout.CENTER);
 
 
@@ -132,6 +141,13 @@ public class GestionMesasView extends JPanel {
 
     }
 
+    public JLabel getJlIdMesaSelected() {
+        return jlIdMesaSelected;
+    }
+
+    public void setJlIdMesaSelected(JLabel jlIdMesaSelected) {
+        this.jlIdMesaSelected = jlIdMesaSelected;
+    }
 
     /**
      * Crea la vista del apartado Gestionar Mesas
@@ -158,7 +174,7 @@ public class GestionMesasView extends JPanel {
 
     public void setActionCommands(){
         for (int i = 0; i < jbMesas.length; i++){
-            jbMesas[i].setActionCommand("Mesa " + i);
+            jbMesas[i].setActionCommand(Integer.toString(i));
         }
         jbAnadirMesa.setActionCommand("Añadir mesa");
         jbEliminarMesa.setActionCommand("Eliminar mesa");
@@ -169,26 +185,34 @@ public class GestionMesasView extends JPanel {
 
         jpMesas = new JPanel[nMesas];
         jlIdMesas = new JLabel[nMesas];
+        jpSouthMesa = new JPanel[nMesas];
         jlNumComensalesMesas = new JLabel[nMesas];
+        jbMesas = new JButton[nMesas];
 
         jpListaMesas = new JPanel(new GridLayout(nMesas, 1));
 
         for (int i = 0; i < nMesas; i++){
-            String idMesa = mesas.get(i).getId();
+            int idMesa = mesas.get(i).getId();
             int numComensales = mesas.get(i).getNumComensales();
             jpMesas[i] = new JPanel(new BorderLayout());
             jlIdMesas[i] = new JLabel("Id: " + idMesa);
             jlNumComensalesMesas[i] = new JLabel("Num. Comensales: " + Integer.toString(numComensales));
+            jpSouthMesa[i] = new JPanel(new BorderLayout());
+            jbMesas[i] = new JButton("Select");
 
             jlIdMesas[i].setHorizontalAlignment(SwingConstants.CENTER);
             //jlIdMesas[i].setVerticalAlignment(SwingConstants.CENTER);
-            jlIdMesas[i].setFont(new Font("Serif", Font.PLAIN, 25));
+            jlIdMesas[i].setFont(new Font("Arial", Font.PLAIN, 25));
 
-            jlNumComensalesMesas[i].setHorizontalAlignment(SwingConstants.RIGHT);
+            //jlNumComensalesMesas[i].setHorizontalAlignment(SwingConstants.RIGHT);
             //jlNumComensalesMesas[i].setVerticalAlignment(SwingConstants.SOUTH);
 
             jpMesas[i].add(jlIdMesas[i], BorderLayout.CENTER);
-            jpMesas[i].add(jlNumComensalesMesas[i], BorderLayout.PAGE_END);
+
+            jpSouthMesa[i].add(jbMesas[i], BorderLayout.LINE_END);
+            jpSouthMesa[i].add(jlNumComensalesMesas[i], BorderLayout.LINE_START);
+            //TODO
+            jpMesas[i].add(jpSouthMesa[i], BorderLayout.PAGE_END);
 
             jpMesas[i].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
             jpMesas[i].setMinimumSize(new Dimension(0, 75));
@@ -205,5 +229,9 @@ public class GestionMesasView extends JPanel {
         jpLeft.add(jspListaMesas, BorderLayout.CENTER);
         jpLeft.setBorder(BorderFactory.createTitledBorder(LISTADO_MESAS_TAG));
         add(jpLeft, BorderLayout.LINE_START);
+    }
+
+    public void mostraReservesTaula(){
+        //TODO Connectar amb BBDD i fer la query que obtingui un array de Reserves.(a controller i aqui(view))
     }
 }

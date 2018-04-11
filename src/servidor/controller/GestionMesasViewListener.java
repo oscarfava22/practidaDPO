@@ -22,7 +22,6 @@ public class GestionMesasViewListener implements ActionListener {
     public GestionMesasViewListener(MainView mainView, MesasManager mesasManager) {
         this.mainView = mainView;
         this.mesasManager = mesasManager;
-        actualitzaView();
     }
 
     //Getters & Setters
@@ -46,15 +45,14 @@ public class GestionMesasViewListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
-
+            case "Añadir mesa":
+                break;
+            case "Eliminar mesa":
+                break;
+            default:
+                //Seleccionar una taula
+                break;
         }
     }
 
-    public void actualitzaView(){
-        LinkedList<Mesa> mesas = getMesasManager().getMesas();
-        GestionMesasView view = mainView.getGestionMesasView();
-        view.setMesasScrollablePanel(mesas);
-        mainView.setGestionMesasView(view);
-
-    }
 }
