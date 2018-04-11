@@ -3,6 +3,7 @@ package servidor.view;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import servidor.model.MainViewModel;
+import servidor.model.Mesa;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -10,11 +11,19 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.LinkedList;
 
 public class GestionMesasView extends JPanel {
 
-    public static final int AUX_MAX_RESERVAS = 50;
-    public static int NUMBER_TABLES;
+    public static final String RESERVAS_TAG = "Reservas";
+    public static final String NOMBRE_RESERVA_TAG = "Nombre de la Reserva";
+    public static final String HORA_TAG = "Hora (hh:mm)";
+    public static final String FECHA_TAG = "Fecha (dd/mm/aaaa)";
+    public static final String ELIMINAR_MESA_TAG = "Eliminar mesa";
+    public static final String AÑADIR_MESA_TAG = "Añadir mesa";
+    public static final String LISTADO_MESAS_TAG = "Listado de mesas";
+
+    public static int NUMERO_MESAS;
 
     private int nMesas;
 
@@ -22,9 +31,11 @@ public class GestionMesasView extends JPanel {
         private JScrollPane jspListaMesas;
             private JPanel jpListaMesas;
                 private JPanel[] jpMesas;
+                    private JLabel[] jlIdMesas;
+                    private JLabel[] jlNumComensalesMesas;
+
                 private JButton[] jbMesas;
     private JPanel jpRight;
-        //private JLabel jlMesaNumero;
         private JPanel jpReservas;
             private JScrollPane jspReservasMesa;
                 private JPanel jpListaReservasMesa;
@@ -52,13 +63,13 @@ public class GestionMesasView extends JPanel {
         jpListaMesas = new JPanel(new GridLayout(nMesas, 1));
 
         //TODO RELLENAR LA LISTA SEGÚN EL NÚMERO DE MESAS QUE TENGAMOS EN EL .JSON
-        for (int i = 0; i < nMesas; i++){
+        /*for (int i = 0; i < nMesas; i++){
             jpMesas[i] = new JPanel(new BorderLayout());
             jbMesas[i] = new JButton("Mesa " + Integer.toString(i + 1));
             jpMesas[i].add(jbMesas[i], BorderLayout.CENTER);
             jpMesas[i].setMinimumSize(new Dimension(0, 75));
             jpListaMesas.add(jpMesas[i]);
-        }
+        }*/
 
         jspListaMesas = new JScrollPane(jpListaMesas);
         //Size
@@ -66,7 +77,7 @@ public class GestionMesasView extends JPanel {
         jspListaMesas.setPreferredSize(new Dimension(200, 0));
         jpLeft = new JPanel(new BorderLayout());
         jpLeft.add(jspListaMesas, BorderLayout.CENTER);
-        jpLeft.setBorder(BorderFactory.createTitledBorder("Listado de Mesas"));
+        jpLeft.setBorder(BorderFactory.createTitledBorder(LISTADO_MESAS_TAG));
         add(jpLeft, BorderLayout.LINE_START);
 
 
@@ -76,65 +87,42 @@ public class GestionMesasView extends JPanel {
         jpRight.setMaximumSize(new Dimension(200, 0));
         jpRight.setPreferredSize(new Dimension(200, 0));
 
-        //Titulo
-        //jlMesaNumero = new JLabel("Mesa X");
-        //jlMesaNumero.setHorizontalAlignment(SwingConstants.CENTER);
-        //jpRight.add(jlMesaNumero, BorderLayout.PAGE_START);
 
         //Panel Central
         jpReservas = new JPanel(new BorderLayout());
         jspReservasMesa = new JScrollPane();
 
         jpListaReservasMesa = new JPanel(new GridLayout(1, 3));
-        jpListaReservasMesa.setBorder(BorderFactory.createTitledBorder("Reservas"));
+        jpListaReservasMesa.setBorder(BorderFactory.createTitledBorder(RESERVAS_TAG));
         Font titleFont = new Font(getFont().getName(), Font.BOLD, getFont().getSize());
-        JLabel jlNombreReserva = new JLabel("Nombre de la Reserva");
+        JLabel jlNombreReserva = new JLabel(NOMBRE_RESERVA_TAG);
         jlNombreReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
         jlNombreReserva.setHorizontalAlignment(SwingConstants.CENTER);
         jlNombreReserva.setVerticalAlignment(SwingConstants.NORTH);
         jlNombreReserva.setFont(titleFont);
         jpListaReservasMesa.add(jlNombreReserva);
-        JLabel jlHoraReserva = new JLabel("Hora (hh:mm)");
+        JLabel jlHoraReserva = new JLabel(HORA_TAG);
         jlHoraReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
         jlHoraReserva.setHorizontalAlignment(SwingConstants.CENTER);
         jlHoraReserva.setVerticalAlignment(SwingConstants.NORTH);
         jlHoraReserva.setFont(titleFont);
         jpListaReservasMesa.add(jlHoraReserva);
-        JLabel jlFechaReserva = new JLabel("Fecha (dd/mm/aaaa)");
+        JLabel jlFechaReserva = new JLabel(FECHA_TAG);
         jlFechaReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
         jlFechaReserva.setHorizontalAlignment(SwingConstants.CENTER);
         jlFechaReserva.setVerticalAlignment(SwingConstants.NORTH);
         jlFechaReserva.setFont(titleFont);
         jpListaReservasMesa.add(jlFechaReserva);
 
-        /*jlNombresReserva = new JLabel[AUX_MAX_RESERVAS - 1];
-        jlHorasReserva = new JLabel[AUX_MAX_RESERVAS - 1];
-        jlFechasReserva = new JLabel[AUX_MAX_RESERVAS - 1];
-        for (int i = 0; i < AUX_MAX_RESERVAS - 1; i++){
-            jlNombresReserva[i] = new JLabel("EJEMPLO NOMBRE");
-            jlNombresReserva[i].setBorder(BorderFactory.createMatteBorder(0,2,2,0, Color.BLACK));
-            jlNombresReserva[i].setHorizontalAlignment(SwingConstants.CENTER);
-            jpListaReservasMesa.add(jlNombresReserva[i]);
-            jlHorasReserva[i] = new JLabel("EJEMPLO HORA");
-            jlHorasReserva[i].setBorder(BorderFactory.createMatteBorder(0,0,2,0, Color.BLACK));
-            jlHorasReserva[i].setHorizontalAlignment(SwingConstants.CENTER);
-            jpListaReservasMesa.add(jlHorasReserva[i]);
-            jlFechasReserva[i] = new JLabel("EJEMPLO FECHA");
-            jlFechasReserva[i].setBorder(BorderFactory.createMatteBorder(0,0,2,2, Color.BLACK));
-            jlFechasReserva[i].setHorizontalAlignment(SwingConstants.CENTER);
-            jpListaReservasMesa.add(jlFechasReserva[i]);
-        }*/
-
         jspReservasMesa = new JScrollPane(jpListaReservasMesa);
         jpReservas.add(jspReservasMesa, BorderLayout.CENTER);
-        //jpRight.add(jspListaMesas, BorderLayout.CENTER);
         jpRight.add(jpReservas, BorderLayout.CENTER);
 
 
         //Botones
         jpBotones = new JPanel(new BorderLayout());
-        jbEliminarMesa = new JButton("Eliminar mesa");
-        jbAnadirMesa = new JButton("Añadir mesa");
+        jbEliminarMesa = new JButton(ELIMINAR_MESA_TAG);
+        jbAnadirMesa = new JButton(AÑADIR_MESA_TAG);
         jpBotones.add(jbEliminarMesa, BorderLayout.LINE_START);
         jpBotones.add(jbAnadirMesa, BorderLayout.LINE_END);
         jpBotones.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -174,5 +162,48 @@ public class GestionMesasView extends JPanel {
         }
         jbAnadirMesa.setActionCommand("Añadir mesa");
         jbEliminarMesa.setActionCommand("Eliminar mesa");
+    }
+
+    public void setMesasScrollablePanel(LinkedList<Mesa> mesas){
+        nMesas = mesas.size();
+
+        jpMesas = new JPanel[nMesas];
+        jlIdMesas = new JLabel[nMesas];
+        jlNumComensalesMesas = new JLabel[nMesas];
+
+        jpListaMesas = new JPanel(new GridLayout(nMesas, 1));
+
+        for (int i = 0; i < nMesas; i++){
+            String idMesa = mesas.get(i).getId();
+            int numComensales = mesas.get(i).getNumComensales();
+            jpMesas[i] = new JPanel(new BorderLayout());
+            jlIdMesas[i] = new JLabel("Id: " + idMesa);
+            jlNumComensalesMesas[i] = new JLabel("Num. Comensales: " + Integer.toString(numComensales));
+
+            jlIdMesas[i].setHorizontalAlignment(SwingConstants.CENTER);
+            //jlIdMesas[i].setVerticalAlignment(SwingConstants.CENTER);
+            jlIdMesas[i].setFont(new Font("Serif", Font.PLAIN, 25));
+
+            jlNumComensalesMesas[i].setHorizontalAlignment(SwingConstants.RIGHT);
+            //jlNumComensalesMesas[i].setVerticalAlignment(SwingConstants.SOUTH);
+
+            jpMesas[i].add(jlIdMesas[i], BorderLayout.CENTER);
+            jpMesas[i].add(jlNumComensalesMesas[i], BorderLayout.PAGE_END);
+
+            jpMesas[i].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+            jpMesas[i].setMinimumSize(new Dimension(0, 75));
+
+            jpListaMesas.add(jpMesas[i]);
+        }
+
+        jspListaMesas = new JScrollPane(jpListaMesas);
+        //Size
+        jspListaMesas.setMinimumSize(new Dimension(200, 0));
+        jspListaMesas.setPreferredSize(new Dimension(200, 0));
+
+        jpLeft = new JPanel(new BorderLayout());
+        jpLeft.add(jspListaMesas, BorderLayout.CENTER);
+        jpLeft.setBorder(BorderFactory.createTitledBorder(LISTADO_MESAS_TAG));
+        add(jpLeft, BorderLayout.LINE_START);
     }
 }

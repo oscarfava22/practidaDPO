@@ -3,6 +3,7 @@ package servidor.network;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import servidor.model.MesasManager;
 import servidor.model.ServerData;
 import servidor.view.MainView;
 
@@ -22,23 +23,25 @@ public class Server extends Thread{
     private MainView view;
 
     //Constructor
-    public Server() {
+    public Server(MesasManager mesasManager) {
         this.isOn = false;
         //TODO server socket (con NetworkConfiguration)
         this.sSocket = null;
         this.dServers = new ArrayList<DedicatedServer>();
-        this.data = new ServerData(getJsonObjectFromConfigFile());
+        this.data = new ServerData(getJsonObjectFromConfigFile(), mesasManager);
     }
 
 
     //Funciones
-    public JsonObject getJsonObjectFromConfigFile(){
+    public static JsonObject getJsonObjectFromConfigFile(){
         JsonObject dades;
 
         JsonParser parser = new JsonParser();
         //LLEGIR JSON I ESTRUCTURARLO A LES NOSTRES DADES
         //llegirem l'arxiu "laSallers.json" ubicat a la carpeta "src" del projecte
-        FileReader file = null;
+
+        FileReader file;
+
         try {
             file = new FileReader("data/json/config.json");
             Object obj = parser.parse(file);

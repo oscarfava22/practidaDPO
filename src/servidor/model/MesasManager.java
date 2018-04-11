@@ -56,6 +56,6 @@ public class MesasManager {
             Mesa nuevaMesa = new Mesa(idMesa, numComensales);
             addMesa(nuevaMesa);
         }
-        GestionMesasView.NUMBER_TABLES = mesas.size();
+        GestionMesasView.NUMERO_MESAS = mesas.size();
     }
 }

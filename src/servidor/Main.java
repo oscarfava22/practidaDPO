@@ -2,10 +2,8 @@ package servidor;
 
 import json.io.JsonIO;
 import servidor.controller.*;
-import servidor.model.LoginModel;
-import servidor.model.MainViewModel;
-import servidor.model.Plato;
-import servidor.model.PlatosManager;
+import servidor.model.*;
+import servidor.network.Server;
 import servidor.view.MainView;
 
 import javax.swing.*;
@@ -24,7 +22,7 @@ public class Main {
                 MainViewModel mainViewModel = new MainViewModel();
                 LoginModel loginModel = new LoginModel();
                 PlatosManager platosManager = new PlatosManager();
-
+                MesasManager mesasManager = new MesasManager(Server.getJsonObjectFromConfigFile());
 
                 MainView mainView = new MainView();
                 mainView.initView(mainViewModel, loginModel, platosManager.getPlatos());
@@ -32,7 +30,7 @@ public class Main {
                 ActionListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
 
-                ActionListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
+                ActionListener gestionMesasViewListener = new GestionMesasViewListener(mainView, mesasManager);
                 MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(mainView);
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
                 MouseInputListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView);
@@ -55,7 +53,7 @@ public class Main {
                                              platosViewListener,
                                              platosOptionsViewListener);
 
-
+                Server server = new Server(mesasManager);
             }
         });
     }

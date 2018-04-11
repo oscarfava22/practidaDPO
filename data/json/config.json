@@ -10,15 +10,15 @@
   "port_reserva": "18",
   "mesas": [
       {
-          "id": "Mesa Sol",
+          "id": "215",
           "numComensales": "4"
       },
       {
-        "id": "Mesa Luna",
+        "id": "56",
         "numComensales": "2"
       },
       {
-        "id": "Mesa Tierra",
+        "id": "6715",
         "numComensales": "6"
       }
   ]

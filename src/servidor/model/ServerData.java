@@ -15,8 +15,8 @@ public class ServerData {
     private MesasManager mesasManager;
 
     //Constructor
-    public ServerData(JsonObject jsonObjectFromConfigFile){
-        this.mesasManager = new MesasManager(jsonObjectFromConfigFile);
+    public ServerData(JsonObject jsonObjectFromConfigFile, MesasManager mesasManager){
+        this.mesasManager = mesasManager;
         ServerData.portRecepcio = jsonObjectFromConfigFile.get("port_recepcio").getAsInt();
         ServerData.portReserva = jsonObjectFromConfigFile.get("port_reserva").getAsInt();
 
