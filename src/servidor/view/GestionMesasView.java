@@ -7,6 +7,7 @@ import servidor.model.MainViewModel;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -17,12 +18,13 @@ public class GestionMesasView extends JPanel {
 
     private int nMesas;
 
-    private JScrollPane jspListaMesas;
-        private JPanel jpListaMesas;
-            private JPanel[] jpMesas;
-            private JButton[] jbMesas;
+    private JPanel jpLeft;
+        private JScrollPane jspListaMesas;
+            private JPanel jpListaMesas;
+                private JPanel[] jpMesas;
+                private JButton[] jbMesas;
     private JPanel jpRight;
-        private JLabel jlMesaNumero;
+        //private JLabel jlMesaNumero;
         private JPanel jpReservas;
             private JScrollPane jspReservasMesa;
                 private JPanel jpListaReservasMesa;
@@ -39,14 +41,14 @@ public class GestionMesasView extends JPanel {
 
     public GestionMesasView() {
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createLineBorder(Color.ORANGE, 10));
 
-        nMesas = NUMBER_TABLES;
+        //nMesas = NUMBER_TABLES;
         jpMesas = new JPanel[nMesas];
         jbMesas = new JButton[nMesas];
 
 
         //PANEL SCROLLABLE A LA IZQUIERDA
-        //jspListaMesas = new JScrollPane();
         jpListaMesas = new JPanel(new GridLayout(nMesas, 1));
 
         //TODO RELLENAR LA LISTA SEGÚN EL NÚMERO DE MESAS QUE TENGAMOS EN EL .JSON
@@ -62,8 +64,10 @@ public class GestionMesasView extends JPanel {
         //Size
         jspListaMesas.setMinimumSize(new Dimension(200, 0));
         jspListaMesas.setPreferredSize(new Dimension(200, 0));
-
-        add(jspListaMesas, BorderLayout.LINE_START);
+        jpLeft = new JPanel(new BorderLayout());
+        jpLeft.add(jspListaMesas, BorderLayout.CENTER);
+        jpLeft.setBorder(BorderFactory.createTitledBorder("Listado de Mesas"));
+        add(jpLeft, BorderLayout.LINE_START);
 
 
         //PANEL CENTRAL DE INFORMACION DE LAS RESERVAS DE UNA MESA
@@ -73,15 +77,15 @@ public class GestionMesasView extends JPanel {
         jpRight.setPreferredSize(new Dimension(200, 0));
 
         //Titulo
-        jlMesaNumero = new JLabel("Mesa X");
-        jlMesaNumero.setHorizontalAlignment(SwingConstants.CENTER);
-        jpRight.add(jlMesaNumero, BorderLayout.PAGE_START);
+        //jlMesaNumero = new JLabel("Mesa X");
+        //jlMesaNumero.setHorizontalAlignment(SwingConstants.CENTER);
+        //jpRight.add(jlMesaNumero, BorderLayout.PAGE_START);
 
         //Panel Central
         jpReservas = new JPanel(new BorderLayout());
         jspReservasMesa = new JScrollPane();
 
-        jpListaReservasMesa = new JPanel(new GridLayout(AUX_MAX_RESERVAS, 3));
+        jpListaReservasMesa = new JPanel(new GridLayout(1, 3));
         jpListaReservasMesa.setBorder(BorderFactory.createTitledBorder("Reservas"));
         Font titleFont = new Font(getFont().getName(), Font.BOLD, getFont().getSize());
         JLabel jlNombreReserva = new JLabel("Nombre de la Reserva");
@@ -103,7 +107,7 @@ public class GestionMesasView extends JPanel {
         jlFechaReserva.setFont(titleFont);
         jpListaReservasMesa.add(jlFechaReserva);
 
-        jlNombresReserva = new JLabel[AUX_MAX_RESERVAS - 1];
+        /*jlNombresReserva = new JLabel[AUX_MAX_RESERVAS - 1];
         jlHorasReserva = new JLabel[AUX_MAX_RESERVAS - 1];
         jlFechasReserva = new JLabel[AUX_MAX_RESERVAS - 1];
         for (int i = 0; i < AUX_MAX_RESERVAS - 1; i++){
@@ -119,7 +123,7 @@ public class GestionMesasView extends JPanel {
             jlFechasReserva[i].setBorder(BorderFactory.createMatteBorder(0,0,2,2, Color.BLACK));
             jlFechasReserva[i].setHorizontalAlignment(SwingConstants.CENTER);
             jpListaReservasMesa.add(jlFechasReserva[i]);
-        }
+        }*/
 
         jspReservasMesa = new JScrollPane(jpListaReservasMesa);
         jpReservas.add(jspReservasMesa, BorderLayout.CENTER);
@@ -133,6 +137,7 @@ public class GestionMesasView extends JPanel {
         jbAnadirMesa = new JButton("Añadir mesa");
         jpBotones.add(jbEliminarMesa, BorderLayout.LINE_START);
         jpBotones.add(jbAnadirMesa, BorderLayout.LINE_END);
+        jpBotones.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         jpRight.add(jpBotones, BorderLayout.PAGE_END);
 
         add(jpRight, BorderLayout.CENTER);
@@ -153,9 +158,21 @@ public class GestionMesasView extends JPanel {
      * Registra los controladores para la vista
      * @param gestionMesasViewListener
      */
-    public void registerControllers(MouseInputListener gestionMesasViewListener) {
+    public void registerControllers(ActionListener gestionMesasViewListener) {
+        setActionCommands();
 
-        //jlTitle.addMouseListener(gestionMesasViewListener);
+        for (int i = 0; i < jbMesas.length; i++){
+            jbMesas[i].addActionListener(gestionMesasViewListener);
+        }
+        jbAnadirMesa.addActionListener(gestionMesasViewListener);
+        jbEliminarMesa.addActionListener(gestionMesasViewListener);
+    }
 
+    public void setActionCommands(){
+        for (int i = 0; i < jbMesas.length; i++){
+            jbMesas[i].setActionCommand("Mesa " + i);
+        }
+        jbAnadirMesa.setActionCommand("Añadir mesa");
+        jbEliminarMesa.setActionCommand("Eliminar mesa");
     }
 }

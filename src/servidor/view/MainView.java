@@ -80,7 +80,7 @@ public class MainView extends JFrame {
     }
 
     public void registerControllers(ActionListener selectorViewListener, ActionListener menuBarViewListener,
-                                    MouseInputListener gestionMesasViewListener,
+                                    ActionListener gestionMesasViewListener,
                                     MouseInputListener gestionCartaViewListener,
                                     MouseInputListener gestionPedidosViewListener,
                                     MouseInputListener gestionTop5ViewListener,

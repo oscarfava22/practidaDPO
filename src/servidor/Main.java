@@ -32,7 +32,7 @@ public class Main {
                 ActionListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
 
-                MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
+                ActionListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
                 MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(mainView);
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
                 MouseInputListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView);
