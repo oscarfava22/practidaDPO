@@ -2,21 +2,21 @@ package servidor.model;
 
 public class Mesa {
 
-    private String id;
+    private int id;
     private int numComensales;
 
     //Constructor
-    public Mesa(String id, int numComensales) {
+    public Mesa(int id, int numComensales) {
         this.numComensales = numComensales;
         this.id = id;
     }
 
     //Getters & Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

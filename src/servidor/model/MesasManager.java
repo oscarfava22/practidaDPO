@@ -55,7 +55,7 @@ public class MesasManager {
         JsonArray mesasJsonArray = json.get("mesas").getAsJsonArray();
         for (int i = 0; i < mesasJsonArray.size(); i++){
             JsonObject jsonMesa = mesasJsonArray.get(i).getAsJsonObject();
-            String idMesa = jsonMesa.get("id").getAsString();
+            int idMesa = jsonMesa.get("id").getAsInt();
             int numComensales = jsonMesa.get("numComensales").getAsInt();
             Mesa nuevaMesa = new Mesa(idMesa, numComensales);
             addMesa(nuevaMesa);
