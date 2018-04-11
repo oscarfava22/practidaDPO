@@ -1,4 +1,4 @@
-package servidor.model;
+package servidor.model.Database;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -23,24 +23,51 @@ public class BBDDManager {
     private static String password = "";
 
     /**
-     *
+     * Ip to connect to the database, default localhost
      */
     private static String ip = "localhost";
+
+    /**
+     * Port by which to connect to database default 3306
+     */
     private static int port = 3306;
 
+    /**
+     * Instance of the database
+     */
     private static BBDDManager instance;
 
+    /**
+     * Url to connect to the database
+     */
     private  String url = "jdbc:mysql://";
+
+    /**
+     * Connection to the database
+     */
     private  Connection connection;
+
+    /**
+     * The statement by which querys are made
+     */
     private  Statement statement;
 
-    public BBDDManager getInstance(String bbdd){
+    /**
+     * Returns the instance of the database manager
+     * @param bbdd the database to connect
+     * @return the instance of the manager
+     */
+    public static BBDDManager getInstance(String bbdd){
         if(instance==null){
             instance = new BBDDManager(bbdd,ip,port);
         }
         return instance;
     }
 
+    /**
+     * Sets username of the database
+     * @param username the username of the database
+     */
     public static void setUsername(String username){
         if(instance==null){
             user = username;
@@ -49,6 +76,10 @@ public class BBDDManager {
         throw new IllegalStateException("The instance already exists");
     }
 
+    /**
+     * Sets password of the databse
+     * @param password the password of the database
+     */
     public static void setPassword(String password){
         if(instance==null){
             BBDDManager.password=password;
@@ -57,6 +88,10 @@ public class BBDDManager {
         throw new IllegalStateException("The instance already exists");
     }
 
+    /**
+     * Sets ip of the database
+     * @param ip the ip of the database
+     */
     public static void setIp(String ip){
         if(instance==null){
             BBDDManager.ip = ip;
@@ -65,6 +100,10 @@ public class BBDDManager {
         throw new IllegalStateException("The instance already exists");
     }
 
+    /**
+     * Sets the port of the database
+     * @param port the port by which to connect to the database
+     */
     public static void setPort(int port){
         if(instance==null){
             BBDDManager.port=port;
@@ -73,21 +112,33 @@ public class BBDDManager {
         throw new IllegalStateException("The instance already exists");
     }
 
+    /**
+     * Deletes de bbdd singleton in case recreation is needed
+     */
     public static void recreateBBDD(){
         if(instance!=null){
-            instance.disconect();
+            instance.disconnect();
             instance=null;
             return;
         }
         throw new IllegalStateException("The instance doesn't exists");
     }
 
+    /**
+     * Private constructor for the database
+     * @param bbdd the database to connect
+     * @param ip the ip where the database is
+     * @param port the port by which to connect
+     */
     private BBDDManager(String bbdd, String ip, int port) {
         this.url += ip;
         this.url += ":"+port+"/";
         this.url += bbdd;
     }
 
+    /**
+     * Creates a connection to the database
+     */
     public void connect(){
         try {
             Class.forName("com.mysql.jdbc.Connection");
@@ -103,6 +154,10 @@ public class BBDDManager {
         }
     }
 
+    /**
+     * Generates query for writting(insert,update,delete) from the database
+     * @param query the query to apply
+     */
     public void modificationQuery(String query){
         try {
             statement = (Statement)connection.createStatement();
@@ -112,6 +167,11 @@ public class BBDDManager {
         }
     }
 
+    /**
+     * Generates a query for reading information from the bbdd
+     * @param query the query to excecute
+     * @return the result set of information
+     */
     public ResultSet readQuery(String query){
         try {
             statement = (Statement)connection.createStatement();
@@ -123,8 +183,10 @@ public class BBDDManager {
 
     }
 
-
-    public void disconect(){
+    /**
+     * Disconnects from the database
+     */
+    public void disconnect(){
         try {
             connection.close();
             System.out.println("Disconected");
