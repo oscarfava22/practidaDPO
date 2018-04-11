@@ -62,7 +62,7 @@ public class MainView extends JFrame {
 
         statusBarView.initView(loginModel);
 
-        jpGestionView.add(gestionMesasView, BorderLayout.CENTER);
+        //jpGestionView.add(gestionMesasView, BorderLayout.CENTER);
 
         jpGestionView.add(new JLabel(mainViewModel.getMainLogo()) , BorderLayout.CENTER);
 
@@ -213,88 +213,7 @@ public class MainView extends JFrame {
         gestionCartaView.resetTextFields();
     }
 
-<<<<<<< Updated upstream
-    public MenuBarView getMenuBarView() {
-        return menuBarView;
-    }
-
-    public void setMenuBarView(MenuBarView menuBarView) {
-        this.menuBarView = menuBarView;
-    }
-
-    public SelectorView getSelectorView() {
-        return selectorView;
-    }
-
-    public void setSelectorView(SelectorView selectorView) {
-        this.selectorView = selectorView;
-    }
-
-    public JPanel getJpGestionView() {
-        return jpGestionView;
-    }
-
-    public void setJpGestionView(JPanel jpGestionView) {
-        this.jpGestionView = jpGestionView;
-    }
-
-    public GestionMesasView getGestionMesasView() {
-        return gestionMesasView;
-    }
-
-    public void setGestionMesasView(GestionMesasView gestionMesasView) {
-        this.gestionMesasView = gestionMesasView;
-    }
-
-    public GestionCartaView getGestionCartaView() {
-        return gestionCartaView;
-    }
-
-    public void setGestionCartaView(GestionCartaView gestionCartaView) {
-        this.gestionCartaView = gestionCartaView;
-    }
-
-    public GestionPedidosView getGestionPedidosView() {
-        return gestionPedidosView;
-    }
-
-    public void setGestionPedidosView(GestionPedidosView gestionPedidosView) {
-        this.gestionPedidosView = gestionPedidosView;
-    }
-
-    public GestionTop5View getGestionTop5View() {
-        return gestionTop5View;
-    }
-
-    public void setGestionTop5View(GestionTop5View gestionTop5View) {
-        this.gestionTop5View = gestionTop5View;
-    }
-
-    public LoginDialogView getLoginDialogView() {
-        return loginDialogView;
-    }
-
-    public void setLoginDialogView(LoginDialogView loginDialogView) {
-        this.loginDialogView = loginDialogView;
-    }
-
-    public SettingsDialogView getSettingsDialogView() {
-        return settingsDialogView;
-    }
-
-    public void setSettingsDialogView(SettingsDialogView settingsDialogView) {
-        this.settingsDialogView = settingsDialogView;
-    }
-
-    public StatusBarView getStatusBarView() {
-        return statusBarView;
-    }
-
-    public void setStatusBarView(StatusBarView statusBarView) {
-        this.statusBarView = statusBarView;
-=======
     public void setConnectedDevices(Integer count) {
         statusBarView.setConnectedDevices(count);
->>>>>>> Stashed changes
     }
 }

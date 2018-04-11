@@ -40,7 +40,7 @@ public class Client {
      */
     @JsonCreator
     public Client(@JsonProperty("ip") String ip,@JsonProperty("port") int port) throws IOException {
-        socket = new Socket(ip,port);
+        socket = new Socket(ip, port);
         dos = new DataOutputStream(socket.getOutputStream());
         oos = new ObjectOutputStream(socket.getOutputStream());
         dis = new DataInputStream(socket.getInputStream());

@@ -12,6 +12,10 @@ public class MesasManager {
     //Atributos
     private LinkedList<Mesa> mesas;
 
+    public MesasManager() {
+
+    }
+
     //Constructor
     public MesasManager(JsonObject jsonObjectFromConfigFile) {
         mesas = new LinkedList<>();

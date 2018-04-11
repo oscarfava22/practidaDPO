@@ -52,9 +52,9 @@ public class GestionMesasViewListener implements ActionListener {
 
     public void actualitzaView(){
         LinkedList<Mesa> mesas = getMesasManager().getMesas();
-        GestionMesasView view = mainView.getGestionMesasView();
-        view.setMesasScrollablePanel(mesas);
-        mainView.setGestionMesasView(view);
+        //GestionMesasView view = mainView.getGestionMesasView();
+        //view.setMesasScrollablePanel(mesas);
+        //mainView.setGestionbMesasView(view);
 
     }
 }
