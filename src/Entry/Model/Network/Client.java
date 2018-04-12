@@ -68,4 +68,14 @@ public class Client {
             throw new NotEnoughTableException();
         }
     }
+
+    /**
+     * Disconnects the client
+     */
+    public void disconnect() throws IOException {
+        dis.close();
+        oos.close();
+        dos.close();
+        socket.close();
+    }
 }

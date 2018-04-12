@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowListener;
 
 /**
  * Main view, where all useful panes show
@@ -75,13 +76,15 @@ public class Entry extends JFrame{
      * @param picker fisrt listener for datePicker
      * @param landing listener for landing
      * @param dateController second listener for datePicker
+     * @param wl to kill the client if needed
      */
-    public void addListeners(MouseListener init, ActionListener reserve,ActionListener picker, ActionListener landing
-                                ,ItemListener dateController){
+    public void addListeners(MouseListener init, ActionListener reserve, ActionListener picker, ActionListener landing
+            , ItemListener dateController, WindowListener wl){
         initPanel.relateControllers(init);
         reservePanel.relateControllers(reserve);
         dpp.relateControllers(picker,dateController);
         landingPanel.relateControllers(landing);
+        this.addWindowListener(wl);
     }
 
     /**
