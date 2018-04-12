@@ -7,6 +7,7 @@ import servidor.view.MainView;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 
 public class ReservaServer extends Thread {
 
@@ -16,6 +17,8 @@ public class ReservaServer extends Thread {
 
     private MainView mainView;
     private PlatosManager platosManager;
+
+    private LinkedList<ReservaDedicatedServer> reservaDedicatedServers;
 
     public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager) {
 
@@ -40,13 +43,22 @@ public class ReservaServer extends Thread {
 
             try {
                 System.out.println("Waiting for a Reserva client...");
-                Socket reservaSocket = reservaServerSocket.accept();
+                Socket reservaClientSocket = reservaServerSocket.accept();
                 System.out.println("Reserva Client connected");
+
+                ReservaDedicatedServer reservaDedicatedServer = new ReservaDedicatedServer(this, reservaClientSocket, platosManager);
+
+                reservaDedicatedServers.add(reservaDedicatedServer);
+                reservaDedicatedServer.start();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
+    }
+
+    public void removeDedicatedServer(ReservaDedicatedServer entryDedicatedServer) {
+        reservaDedicatedServers.remove(entryDedicatedServer);
     }
 }
