@@ -5,7 +5,7 @@ import Entry.Constants.Constants;
 import Entry.View.Panels.DatePickerPanel.DatePickerPanel;
 import Entry.View.Panels.InitPanel;
 import Entry.View.Panels.LandingPanel;
-import Entry.View.Panels.ReservePanel;
+import Entry.View.Panels.ReservePanel.ReservePanel;
 
 import javax.swing.*;
 import java.awt.*;

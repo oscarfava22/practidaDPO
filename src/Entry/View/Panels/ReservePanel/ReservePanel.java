@@ -1,4 +1,4 @@
-package Entry.View.Panels;
+package Entry.View.Panels.ReservePanel;
 
 import Entry.Constants.Constants;
 
@@ -24,12 +24,12 @@ public class ReservePanel extends JPanel {
     /**
      * How many people in the reservation
      */
-    private final JTextField howMany;
+    private final TextFieldPanel howMany;
 
     /**
      * The name of the reservation
      */
-    private final JTextField name;
+    private final TextFieldPanel name;
 
     /**
      * Creates a new reservation panel
@@ -39,8 +39,9 @@ public class ReservePanel extends JPanel {
         setLayout(new BorderLayout());
         now = new JButton("Reservar ahora");
         later = new JButton("Reservar futuro");
-        howMany = new JTextField();
-        name = new JTextField();
+        JTextField temp = new JTextField();
+        howMany = new TextFieldPanel("Cuantas personas",100);
+        name = new TextFieldPanel("Nombre reserva" ,110);
 
         JPanel center = new JPanel(new GridLayout(3,2));
         JPanel centerLeft = new JPanel();
@@ -54,9 +55,11 @@ public class ReservePanel extends JPanel {
 
         JPanel bottom = new JPanel();
         bottom.setLayout(new BoxLayout(bottom,BoxLayout.PAGE_AXIS));
-        bottom.add(new JLabel("Nombre reserva"));
+        //bottom.add(new JLabel("Nombre reserva"));
+        //bottom.add(name);
         bottom.add(name);
-        bottom.add(new JLabel("Cuantas personas"));
+        //bottom.add(new JLabel("Cuantas personas"));
+        //bottom.add(howMany);
         bottom.add(howMany);
 
         add(center,BorderLayout.CENTER);
@@ -81,7 +84,7 @@ public class ReservePanel extends JPanel {
      * @return the name of the reservation
      */
     public String getName(){
-        return name.getText();
+        return name.getFieldText();
     }
 
     /**
@@ -89,11 +92,11 @@ public class ReservePanel extends JPanel {
      * @return 0 if everything is allright, 1 if the number of people is not a number,-1 if one of both fields are empty
      */
     public int notEmpty(){
-        boolean validation = name.getText()!=null&&!name.getText().isEmpty()
-                                &&howMany.getText()!=null&&!howMany.getText().isEmpty();
+        boolean validation = name.getFieldText()!=null&&!name.getFieldText().isEmpty()
+                                &&howMany.getFieldText()!=null&&!howMany.getFieldText().isEmpty();
         if(validation){
             try{
-                Integer.parseInt(howMany.getText());
+                Integer.parseInt(howMany.getFieldText());
                 return 0;
             }catch (NumberFormatException ex){
                 return 1;
@@ -106,14 +109,14 @@ public class ReservePanel extends JPanel {
      * @return returns the number of people of the reservation
      */
     public int getNumOfPeople() {
-        return Integer.parseInt(howMany.getText());
+        return Integer.parseInt(howMany.getFieldText());
     }
 
     /**
      * Clears the textfields of the panel
      */
     public void clear() {
-        name.setText("");
-        howMany.setText("");
+        name.setFieldText("");
+        howMany.setFieldText("");
     }
 }

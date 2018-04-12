@@ -44,6 +44,7 @@ public class DatePickerController implements ActionListener {
             view.setPassword(password);
             view.setLandingName();
             view.switchPanel(Constants.LANDING);
+            view.clear();
         } catch (NotEnoughTableException e1) {
             view.showErrorMessage(e1.getMessage());
             view.switchPanel(Constants.INIT);

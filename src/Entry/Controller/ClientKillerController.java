@@ -20,7 +20,7 @@ public class ClientKillerController extends WindowAdapter{
      * @param client the client to kill
      */
     public ClientKillerController(Client client) {
-        client = client;
+        this.client = client;
     }
 
     @Override

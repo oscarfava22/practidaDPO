@@ -4,9 +4,7 @@ import Entry.Constants.Constants;
 import Entry.Model.Exception.NotEnoughTableException;
 import Entry.Model.Network.Client;
 import Entry.View.Entry;
-import Entry.View.Panels.ReservePanel;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -50,6 +48,7 @@ public class ReserveController implements ActionListener{
                         view.setPassword(password);
                         view.setLandingName();
                         view.switchPanel(Constants.LANDING);
+                        view.clear();
                     } catch (NotEnoughTableException e1) {
                         view.showErrorMessage(e1.getMessage());
                         view.switchPanel(Constants.INIT);
@@ -63,7 +62,6 @@ public class ReserveController implements ActionListener{
                     view.switchPanel(Constants.DATE_PICKER);
                     break;
             }
-            view.clear();
         }
         else if(state == 1){
             view.showErrorMessage("Error, el numero de personas no es un numero");
