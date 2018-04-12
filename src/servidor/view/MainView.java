@@ -81,7 +81,7 @@ public class MainView extends JFrame {
     }
 
     public void registerControllers(ActionListener selectorViewListener, ActionListener menuBarViewListener,
-                                    ActionListener gestionMesasViewListener,
+                                    MouseInputListener gestionMesasViewListener,
                                     MouseInputListener gestionCartaViewListener,
                                     MouseInputListener gestionPedidosViewListener,
                                     MouseInputListener gestionTop5ViewListener,
@@ -94,7 +94,7 @@ public class MainView extends JFrame {
         selectorView.registerControllers(selectorViewListener);
         menuBarView.registerControllers(menuBarViewListener);
 
-        gestionMesasView.registerControllers(gestionMesasViewListener);
+        //gestionMesasView.registerControllers(gestionMesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener, platosViewListener, platosOptionsViewListener);
         gestionPedidosView.registerControllers(gestionPedidosViewListener);
         gestionTop5View.registerControllers(gestionTop5ViewListener);

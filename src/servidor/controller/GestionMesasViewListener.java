@@ -11,9 +11,10 @@ import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
-public class GestionMesasViewListener implements ActionListener {
+public class GestionMesasViewListener implements MouseInputListener{
 
     private MainView mainView;
     private MesasManager mesasManager;
@@ -41,18 +42,38 @@ public class GestionMesasViewListener implements ActionListener {
         this.mesasManager = mesasManager;
     }
 
-
     @Override
-    public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case "Añadir mesa":
-                break;
-            case "Eliminar mesa":
-                break;
-            default:
-                //Seleccionar una taula
-                break;
-        }
+    public void mouseClicked(MouseEvent e) {
+
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
