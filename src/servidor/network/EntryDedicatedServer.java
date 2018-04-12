@@ -37,7 +37,6 @@ public class EntryDedicatedServer extends Thread{
 
             while (isRunning) {
 
-
                 int num_tables = dis.readByte();
                 System.out.println(num_tables);
 
