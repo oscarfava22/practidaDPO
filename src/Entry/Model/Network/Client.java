@@ -4,10 +4,7 @@ import Entry.Model.Exception.NotEnoughTableException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Date;
 
@@ -30,6 +27,10 @@ public class Client {
      * Object output to the server 
      */
     private ObjectOutputStream oos;
+
+    /**
+     * Data input from the server
+     */
     private DataInputStream dis;
 
     /**

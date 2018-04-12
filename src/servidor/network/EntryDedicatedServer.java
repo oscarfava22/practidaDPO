@@ -48,7 +48,7 @@ public class EntryDedicatedServer extends Thread{
                 System.out.println(object.toString());
 
                 dos.writeBoolean(true);
-                dos.writeUTF("123456");
+                dos.writeUTF("12345676543211");
 
             }
 
