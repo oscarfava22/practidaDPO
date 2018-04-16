@@ -51,6 +51,9 @@ public class DatePickerController implements ActionListener {
         } catch (IOException | ParseException e1) {
             e1.printStackTrace();
             view.dispose();
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+            view.dispose();
         }
     }
 }

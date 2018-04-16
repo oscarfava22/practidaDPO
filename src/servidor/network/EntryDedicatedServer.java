@@ -1,5 +1,7 @@
 package servidor.network;
 
+import Network.Reserva.ReservaRequest;
+import Network.Reserva.ReservaResponse;
 import servidor.model.PlatosManager;
 import servidor.view.MainView;
 
@@ -40,16 +42,23 @@ public class EntryDedicatedServer extends Thread{
 
             while (isRunning) {
 
-                int num_tables = dis.readByte();
-                System.out.println(num_tables);
+                ReservaRequest rr = (ReservaRequest) ois.readObject();
 
-                String string2 = dis.readUTF();
-                System.out.println(string2);
+                ReservaResponse response = new ReservaResponse("Hola",true);
+                oos.writeObject(response);
 
-                Object object = ois.readObject();
-                System.out.println(object.toString());
+                //int num_tables = (Integer) ois.readObject();
+                //System.out.println(num_tables);
 
-                updateMessageToClient();
+                //String string2 = (String)ois.readObject();
+                //System.out.println(string2);
+
+                //Object object = ois.readObject();
+                //System.out.println(object.toString());
+
+                //dos.writeInt(1);
+                //dos.writeUTF("Hola mundo");
+                //updateMessageToClient();
 
             }
 

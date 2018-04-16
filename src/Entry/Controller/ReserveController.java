@@ -55,6 +55,9 @@ public class ReserveController implements ActionListener{
                     } catch (IOException e1) {
                         e1.printStackTrace();
                         view.dispose();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                        view.dispose();
                     }
                     break;
                 case Constants.LATER:
