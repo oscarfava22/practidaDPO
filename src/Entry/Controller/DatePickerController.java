@@ -48,7 +48,7 @@ public class DatePickerController implements ActionListener {
         } catch (NotEnoughTableException e1) {
             view.showErrorMessage(e1.getMessage());
             view.switchPanel(Constants.INIT);
-        } catch (IOException | ParseException e1) {
+        } catch (IOException | ParseException | ClassNotFoundException e1) {
             e1.printStackTrace();
             view.dispose();
         }
