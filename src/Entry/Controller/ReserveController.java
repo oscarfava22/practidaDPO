@@ -52,10 +52,7 @@ public class ReserveController implements ActionListener{
                     } catch (NotEnoughTableException e1) {
                         view.showErrorMessage(e1.getMessage());
                         view.switchPanel(Constants.INIT);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                        view.dispose();
-                    } catch (ClassNotFoundException e1) {
+                    } catch (IOException | ClassNotFoundException e1) {
                         e1.printStackTrace();
                         view.dispose();
                     }
