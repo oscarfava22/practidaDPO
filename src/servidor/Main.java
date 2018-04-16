@@ -41,17 +41,22 @@ public class Main {
                 PlatosViewListener platosViewListener = new PlatosViewListener(mainView, platosManager);
                 PlatosOptionsViewListener platosOptionsViewListener = new PlatosOptionsViewListener(mainView, platosManager, platosViewListener);
 
-                mainView.registerControllers(selectorViewListener,
-                                             menuBarViewListener,
-                                             gestionMesasViewListener,
-                                             gestionCartaViewListener,
-                                             gestionPedidosViewListener,
-                                             gestionTop5ViewListener,
-                                             loginDialogViewListener,
-                                             settingsDialogViewListener,
+                MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView, mesasManager);
+                MesasViewListener mesasViewListener = new MesasViewListener();
 
-                                             platosViewListener,
-                                             platosOptionsViewListener);
+                mainView.registerControllers(selectorViewListener,
+                     menuBarViewListener,
+                     gestionMesasViewListener,
+                     gestionCartaViewListener,
+                     gestionPedidosViewListener,
+                     gestionTop5ViewListener,
+                     loginDialogViewListener,
+                     settingsDialogViewListener,
+
+                     platosViewListener,
+                     platosOptionsViewListener,
+                        mesasOptionsViewListener,
+                        mesasViewListener);
 
                 MainServer mainServer = new MainServer(mainView, platosManager);
                 mainServer.initServers();

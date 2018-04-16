@@ -35,7 +35,6 @@ public class MesasView extends JPanel{
     }
 
     public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
-
         mesasView.clear();
         jpMain.removeAll();
         updateUI();

@@ -1,5 +1,7 @@
 package servidor.view;
 
+import servidor.controller.MesasOptionsViewListener;
+import servidor.controller.MesasViewListener;
 import servidor.controller.PlatosOptionsViewListener;
 import servidor.controller.PlatosViewListener;
 import servidor.model.LoginModel;
@@ -62,7 +64,7 @@ public class MainView extends JFrame {
 
         statusBarView.initView(loginModel);
 
-        //jpGestionView.add(gestionMesasView, BorderLayout.CENTER);
+        jpGestionView.add(gestionMesasView, BorderLayout.CENTER);
 
         jpGestionView.add(new JLabel(mainViewModel.getMainLogo()) , BorderLayout.CENTER);
 
@@ -88,13 +90,15 @@ public class MainView extends JFrame {
                                     MouseInputListener loginDialogViewListener,
                                     MouseInputListener settingsDialogViewListener,
                                     PlatosViewListener platosViewListener,
-                                    PlatosOptionsViewListener platosOptionsViewListener) {
+                                    PlatosOptionsViewListener platosOptionsViewListener,
+                                    MesasOptionsViewListener mesasOptionsViewListener,
+                                    MesasViewListener mesasViewListener) {
 
 
         selectorView.registerControllers(selectorViewListener);
         menuBarView.registerControllers(menuBarViewListener);
 
-        //gestionMesasView.registerControllers(gestionMesasViewListener);
+        gestionMesasView.registerControllers(mesasOptionsViewListener, mesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener, platosViewListener, platosOptionsViewListener);
         gestionPedidosView.registerControllers(gestionPedidosViewListener);
         gestionTop5View.registerControllers(gestionTop5ViewListener);

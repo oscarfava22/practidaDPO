@@ -1,9 +1,13 @@
 package servidor.model;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import servidor.view.GestionMesasView;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Comparator;
 import java.util.LinkedList;
 
@@ -12,20 +16,28 @@ public class MesasManager {
     //Atributos
     private LinkedList<Mesa> mesas;
 
-    public MesasManager() {
-
-    }
-
     //Constructor
-    public MesasManager(JsonObject jsonObjectFromConfigFile) {
+    public MesasManager() {
         mesas = new LinkedList<>();
         //Obtener mesas del config.json
-        getMesasFromJsonArray(jsonObjectFromConfigFile);
-        for (int i = 0; i < mesas.size(); i++){
-            Mesa mesa = mesas.get(i);
-            System.out.println("Mesa " + i + ":");
-            System.out.println("    ID: " + mesa.getId());
-            System.out.println("    NUM. COMENSALES: " + mesa.getNumComensales());
+        try {
+            getMesasFromJson();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("No s'ha pogut llegir l'arxiu .json");
+        }
+    }
+
+    public void getMesasFromJson() throws FileNotFoundException {
+        JsonParser parser = new JsonParser();
+
+        Object object = parser.parse(new FileReader("data/json/config.json"));
+
+        JsonObject jsonObject = (JsonObject)object;
+
+        JsonArray jsonArrayMesas = jsonObject.get("mesas").getAsJsonArray();
+        for (int i = 0; i < jsonArrayMesas.size(); i++){
+            addMesa(new Mesa(jsonArrayMesas.get(i).getAsJsonObject().get("id").getAsInt(), jsonArrayMesas.get(i).getAsJsonObject().get("numComensales").getAsInt()));
         }
     }
 
@@ -49,17 +61,5 @@ public class MesasManager {
                 return Integer.compare(numComensales1, numComensales2);
             }
         });
-    }
-
-    public void getMesasFromJsonArray(JsonObject json){
-        JsonArray mesasJsonArray = json.get("mesas").getAsJsonArray();
-        for (int i = 0; i < mesasJsonArray.size(); i++){
-            JsonObject jsonMesa = mesasJsonArray.get(i).getAsJsonObject();
-            int idMesa = jsonMesa.get("id").getAsInt();
-            int numComensales = jsonMesa.get("numComensales").getAsInt();
-            Mesa nuevaMesa = new Mesa(idMesa, numComensales);
-            addMesa(nuevaMesa);
-        }
-        GestionMesasView.NUMERO_MESAS = mesas.size();
     }
 }

@@ -1,16 +1,12 @@
 package servidor.view;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import servidor.controller.MesasOptionsViewListener;
+import servidor.controller.MesasViewListener;
 import servidor.model.MainViewModel;
 import servidor.model.Mesa;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.LinkedList;
 
 public class GestionMesasView extends JPanel {
@@ -136,13 +132,26 @@ public class GestionMesasView extends JPanel {
      * @param mainViewModel
      */
     public void initView(MainViewModel mainViewModel) {
-        //jlTitle.setText(mainViewModel.getGestionMesas());
+        mesasView = new MesasView();
+        jpMesas.add(mesasView, BorderLayout.CENTER);
     }
 
+    public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {
+        mesasView.registerControllers(mesasViewListener);
+        jbEliminarMesa.addActionListener(optionsListener);
+        jbAnadirMesa.addActionListener(optionsListener);
+    }
 
-    /**
-     * Registra los controladores para la vista
-     * @param gestionMesasViewListener
-     */
+    public void setLabelsBackground(String id, boolean state) {
+        mesasView.setLabelsBackground(id, state);
+    }
 
+    public void refreshPlatos(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
+        mesasView.refreshMesas(mesas, mesasViewListener);
+    }
+
+    public void setActionCommands(){
+        jbAnadirMesa.setActionCommand(AÑADIR_MESA_TAG);
+        jbEliminarMesa.setActionCommand(ELIMINAR_MESA_TAG);
+    }
 }

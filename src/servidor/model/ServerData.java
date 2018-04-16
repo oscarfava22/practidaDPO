@@ -28,10 +28,6 @@ public class ServerData {
         ServerData.bbddPassword = bbddInfo.get("password").getAsString();
     }
 
-
-
-
-
     public void ActualitzaInfoServer(int bbddConnectionPort, String bbddName, String bbddUsername, String bbddPassword, int portRecepcio, int portReserva){
         ServerData.connectionPort = bbddConnectionPort;
         ServerData.bbddName = bbddName;
