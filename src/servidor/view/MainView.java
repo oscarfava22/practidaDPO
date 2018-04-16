@@ -5,10 +5,7 @@ import servidor.controller.MesasViewListener;
 import servidor.controller.PlatosOptionsViewListener;
 import servidor.controller.PlatosViewListener;
 import servidor.controller.SelectorViewListener;
-import servidor.model.LoginModel;
-import servidor.model.MainViewModel;
-import servidor.model.Plato;
-import servidor.model.PlatosManager;
+import servidor.model.*;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -55,10 +52,10 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void initView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos) {
+    public void initView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas) {
 
         selectorView.initView(mainViewModel);
-        gestionMesasView.initView(mainViewModel);
+        gestionMesasView.initView(mainViewModel, mesas);
         gestionCartaView.initView(mainViewModel, platos);
         gestionPedidosView.initView(mainViewModel);
         settingsDialogView.initView(mainViewModel);

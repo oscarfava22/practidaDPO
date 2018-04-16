@@ -21,8 +21,6 @@ public class GestionMesasView extends JPanel {
 
     public static int NUMERO_MESAS;
 
-    private int nMesas;
-
     private JPanel jpLeft;
         private JScrollPane jspListaMesas;
             private JPanel jpMesas;
@@ -131,8 +129,9 @@ public class GestionMesasView extends JPanel {
      * Crea la vista del apartado Gestionar Mesas
      * @param mainViewModel
      */
-    public void initView(MainViewModel mainViewModel) {
+    public void initView(MainViewModel mainViewModel, LinkedList<Mesa> mesas) {
         mesasView = new MesasView();
+        mesasView.initMesas(mesas);
         jpMesas.add(mesasView, BorderLayout.CENTER);
     }
 
