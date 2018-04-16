@@ -44,7 +44,7 @@ public class EntryDedicatedServer extends Thread{
 
                 ReservaRequest rr = (ReservaRequest) ois.readObject();
 
-                ReservaResponse response = new ReservaResponse("Hola",true);
+                ReservaResponse response = new ReservaResponse("Hola",false);
                 oos.writeObject(response);
 
                 //int num_tables = (Integer) ois.readObject();

@@ -6,6 +6,8 @@ import java.util.Date;
 
 //TODO Documentar
 public class ReservaRequest extends Trama {
+    private static final long serialVersionUID = 12345;
+
     private final String name;
     private final Date date;
     private final int amount;
