@@ -45,7 +45,7 @@ public class GestionMesasView extends JPanel {
      */
     public GestionMesasView() {
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.ORANGE, 10));
+        setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 10));
 
         //PANEL SCROLLABLE A LA IZQUIERDA
         jpMesas = new JPanel();

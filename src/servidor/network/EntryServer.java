@@ -1,6 +1,7 @@
 package servidor.network;
 
 import servidor.model.PlatosManager;
+import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
 import java.io.IOException;
@@ -16,10 +17,11 @@ public class EntryServer extends Thread {
 
     private MainView mainView;
     private PlatosManager platosManager;
+    private ReservasManager reservasManager;
 
     private LinkedList<EntryDedicatedServer> entryDedicatedServers;
 
-    public EntryServer(MainServer mainServer, MainView mainView, PlatosManager platosManager) {
+    public EntryServer(MainServer mainServer, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
 
         try{
             entryServerSocket = new ServerSocket(Network.ENTRY_SERVER_PORT);
@@ -27,6 +29,7 @@ public class EntryServer extends Thread {
             this.mainServer = mainServer;
             this.mainView = mainView;
             this.platosManager = platosManager;
+            this.reservasManager = reservasManager;
             isRunning = false;
 
             entryDedicatedServers = new LinkedList<>();
@@ -49,22 +52,28 @@ public class EntryServer extends Thread {
                 Socket entryClientSocket = entryServerSocket.accept();
                 System.out.println("Entry Client connected");
 
-                EntryDedicatedServer entryDedicatedServer = new EntryDedicatedServer(this, entryClientSocket, platosManager);
+                EntryDedicatedServer entryDedicatedServer = new EntryDedicatedServer(this, entryClientSocket, mainView, platosManager);
 
                 entryDedicatedServers.add(entryDedicatedServer);
                 entryDedicatedServer.start();
 
-                mainView.setConnectedDevices(1);
+                mainView.setEntryServerStatus(true);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     public void removeDedicatedServer(EntryDedicatedServer entryDedicatedServer) {
         entryDedicatedServers.remove(entryDedicatedServer);
+    }
+
+    public void sendBroadcast() {
+
+        for(EntryDedicatedServer eds : entryDedicatedServers) {
+            eds.updateMessageToClient();
+        }
     }
 
 }

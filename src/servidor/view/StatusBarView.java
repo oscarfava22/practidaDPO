@@ -11,12 +11,18 @@ public class StatusBarView extends JPanel {
     private JLabel status;
     private JLabel connectedDevicesLabel;
     private JLabel connectedDevices;
+
+    private JLabel entryServerLabel;
+    private JLabel entryServerStatus;
+    private JPanel jpEntry;
+
     private JPanel jpStatus;
     private JPanel jpDevices;
 
     public StatusBarView() {
 
         setLayout(new BorderLayout());
+
         statusLabel = new JLabel("Status: ");
         statusLabel.setForeground(Color.GRAY);
         status = new JLabel("Connected");
@@ -25,6 +31,16 @@ public class StatusBarView extends JPanel {
         jpStatus.setOpaque(false);
         jpStatus.add(statusLabel);
         jpStatus.add(status);
+
+        entryServerLabel = new JLabel("Entry Client: ");
+        entryServerLabel.setForeground(Color.GRAY);
+        entryServerStatus = new JLabel("Not Connected");
+        entryServerStatus.setForeground(Color.RED);
+        jpEntry = new JPanel(new FlowLayout());
+        jpEntry.setOpaque(false);
+        jpEntry.add(entryServerLabel);
+        jpEntry.add(entryServerStatus);
+
 
         connectedDevicesLabel = new JLabel("Connected Devices: ");
         connectedDevicesLabel.setForeground(Color.GRAY);
@@ -36,7 +52,9 @@ public class StatusBarView extends JPanel {
         jpDevices.add(connectedDevices);
 
         add(jpStatus, BorderLayout.LINE_START);
+        add(jpEntry, BorderLayout.CENTER);
         add(jpDevices, BorderLayout.LINE_END);
+
 
         setBackground(Color.DARK_GRAY);
     }
@@ -58,10 +76,20 @@ public class StatusBarView extends JPanel {
             status.setText("Not Connected");
             status.setForeground(Color.RED);
         }
-        //updateUI();
     }
 
     public void setConnectedDevices(Integer count) {
         connectedDevices.setText(count.toString());
+    }
+
+    public void setEntryServerStatus(boolean state) {
+        if(state) {
+            entryServerStatus.setText("Connected");
+            entryServerStatus.setForeground(Color.GREEN);
+        } else {
+
+            entryServerStatus.setText("Not Connected");
+            entryServerStatus.setForeground(Color.RED);
+        }
     }
 }

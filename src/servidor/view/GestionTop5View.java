@@ -13,7 +13,7 @@ public class GestionTop5View extends JPanel {
     public GestionTop5View() {
 
         setLayout(new BorderLayout());
-
+        setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
 
 
         jlTitle = new JLabel("Top 5");

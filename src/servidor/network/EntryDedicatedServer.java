@@ -1,6 +1,7 @@
 package servidor.network;
 
 import servidor.model.PlatosManager;
+import servidor.view.MainView;
 
 import java.io.*;
 import java.net.Socket;
@@ -9,6 +10,7 @@ public class EntryDedicatedServer extends Thread{
 
     private EntryServer entryServer;
     private Socket entryClientSocket;
+    private MainView mainView;
     private PlatosManager platosManager;
     private boolean isRunning;
 
@@ -17,9 +19,10 @@ public class EntryDedicatedServer extends Thread{
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    public EntryDedicatedServer(EntryServer entryServer, Socket entryClientSocket, PlatosManager platosManager) {
+    public EntryDedicatedServer(EntryServer entryServer, Socket entryClientSocket, MainView mainView, PlatosManager platosManager) {
         this.entryServer = entryServer;
         this.entryClientSocket = entryClientSocket;
+        this.mainView = mainView;
         this.platosManager = platosManager;
         isRunning = false;
     }
@@ -46,8 +49,7 @@ public class EntryDedicatedServer extends Thread{
                 Object object = ois.readObject();
                 System.out.println(object.toString());
 
-                dos.writeBoolean(true);
-                dos.writeUTF("123");
+                updateMessageToClient();
 
             }
 
@@ -56,6 +58,8 @@ public class EntryDedicatedServer extends Thread{
             //e.printStackTrace();
             System.out.println("An Entry Client Disconnected from Server");
             entryServer.removeDedicatedServer(this);
+            mainView.setEntryServerStatus(false);
+
         }
         finally {
             try {
@@ -74,7 +78,17 @@ public class EntryDedicatedServer extends Thread{
                 entryClientSocket.close();
             } catch (IOException e) {}
         }
+    }
 
+    public void updateMessageToClient() {
+
+        try {
+            dos.writeBoolean(true);
+            dos.writeUTF("123");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

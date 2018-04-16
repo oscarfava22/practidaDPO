@@ -4,6 +4,7 @@ import servidor.controller.MesasOptionsViewListener;
 import servidor.controller.MesasViewListener;
 import servidor.controller.PlatosOptionsViewListener;
 import servidor.controller.PlatosViewListener;
+import servidor.controller.SelectorViewListener;
 import servidor.model.LoginModel;
 import servidor.model.MainViewModel;
 import servidor.model.Plato;
@@ -82,7 +83,7 @@ public class MainView extends JFrame {
 
     }
 
-    public void registerControllers(ActionListener selectorViewListener, ActionListener menuBarViewListener,
+    public void registerControllers(SelectorViewListener selectorViewListener, ActionListener menuBarViewListener,
                                     MouseInputListener gestionMesasViewListener,
                                     MouseInputListener gestionCartaViewListener,
                                     MouseInputListener gestionPedidosViewListener,
@@ -109,6 +110,10 @@ public class MainView extends JFrame {
 
     public void setSVSelectedButton(String button) {
         selectorView.setSelectedButton(button);
+    }
+
+    public void setSVFocusedButton(String button, boolean state) {
+        selectorView.setFocusedButton(button, state);
     }
 
     public void setGestionView(String option) {
@@ -165,6 +170,10 @@ public class MainView extends JFrame {
 
     public void setConnectedState(boolean state) {
         statusBarView.setConnectedState(state);
+    }
+
+    public void setEntryServerStatus(boolean state) {
+        statusBarView.setEntryServerStatus(state);
     }
 
     public void setLabelsBackground(String id, boolean state) {

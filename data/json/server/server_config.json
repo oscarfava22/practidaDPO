@@ -1,0 +1,7 @@
+{
+
+  "SERVER_IP":"localhost",
+  "ENTRY_SERVER_PORT_port":"31415",
+  "RESERVA_SERVER_PORT":"31416"
+
+}
