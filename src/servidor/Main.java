@@ -27,7 +27,7 @@ public class Main {
                 MainView mainView = new MainView();
                 mainView.initView(mainViewModel, loginModel, platosManager.getPlatos());
 
-                ActionListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
+                SelectorViewListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
 
                 MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView, mesasManager);
@@ -53,7 +53,7 @@ public class Main {
                                              platosViewListener,
                                              platosOptionsViewListener);
 
-                MainServer mainServer = new MainServer(mainView, platosManager);
+                MainServer mainServer = new MainServer(mainView, platosManager, reservasManager);
                 mainServer.initServers();
             }
         });

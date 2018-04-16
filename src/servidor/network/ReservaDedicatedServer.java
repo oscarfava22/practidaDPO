@@ -65,5 +65,14 @@ public class ReservaDedicatedServer extends Thread {
         }
     }
 
+    public void updateMessageToClient() {
+
+        /*try {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    }
+
 
 }

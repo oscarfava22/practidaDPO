@@ -16,7 +16,7 @@ public class PlatosManager {
         platos = new LinkedList<>();
 
         try {
-            Plato[] pls = (Plato[]) JsonIO.readJson(Plato[].class, "/data/json/platos.json");
+            Plato[] pls = (Plato[]) JsonIO.readJson(Plato[].class, "/data/json/platos2.json");
             platos.addAll(Arrays.asList(pls));
 
             System.out.println("Num Platos: " + platos.size());

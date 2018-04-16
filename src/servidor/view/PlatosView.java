@@ -24,6 +24,8 @@ public class PlatosView extends JPanel {
         setLayout(new BorderLayout());
         //add(new JLabel("Carta") ,BorderLayout.NORTH);
         add(jpMain, BorderLayout.CENTER);
+        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        //setBackground(Color.DARK_GRAY);
 
         /*jpPlatos = new JPanel();
         jpPlatos.setLayout(new BoxLayout(jpPlatos, BoxLayout.Y_AXIS));

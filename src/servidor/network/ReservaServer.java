@@ -2,6 +2,7 @@ package servidor.network;
 
 import servidor.model.PlatosManager;
 import servidor.model.Reserva;
+import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
 import java.io.IOException;
@@ -17,14 +18,16 @@ public class ReservaServer extends Thread {
 
     private MainView mainView;
     private PlatosManager platosManager;
+    private ReservasManager reservasManager;
 
     private LinkedList<ReservaDedicatedServer> reservaDedicatedServers;
 
-    public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager) {
+    public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
 
         this.mainServer = mainServer;
         this.mainView = mainView;
         this.platosManager = platosManager;
+        this.reservasManager = reservasManager;
 
         try {
             reservaServerSocket = new ServerSocket(Network.RESERVA_SERVER_PORT);
@@ -51,6 +54,8 @@ public class ReservaServer extends Thread {
                 reservaDedicatedServers.add(reservaDedicatedServer);
                 reservaDedicatedServer.start();
 
+                mainView.setConnectedDevices(reservaDedicatedServers.size());
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -60,5 +65,12 @@ public class ReservaServer extends Thread {
 
     public void removeDedicatedServer(ReservaDedicatedServer entryDedicatedServer) {
         reservaDedicatedServers.remove(entryDedicatedServer);
+    }
+
+    public void sendBroadcast() {
+
+        for(ReservaDedicatedServer rds : reservaDedicatedServers) {
+            rds.updateMessageToClient();
+        }
     }
 }

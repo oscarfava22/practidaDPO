@@ -1,8 +1,10 @@
 package servidor.view;
 
+import servidor.controller.SelectorViewListener;
 import servidor.model.MainViewModel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -37,10 +39,12 @@ public class SelectorView extends JPanel {
         jbTop5.setBackground(Color.GRAY);
         jbTop5.setBorderPainted(false);
 
+
         add(jbGestionMesas);
         add(jbGestionCarta);
         add(jbGestionPedidos);
         add(jbTop5);
+
     }
 
     public void initView(MainViewModel mvm) {
@@ -50,42 +54,110 @@ public class SelectorView extends JPanel {
         jbTop5.setText(mvm.getTop5());
     }
 
-    public void registerControllers(ActionListener selectorViewListener) {
+    public void registerControllers(SelectorViewListener selectorViewListener) {
 
-        jbGestionMesas.addActionListener(selectorViewListener);
-        jbGestionMesas.setActionCommand("Mesas");
-        jbGestionCarta.addActionListener(selectorViewListener);
-        jbGestionCarta.setActionCommand("Carta");
-        jbGestionPedidos.addActionListener(selectorViewListener);
-        jbGestionPedidos.setActionCommand("Pedidos");
-        jbTop5.addActionListener(selectorViewListener);
-        jbTop5.setActionCommand("Top 5");
+
+        jbGestionMesas.addMouseListener(selectorViewListener);
+        jbGestionMesas.addMouseMotionListener(selectorViewListener);
+        jbGestionCarta.addMouseListener(selectorViewListener);
+        jbGestionCarta.addMouseMotionListener(selectorViewListener);
+        jbGestionPedidos.addMouseListener(selectorViewListener);
+        jbGestionPedidos.addMouseMotionListener(selectorViewListener);
+        jbTop5.addMouseListener(selectorViewListener);
+        jbTop5.addMouseMotionListener(selectorViewListener);
     }
 
     public void setSelectedButton(String buttonId) {
 
         if (jbGestionMesas.getText().equals(buttonId)) {
-            jbGestionMesas.setBackground(Color.ORANGE);
+            jbGestionMesas.setForeground(Color.BLACK);
+            jbGestionMesas.setBackground(Color.MAGENTA);
+
+            jbGestionMesas.setSelected(true);
         } else {
             jbGestionMesas.setBackground(Color.GRAY);
+            jbGestionMesas.setSelected(false);
         }
 
         if (jbGestionCarta.getText().equals(buttonId)) {
+            jbGestionCarta.setForeground(Color.BLACK);
             jbGestionCarta.setBackground(Color.ORANGE);
+            jbGestionCarta.setSelected(true);
         } else {
             jbGestionCarta.setBackground(Color.GRAY);
+            jbGestionCarta.setSelected(false);
+
         }
 
         if (jbGestionPedidos.getText().equals(buttonId)) {
+            jbGestionPedidos.setForeground(Color.BLACK);
             jbGestionPedidos.setBackground(Color.CYAN);
+            jbGestionPedidos.setSelected(true);
         } else {
             jbGestionPedidos.setBackground(Color.GRAY);
+            jbGestionPedidos.setSelected(false);
+
         }
 
         if (jbTop5.getText().equals(buttonId)) {
-            jbTop5.setBackground(Color.ORANGE);
+            jbTop5.setForeground(Color.BLACK);
+            jbTop5.setBackground(Color.GREEN);
+            jbTop5.setSelected(true);
         } else {
             jbTop5.setBackground(Color.GRAY);
+            jbTop5.setSelected(false);
+        }
+    }
+
+    public void setFocusedButton(String buttonId, boolean state) {
+
+        if (jbGestionMesas.getText().equals(buttonId)) {
+            if(state) {
+                if (!jbGestionMesas.isSelected()) {
+                    jbGestionMesas.setForeground(Color.MAGENTA);
+
+                } else {
+                    jbGestionMesas.setForeground(Color.BLACK);
+                }
+            } else {
+                jbGestionMesas.setForeground(Color.BLACK);
+            }
+        }
+
+        if (jbGestionCarta.getText().equals(buttonId)) {
+            if(state) {
+                if (!jbGestionCarta.isSelected()) {
+                    jbGestionCarta.setForeground(Color.ORANGE);
+                } else {
+                    jbGestionCarta.setForeground(Color.BLACK);
+                }
+            } else {
+                jbGestionCarta.setForeground(Color.BLACK);
+            }
+        }
+
+        if (jbGestionPedidos.getText().equals(buttonId)) {
+            if(state) {
+                if (!jbGestionPedidos.isSelected()) {
+                    jbGestionPedidos.setForeground(Color.CYAN);
+                } else {
+                    jbGestionPedidos.setForeground(Color.BLACK);
+                }
+            } else {
+                jbGestionPedidos.setForeground(Color.BLACK);
+            }
+        }
+
+        if (jbTop5.getText().equals(buttonId)) {
+            if(state) {
+                if (!jbTop5.isSelected()) {
+                    jbTop5.setForeground(Color.GREEN);
+                } else {
+                    jbTop5.setForeground(Color.BLACK);
+                }
+            } else {
+                jbTop5.setForeground(Color.BLACK);
+            }
         }
 
     }

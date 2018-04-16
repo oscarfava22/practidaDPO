@@ -125,10 +125,10 @@ public class PlatoView extends JPanel {
 
         if (state) {
             //setBorder(new LineBorder(Color.ORANGE, 2));
-            jlId.setBackground(Color.CYAN);
-            jlTitle.setBackground(Color.CYAN);
-            jlPrice.setBackground(Color.CYAN);
-            jlUnits.setBackground(Color.CYAN);
+            jlId.setBackground(Color.ORANGE);
+            jlTitle.setBackground(Color.ORANGE);
+            jlPrice.setBackground(Color.ORANGE);
+            jlUnits.setBackground(Color.ORANGE);
 
         } else {
             //setBorder(new LineBorder(Color.DARK_GRAY, 2));
