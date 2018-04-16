@@ -25,7 +25,7 @@ public class Main {
                 MesasManager mesasManager = new MesasManager();
 
                 MainView mainView = new MainView();
-                mainView.initView(mainViewModel, loginModel, platosManager.getPlatos());
+                mainView.initView(mainViewModel, loginModel, platosManager.getPlatos(), mesasManager.getMesas());
 
                 SelectorViewListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
