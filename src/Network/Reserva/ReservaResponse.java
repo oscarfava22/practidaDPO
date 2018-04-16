@@ -3,7 +3,7 @@ package Network.Reserva;
 import Network.Trama;
 //TODO DOCUMENTAR
 public class ReservaResponse extends Trama {
-    private static final long serialVersionUID = 12345;
+    private static final long serialVersionUID = 54321;
 
     private final String password;
     private final boolean available;
