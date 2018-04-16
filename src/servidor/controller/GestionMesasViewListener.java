@@ -5,6 +5,7 @@ import servidor.model.Mesa;
 import servidor.model.MesasManager;
 import servidor.view.GestionMesasView;
 import servidor.view.MainView;
+import servidor.view.MesaView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -17,12 +18,10 @@ import java.util.LinkedList;
 public class GestionMesasViewListener implements MouseInputListener{
 
     private MainView mainView;
-    private MesasManager mesasManager;
 
     //Constructor
-    public GestionMesasViewListener(MainView mainView, MesasManager mesasManager) {
+    public GestionMesasViewListener(MainView mainView) {
         this.mainView = mainView;
-        this.mesasManager = mesasManager;
     }
 
     //Getters & Setters
@@ -34,17 +33,22 @@ public class GestionMesasViewListener implements MouseInputListener{
         this.mainView = mainView;
     }
 
-    public MesasManager getMesasManager() {
-        return mesasManager;
-    }
-
-    public void setMesasManager(MesasManager mesasManager) {
-        this.mesasManager = mesasManager;
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (e.getSource().getClass().equals(JButton.class)) {
+            JButton jb = (JButton) e.getSource();
+            System.out.println(jb.getText());
+        }
 
+        if (e.getSource().getClass().equals(JLabel.class)) {
+            JLabel jl = (JLabel) e.getSource();
+            System.out.println(jl.getText());
+        }
+
+        if (e.getSource().getClass().equals(MesaView.class)){
+            MesaView mv = (MesaView) e.getSource();
+            System.out.println(mv.getJlIdMesa().toString() + " - " + mv.getJlNumComensalsMax().toString());
+        }
     }
 
     @Override
