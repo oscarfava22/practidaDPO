@@ -94,6 +94,12 @@ public class PedidosView extends JPanel {
     }
 
     public void initView(LinkedList<Reserva> reservas) {
+        Reserva[] reservaArray = (Reserva[]) reservas.toArray();
+
+        pedidos = new Object[reservaArray.length][];
+        for(int i=0;i<reservaArray.length;i++){
+            pedidos[i] = reservaArray[i].toObjectArray();
+        }
         //System.out.println(reservas.toString());
         //jtPedidos = null;
         //jpPedidos.removeAll();
