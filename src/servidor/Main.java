@@ -25,7 +25,8 @@ public class Main {
                 MesasManager mesasManager = new MesasManager();
 
                 MainView mainView = new MainView();
-                mainView.initView(mainViewModel, loginModel, platosManager.getPlatos(), mesasManager.getMesas());
+                mainView.initView(mainViewModel, loginModel, platosManager.getPlatos(), mesasManager.getMesas(),
+                        reservasManager.getReservas());
 
                 SelectorViewListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
@@ -44,6 +45,8 @@ public class Main {
                 MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView, mesasManager);
                 MesasViewListener mesasViewListener = new MesasViewListener();
 
+                PedidosListListener pedidosListListener = new PedidosListListener(mainView, pedidosManager);
+
                 mainView.registerControllers(selectorViewListener,
                      menuBarViewListener,
                      gestionMesasViewListener,
@@ -56,7 +59,7 @@ public class Main {
                      platosViewListener,
                      platosOptionsViewListener,
                         mesasOptionsViewListener,
-                        mesasViewListener);
+                        mesasViewListener, pedidosListListener);
 
                 MainServer mainServer = new MainServer(mainView, platosManager, reservasManager);
                 mainServer.initServers();
