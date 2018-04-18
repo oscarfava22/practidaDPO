@@ -17,6 +17,7 @@ public class AddMesaDialogListener implements ActionListener{
         switch (e.getActionCommand()){
             case AddMesaDialogView.POSITIVE_TAG:
                 if (view.isNumComensalesCorrect()){
+                    System.out.println("Numero de comensales correcto");
                     //TODO: Connect with bbdd to create the specified table. BBDD must generate an id for this table
                 }else{
                     System.out.println("Numero de comensales incorrecto");

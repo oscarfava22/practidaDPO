@@ -5,6 +5,7 @@ import servidor.view.AddMesaDialogView;
 import servidor.view.GestionMesasView;
 import servidor.view.MainView;
 
+import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ public class MesasOptionsViewListener implements ActionListener {
     private MainView mainView;
     private MesasManager mesasManager;
     private AddMesaDialogView addDialog;
+    private JDialog deleteDialog;
 
     public MesasOptionsViewListener(MainView mainView, MesasManager mesasManager){
         this.mainView = mainView;
@@ -30,16 +32,25 @@ public class MesasOptionsViewListener implements ActionListener {
 
                 AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog);
                 addDialog.registerControllers(addListener);
+
                 //while (addDialog.isVisible()){}
                 //TODO: Aparecer Dialog para añadir mesa
                     //TODO: Conectar con la bbd si en el dialog ha clicado a "AÑADIR"
                     //TODO: Crear la mesa en la bbdd
                 break;
+
             case GestionMesasView.ELIMINAR_MESA_TAG:
+                deleteDialog = new JDialog(mainView, "Eliminar mesa");
+
                 //TODO: Aparecer Dialog para confirmar que desea eliminar la mesa
                     //TODO: Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                     //TODO: Eliminar la mesa y todas sus reservas de la bbdd
                 break;
         }
+    }
+
+    public void initDeleteDialog(){
+        deleteDialog.setVisible(true);
+        deleteDialog.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
