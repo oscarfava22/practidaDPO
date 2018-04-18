@@ -48,7 +48,7 @@ public class Reserva implements Serializable {
 
     //FIXME ponme donde deberia ir
     public Object[] toObjectArray(){
-        Object[] data = new Object[];
+        Object[] data = new Object[3];
         data[0] = id;
         data[1] = title;
         data[2] = date;
