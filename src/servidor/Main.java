@@ -42,8 +42,8 @@ public class Main {
                 PlatosViewListener platosViewListener = new PlatosViewListener(mainView, platosManager);
                 PlatosOptionsViewListener platosOptionsViewListener = new PlatosOptionsViewListener(mainView, platosManager, platosViewListener);
 
-                MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView, mesasManager);
-                MesasViewListener mesasViewListener = new MesasViewListener(mainView, mesasManager, mesasOptionsViewListener);
+                MesasViewListener mesasViewListener = new MesasViewListener(mainView, mesasManager);
+                MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView, mesasManager, mesasViewListener);
 
                 PedidosListListener pedidosListListener = new PedidosListListener(mainView, pedidosManager);
 

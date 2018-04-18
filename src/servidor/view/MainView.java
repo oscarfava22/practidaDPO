@@ -217,6 +217,10 @@ public class MainView extends JFrame {
         gestionCartaView.refreshPlatos(platos, platosViewListener);
     }
 
+    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener){
+        gestionMesasView.refreshMesas(mesas, mesasViewListener);
+    }
+
     public void resetTextFields() {
         gestionCartaView.resetTextFields();
     }

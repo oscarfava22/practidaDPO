@@ -153,4 +153,8 @@ public class GestionMesasView extends JPanel {
         jbAnadirMesa.setActionCommand(AÑADIR_MESA_TAG);
         jbEliminarMesa.setActionCommand(ELIMINAR_MESA_TAG);
     }
+
+    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
+        mesasView.refreshMesas(mesas, mesasViewListener);
+    }
 }
