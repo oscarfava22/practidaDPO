@@ -21,22 +21,29 @@ public class GestionCartaView extends JPanel {
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.ORANGE, 10));
+        platosView = new PlatosView();
+        platosOptionsView = new PlatosOptionsView();
 
-        jpCarta = new JPanel(new BorderLayout());
+        /*jpCarta = new JPanel(new BorderLayout());
         jspCarta = new JScrollPane();
         jspCarta.getViewport().setView(jpCarta);
         jspCarta.setBorder(BorderFactory.createEmptyBorder());
-        add(jspCarta, BorderLayout.CENTER);
+        add(jspCarta, BorderLayout.CENTER);*/
     }
 
     public void initView(MainViewModel mainViewModel, LinkedList<Plato> platos) {
 
-        platosView = new PlatosView();
+
+
         platosView.initPlatos(platos);
-        platosOptionsView = new PlatosOptionsView();
-        jpCarta.add(platosView, BorderLayout.NORTH);
+
+        /*jpCarta.add(platosView, BorderLayout.NORTH);
         //add(platosView, BorderLayout.CENTER);
+        add(platosOptionsView, BorderLayout.LINE_START);*/
+
         add(platosOptionsView, BorderLayout.LINE_START);
+        add(platosView, BorderLayout.CENTER);
+
     }
 
     public void registerControllers(MouseInputListener gestionCartaViewListener, PlatosViewListener platosViewListener,

@@ -58,7 +58,7 @@ public class Client {
         oos.writeObject(request);
 
         ReservaResponse response = (ReservaResponse) ois.readObject();
-        if(response.isError()){
+        if(response.isAvailable()){
             return response.getPassword();
         }
         else{

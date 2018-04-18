@@ -1,10 +1,6 @@
 package servidor.view;
 
-import servidor.controller.MesasOptionsViewListener;
-import servidor.controller.MesasViewListener;
-import servidor.controller.PlatosOptionsViewListener;
-import servidor.controller.PlatosViewListener;
-import servidor.controller.SelectorViewListener;
+import servidor.controller.*;
 import servidor.model.*;
 
 import javax.swing.*;
@@ -52,12 +48,13 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void initView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas) {
+    public void initView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas,
+                         LinkedList<Reserva> reservas) {
 
         selectorView.initView(mainViewModel);
         gestionMesasView.initView(mainViewModel, mesas);
         gestionCartaView.initView(mainViewModel, platos);
-        gestionPedidosView.initView(mainViewModel);
+        gestionPedidosView.initView(mainViewModel, reservas);
         settingsDialogView.initView(mainViewModel);
 
         statusBarView.initView(loginModel);
@@ -90,7 +87,8 @@ public class MainView extends JFrame {
                                     PlatosViewListener platosViewListener,
                                     PlatosOptionsViewListener platosOptionsViewListener,
                                     MesasOptionsViewListener mesasOptionsViewListener,
-                                    MesasViewListener mesasViewListener) {
+                                    MesasViewListener mesasViewListener,
+                                    PedidosListListener pedidosListListener) {
 
 
         selectorView.registerControllers(selectorViewListener);
@@ -98,7 +96,7 @@ public class MainView extends JFrame {
 
         gestionMesasView.registerControllers(mesasOptionsViewListener, mesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener, platosViewListener, platosOptionsViewListener);
-        gestionPedidosView.registerControllers(gestionPedidosViewListener);
+        gestionPedidosView.registerControllers(gestionPedidosViewListener, pedidosListListener);
         gestionTop5View.registerControllers(gestionTop5ViewListener);
 
         loginDialogView.registerControllers(loginDialogViewListener);
@@ -225,5 +223,13 @@ public class MainView extends JFrame {
 
     public void setConnectedDevices(Integer count) {
         statusBarView.setConnectedDevices(count);
+    }
+
+
+    public JTable getJtPedidos() {
+        return gestionPedidosView.getJtPedidos();
+    }
+    public int getSelectedRow() {
+        return gestionPedidosView.getSelectedRow();
     }
 }

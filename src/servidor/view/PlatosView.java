@@ -17,25 +17,43 @@ public class PlatosView extends JPanel {
     private JScrollPane jspPlatos;
 
     public PlatosView() {
-        platosView = new LinkedList<>();
-        jpMain = new JPanel();
-        jpMain.setLayout(new BoxLayout(jpMain, BoxLayout.Y_AXIS));
-        //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
         setLayout(new BorderLayout());
-        //add(new JLabel("Carta") ,BorderLayout.NORTH);
-        add(jpMain, BorderLayout.CENTER);
-        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        //setBackground(Color.DARK_GRAY);
+
+        platosView = new LinkedList<>();
 
         /*jpPlatos = new JPanel();
+        jpPlatos.setLayout(new BoxLayout(jpPlatos, BoxLayout.Y_AXIS));
+        add(jpPlatos, BorderLayout.CENTER);
+        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));*/
+
+
+        jpPlatos = new JPanel();
         jpPlatos.setLayout(new BoxLayout(jpPlatos, BoxLayout.Y_AXIS));
 
         jspPlatos = new JScrollPane();
         jspPlatos.getViewport().setView(jpPlatos);
+        jspPlatos.setBorder(BorderFactory.createEmptyBorder());
+
+        jpMain = new JPanel(new BorderLayout());
+        jpMain.add(jspPlatos, BorderLayout.CENTER);
+
+
+        add(jpMain, BorderLayout.CENTER);
+        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+
+        /*jpPedidos.add(jtPedidos, BorderLayout.CENTER);
+
+        jspPedidos = new JScrollPane();
+        jspPedidos.getViewport().setView(jpPedidos);
+        jspPedidos.setBorder(BorderFactory.createEmptyBorder());
 
         jpMain = new JPanel(new BorderLayout());
 
-        jpMain.add(jspPlatos, BorderLayout.CENTER);
+        jpMain.add(jspPedidos, BorderLayout.CENTER);
+
+        add(jtPedidos.getTableHeader(), BorderLayout.NORTH);
         add(jpMain, BorderLayout.CENTER);*/
     }
 
@@ -47,7 +65,7 @@ public class PlatosView extends JPanel {
 
         for(Plato pl : platos) {
             platosView.add(new PlatoView(pl));
-            jpMain.add(platosView.getLast());
+            jpPlatos.add(platosView.getLast());
             setLabelsBackground2(false);
         }
         //jspPlatos.getViewport().setView(jpPlatos);
@@ -58,7 +76,7 @@ public class PlatosView extends JPanel {
     public void refreshPlatos(LinkedList<Plato> platos, PlatosViewListener platosViewListener) {
 
         platosView.clear();
-        jpMain.removeAll();
+        jpPlatos.removeAll();
         updateUI();
         initPlatos(platos);
         registerControllers(platosViewListener);
