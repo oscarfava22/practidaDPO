@@ -19,8 +19,10 @@ public class GestionPedidosView extends JPanel {
     private PlatosView platosProcesados;
 
     private JPanel jpPedidos;
-
     private JSplitPane splitPane;
+
+    private JButton jbServe;
+    private JPanel jpPlatosPendientes;
 
 
     public GestionPedidosView() {
@@ -38,12 +40,22 @@ public class GestionPedidosView extends JPanel {
 
         platosPendientes.initPlatos(pl.getPlatos());
         platosPendientes.setBorder(BorderFactory.createTitledBorder("Platos Pendientes"));
+
+        jbServe = new JButton("Servir");
+        jbServe.setFocusPainted(false);
+        //jbServe.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        //jbServe.setBorder();
+        jpPlatosPendientes = new JPanel(new BorderLayout());
+
+        jpPlatosPendientes.add(platosPendientes, BorderLayout.CENTER);
+        jpPlatosPendientes.add(jbServe, BorderLayout.SOUTH);
+
         platosProcesados.initPlatos(pl.getPlatos());
         platosProcesados.setBorder(BorderFactory.createTitledBorder("Platos Procesados"));
 
         jpPedidos = new JPanel(new GridLayout(1,2));
 
-        jpPedidos.add(platosPendientes);
+        jpPedidos.add(jpPlatosPendientes);
         jpPedidos.add(platosProcesados);
 
 

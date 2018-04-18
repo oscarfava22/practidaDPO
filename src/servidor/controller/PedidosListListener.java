@@ -16,6 +16,7 @@ public class PedidosListListener implements ListSelectionListener {
     private MainView mainView;
     private PedidosManager pedidosManager;
     private boolean selected = true;
+    private int last_value = 0;
 
     public PedidosListListener(MainView mainView, PedidosManager pedidosManager) {
         this.mainView = mainView;
@@ -24,6 +25,8 @@ public class PedidosListListener implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        last_value = mainView.getSelectedRow();
+
         /*if(selected){
             selected=false;
             System.out.println();
