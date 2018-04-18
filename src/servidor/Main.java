@@ -31,7 +31,7 @@ public class Main {
                 SelectorViewListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
 
-                MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView, mesasManager);
+                MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
                 MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(mainView);
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
                 MouseInputListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView);
@@ -43,7 +43,7 @@ public class Main {
                 PlatosOptionsViewListener platosOptionsViewListener = new PlatosOptionsViewListener(mainView, platosManager, platosViewListener);
 
                 MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView, mesasManager);
-                MesasViewListener mesasViewListener = new MesasViewListener();
+                MesasViewListener mesasViewListener = new MesasViewListener(mainView, mesasManager, mesasOptionsViewListener);
 
                 PedidosListListener pedidosListListener = new PedidosListListener(mainView, pedidosManager);
 
