@@ -33,7 +33,7 @@ public class PedidosListListener implements ListSelectionListener {
         }*/
 
         //if(selected) {
-            //System.out.println("Row: " + mainView.getSelectedRow());
+            System.out.println("Row: " + mainView.getSelectedRow());
         //}
 
         //System.out.println("Column: " + mainView.getJtPedidos().getSelectedColumn());

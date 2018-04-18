@@ -32,10 +32,11 @@ public class AddMesaDialogView extends JDialog{
 
 
         setContentPane(jpMessage);
-
+        //add(jpMessage);
         //posicion en la pantalla (centrado)
+        setSize(new Dimension(400,100));
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public void initDialog(){
