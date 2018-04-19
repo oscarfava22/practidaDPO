@@ -32,7 +32,8 @@ public class Main {
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
 
                 MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
-                MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(mainView.getGestionCartaView(), platosManager);
+                MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(mainView.getGestionCartaView().getPlatosOptionsView(),
+                        mainView.getGestionCartaView().getPlatosView() ,platosManager);
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
                 MouseInputListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView);
 

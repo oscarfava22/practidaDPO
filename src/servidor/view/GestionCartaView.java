@@ -32,10 +32,6 @@ public class GestionCartaView extends JPanel {
         platosOptionsView.registerControllers(gestionCartaViewListener);
     }
 
-    public void setSelectedPlatoState(String id, boolean state) {
-        platosView.setSelectedPlatoState(id, state);
-    }
-
     public PlatosOptionsView getPlatosOptionsView() {
         return platosOptionsView;
     }

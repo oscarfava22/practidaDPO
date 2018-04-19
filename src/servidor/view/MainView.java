@@ -181,4 +181,6 @@ public class MainView extends JFrame {
     public GestionCartaView getGestionCartaView() {
         return gestionCartaView;
     }
+
+    public GestionPedidosView gestGestionPedidosView() { return gestionPedidosView; }
 }

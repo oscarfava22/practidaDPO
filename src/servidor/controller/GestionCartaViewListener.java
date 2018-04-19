@@ -4,7 +4,8 @@ import servidor.model.Plato;
 import servidor.model.PlatosManager;
 import servidor.model.SerialGenerator;
 import servidor.view.CustomLabel;
-import servidor.view.GestionCartaView;
+import servidor.view.PlatosOptionsView;
+import servidor.view.PlatosView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -12,11 +13,13 @@ import java.awt.event.MouseEvent;
 
 public class GestionCartaViewListener implements MouseInputListener {
 
-    private GestionCartaView gestionCartaView;
+    private PlatosOptionsView platosOptionsView;
+    private PlatosView platosView;
     private PlatosManager platosManager;
 
-    public GestionCartaViewListener(GestionCartaView gestionCartaView, PlatosManager platosManager) {
-        this.gestionCartaView = gestionCartaView;
+    public GestionCartaViewListener(PlatosOptionsView platosOptionsView, PlatosView platosView, PlatosManager platosManager) {
+        this.platosOptionsView = platosOptionsView;
+        this.platosView = platosView;
         this.platosManager = platosManager;
     }
 
@@ -29,22 +32,10 @@ public class GestionCartaViewListener implements MouseInputListener {
             switch(jb.getText()) {
                 case "Edit":
                     if (jb.isEnabled()) {
-                        gestionCartaView.getPlatosOptionsView().setEditState(true);
+                        platosOptionsView.setEditState(true);
                     }
                     break;
-
-                case "Cancel":
-                    if(jb.isEnabled()) {
-                        if (gestionCartaView.getPlatosOptionsView().getEditState() || gestionCartaView.getPlatosOptionsView().getAddState()) {
-                            if(gestionCartaView.getPlatosOptionsView().getEditState()) {
-                                gestionCartaView.getPlatosOptionsView().setEditState(false);
-                            } else {
-                                gestionCartaView.getPlatosOptionsView().setAddProductState(false);
-                            }
-                        }
-                    }
-                    break;
-
+                    
                 case "Update":
                     if (jb.isEnabled()) {
                         if (verifyProductForm()) {
@@ -56,23 +47,71 @@ public class GestionCartaViewListener implements MouseInputListener {
                             if (option == JOptionPane.YES_OPTION) {
 
                                 platosManager.updatePlato(
-                                        Long.parseLong(gestionCartaView.getPlatosOptionsView().getIdText()),
-                                        gestionCartaView.getPlatosOptionsView().getType(),
-                                        gestionCartaView.getPlatosOptionsView().getTitleText(),
-                                        Float.parseFloat(gestionCartaView.getPlatosOptionsView().getPriceText()),
-                                        Integer.parseInt(gestionCartaView.getPlatosOptionsView().getUnitsText()));
+                                                          Long.parseLong(platosOptionsView.getIdText()),
+                                                          platosOptionsView.getType(),
+                                                          platosOptionsView.getTitleText(),
+                                                          Float.parseFloat(platosOptionsView.getPriceText()),
+                                                          Integer.parseInt(platosOptionsView.getUnitsText()));
 
-                                gestionCartaView.getPlatosView().updatePlato(
-                                        gestionCartaView.getPlatosOptionsView().getIdText(),
-                                        gestionCartaView.getPlatosOptionsView().getType(),
-                                        gestionCartaView.getPlatosOptionsView().getTitleText(),
-                                        gestionCartaView.getPlatosOptionsView().getPriceText(),
-                                        gestionCartaView.getPlatosOptionsView().getUnitsText());
+                                platosView.updatePlato(
+                                                       platosOptionsView.getIdText(),
+                                                       platosOptionsView.getType(),
+                                                       platosOptionsView.getTitleText(),
+                                                       platosOptionsView.getPriceText(),
+                                                       platosOptionsView.getUnitsText());
 
-                                gestionCartaView.getPlatosOptionsView().setEditState(false);
+                                platosOptionsView.setEditState(false);
 
                             } else if(option == JOptionPane.NO_OPTION) {
-                                gestionCartaView.getPlatosOptionsView().setEditState(true);
+                                platosOptionsView.setEditState(true);
+                            }
+                        }
+                    }
+                    break;
+
+                case"Add Product":
+                    if(jb.isEnabled()) {
+                        platosOptionsView.setAddProductState(true);
+                        platosView.setSelectedPlatosState(false);
+                    }
+                    break;
+
+                case "Create":
+                    if (jb.isEnabled()) {
+                        if (verifyProductForm()) {
+
+                            int option2 = JOptionPane.showConfirmDialog(null,
+                                    "Create New Product?",
+                                    "New Product Info", JOptionPane.YES_NO_OPTION);
+
+                            if (option2 == JOptionPane.YES_OPTION) {
+                                //Se crea un nuevo plato y se le asigna un nuevo Id
+                                platosManager.addPlato(new Plato(
+                                        SerialGenerator.getProductId(),
+                                        platosOptionsView.getType(),
+                                        platosOptionsView.getTitleText(),
+                                        Float.parseFloat(platosOptionsView.getPriceText()),
+                                        Integer.parseInt(platosOptionsView.getUnitsText())));
+
+                                platosOptionsView.setEditState(false);
+                                platosOptionsView.setAddProductState(false);
+                                platosView.addPlato(platosManager.getPlatos().getLast(), this);
+
+                            } else if(option2 == JOptionPane.NO_OPTION) {
+                                platosOptionsView.setEditState(true);
+                            }
+                        }
+                    }
+
+                    break;
+
+                case "Cancel":
+                    if(jb.isEnabled()) {
+                        if (platosOptionsView.getEditState() || platosOptionsView.getAddState()) {
+                            if(platosOptionsView.getEditState()) {
+                                platosOptionsView.setEditState(false);
+                            } else {
+                                platosOptionsView.setAddProductState(false);
                             }
                         }
                     }
@@ -87,55 +126,18 @@ public class GestionCartaViewListener implements MouseInputListener {
 
                         if (option == JOptionPane.YES_OPTION) {
 
-                            platosManager.removePlato(Long.parseLong(gestionCartaView.getPlatosOptionsView().getIdText()));
-                            gestionCartaView.getPlatosView().deletePlato(gestionCartaView.getPlatosOptionsView().getIdText());
+                            platosManager.removePlato(Long.parseLong(platosOptionsView.getIdText()));
+                            platosView.deletePlato(platosOptionsView.getIdText());
 
-                            gestionCartaView.getPlatosOptionsView().resetTextFields();
-                            gestionCartaView.getPlatosOptionsView().setEditState(false);
-                            gestionCartaView.getPlatosOptionsView().setAddProductState(false);
+                            platosOptionsView.resetTextFields();
+                            platosOptionsView.setEditState(false);
+                            platosOptionsView.setAddProductState(false);
 
                         } else if(option == JOptionPane.NO_OPTION) {
-                            gestionCartaView.getPlatosOptionsView().setEditState(true);
+                            platosOptionsView.setEditState(true);
                         }
                     }
 
-                    break;
-
-                case "Create":
-
-                    if (jb.isEnabled()) {
-                        if (verifyProductForm()) {
-
-                            int option2 = JOptionPane.showConfirmDialog(null,
-                                    "Create New Product?",
-                                    "New Product Info", JOptionPane.YES_NO_OPTION);
-
-                            if (option2 == JOptionPane.YES_OPTION) {
-                                //Se crea un nuevo plato y se le asigna un nuevo Id
-                                platosManager.addPlato(new Plato(
-                                        SerialGenerator.getProductId(),
-                                        gestionCartaView.getPlatosOptionsView().getType(),
-                                        gestionCartaView.getPlatosOptionsView().getTitleText(),
-                                        Float.parseFloat(gestionCartaView.getPlatosOptionsView().getPriceText()),
-                                        Integer.parseInt(gestionCartaView.getPlatosOptionsView().getUnitsText())));
-
-                                gestionCartaView.getPlatosOptionsView().setEditState(false);
-                                gestionCartaView.getPlatosOptionsView().setAddProductState(false);
-                                gestionCartaView.getPlatosView().addPlato(platosManager.getPlatos().getLast(), this);
-
-                            } else if(option2 == JOptionPane.NO_OPTION) {
-                                gestionCartaView.getPlatosOptionsView().setEditState(true);
-                            }
-                        }
-                    }
-
-                    break;
-
-                case"Add Product":
-                    if(jb.isEnabled()) {
-                        gestionCartaView.getPlatosOptionsView().setAddProductState(true);
-                        gestionCartaView.getPlatosView().setSelectedPlatosState(false);
-                    }
                     break;
             }
 
@@ -144,40 +146,40 @@ public class GestionCartaViewListener implements MouseInputListener {
         if (e.getSource().getClass().equals(CustomLabel.class)) {
             CustomLabel cl = (CustomLabel) e.getSource();
 
-            if (gestionCartaView.getPlatosOptionsView().getEditState() || gestionCartaView.getPlatosOptionsView().getAddState()){
+            if (platosOptionsView.getEditState() || platosOptionsView.getAddState()){
 
-                if (gestionCartaView.getPlatosOptionsView().getEditState()) {
+                if (platosOptionsView.getEditState()) {
 
                     int option = JOptionPane.showConfirmDialog(null,
                             "Exit Editing?", "Edit Info", JOptionPane.YES_NO_OPTION);
 
                     if (option == JOptionPane.YES_OPTION) {
-                        gestionCartaView.getPlatosOptionsView().setEditState(false);
+                        platosOptionsView.setEditState(false);
                     } else if (option == JOptionPane.NO_OPTION) {
-                        gestionCartaView.getPlatosOptionsView().setEditState(true);
+                        platosOptionsView.setEditState(true);
                     }
 
-                }else if (gestionCartaView.getPlatosOptionsView().getAddState()){
+                }else if (platosOptionsView.getAddState()){
 
                     int option = JOptionPane.showConfirmDialog(null,
                             "Exit Creating New Product?", "New Product Info", JOptionPane.YES_NO_OPTION);
 
                     if (option == JOptionPane.YES_OPTION) {
-                        gestionCartaView.getPlatosOptionsView().setAddProductState(false);
+                        platosOptionsView.setAddProductState(false);
                     } else if (option == JOptionPane.NO_OPTION) {
-                        gestionCartaView.getPlatosOptionsView().setAddProductState(true);
+                        platosOptionsView.setAddProductState(true);
                     }
                 }
 
             } else {
 
-                gestionCartaView.setSelectedPlatoState(cl.getId(), true);
+                platosView.setSelectedPlatoState(cl.getId(), true);
                 //Default State
-                gestionCartaView.getPlatosOptionsView().setEditState(false);
+                platosOptionsView.setEditState(false);
 
                 for(int i = 0; i < platosManager.getPlatos().size(); i++) {
                     if(platosManager.getPlatos().get(i).getId() == Long.parseLong(cl.getId())) {
-                        gestionCartaView.getPlatosOptionsView().setTextFields(platosManager.getPlato(i));
+                        platosOptionsView.setTextFields(platosManager.getPlato(i));
                         break;
                     }
                 }
@@ -219,36 +221,41 @@ public class GestionCartaViewListener implements MouseInputListener {
 
         int error_type = 0;
 
-        if (!gestionCartaView.getPlatosOptionsView().getTitleText().equals("")) {
-            if(!gestionCartaView.getPlatosOptionsView().getPriceText().equals("")){
+        if (!platosOptionsView.getTitleText().equals("")) {
+            if(!platosOptionsView.getPriceText().equals("")){
                 try {
-                    Float.parseFloat(gestionCartaView.getPlatosOptionsView().getPriceText());
-                    if(!gestionCartaView.getPlatosOptionsView().getUnitsText().equals("")) {
+                    Float.parseFloat(platosOptionsView.getPriceText());
+                    if(!platosOptionsView.getUnitsText().equals("")) {
                         try {
-                            Integer.parseInt(gestionCartaView.getPlatosOptionsView().getUnitsText());
+                            Integer.parseInt(platosOptionsView.getUnitsText());
                         } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(gestionCartaView.getPlatosOptionsView(), "Incorrect Info - Incorrect Units Format",
+                            JOptionPane.showMessageDialog(platosOptionsView, 
+                                    "Incorrect Info - Incorrect Units Format",
                                     "New Product Error", JOptionPane.ERROR_MESSAGE);
                             error_type = 4;
                         }
                     } else {
-                        JOptionPane.showMessageDialog(gestionCartaView.getPlatosOptionsView(), "Incorrect Info - Empty Units",
+                        JOptionPane.showMessageDialog(platosOptionsView, 
+                                "Incorrect Info - Empty Units",
                                 "New Product Error", JOptionPane.ERROR_MESSAGE);
                         error_type = 1;
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(gestionCartaView.getPlatosOptionsView(), "Incorrect Info - Incorrect Price Format",
+                    JOptionPane.showMessageDialog(platosOptionsView, 
+                            "Incorrect Info - Incorrect Price Format",
                             "New Product Error", JOptionPane.ERROR_MESSAGE);
                     error_type = 5;
                 }
 
             } else {
-                JOptionPane.showMessageDialog(gestionCartaView.getPlatosOptionsView(), "Incorrect Info - Empty Price",
+                JOptionPane.showMessageDialog(platosOptionsView, 
+                        "Incorrect Info - Empty Price",
                         "New Product Error", JOptionPane.ERROR_MESSAGE);
                 error_type = 2;
             }
         } else {
-            JOptionPane.showMessageDialog(gestionCartaView.getPlatosOptionsView(), "Incorrect Info - Empty Title", "New Product Error",
+            JOptionPane.showMessageDialog(platosOptionsView, 
+                    "Incorrect Info - Empty Title", "New Product Error",
                     JOptionPane.ERROR_MESSAGE);
             error_type = 3;
         }

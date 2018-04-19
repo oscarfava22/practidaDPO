@@ -81,7 +81,6 @@ public class GestionPedidosView extends JPanel {
     public void registerControllers(MouseInputListener gestionPedidosViewListener, PedidosListListener pedidosListListener) {
 
         pedidosView.registerControllers(pedidosListListener);
-
     }
 
     public JTable getJtPedidos() {
