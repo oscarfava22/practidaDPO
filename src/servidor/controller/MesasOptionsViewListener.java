@@ -54,7 +54,6 @@ public class MesasOptionsViewListener implements ActionListener {
                     mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
                 } else if(delete == JOptionPane.NO_OPTION) {
                     System.out.println("No eliminar mesa");
-                    mainView.setOptionsEditState(true);
                 }
 
                 break;

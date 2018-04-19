@@ -4,9 +4,7 @@ import servidor.controller.SelectorViewListener;
 import servidor.model.MainViewModel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class SelectorView extends JPanel {
 
@@ -39,12 +37,10 @@ public class SelectorView extends JPanel {
         jbTop5.setBackground(Color.GRAY);
         jbTop5.setBorderPainted(false);
 
-
         add(jbGestionMesas);
         add(jbGestionCarta);
         add(jbGestionPedidos);
         add(jbTop5);
-
     }
 
     public void initView(MainViewModel mvm) {
@@ -55,8 +51,6 @@ public class SelectorView extends JPanel {
     }
 
     public void registerControllers(SelectorViewListener selectorViewListener) {
-
-
         jbGestionMesas.addMouseListener(selectorViewListener);
         jbGestionMesas.addMouseMotionListener(selectorViewListener);
         jbGestionCarta.addMouseListener(selectorViewListener);
@@ -72,7 +66,6 @@ public class SelectorView extends JPanel {
         if (jbGestionMesas.getText().equals(buttonId)) {
             jbGestionMesas.setForeground(Color.BLACK);
             jbGestionMesas.setBackground(Color.MAGENTA);
-
             jbGestionMesas.setSelected(true);
         } else {
             jbGestionMesas.setBackground(Color.GRAY);
@@ -115,7 +108,6 @@ public class SelectorView extends JPanel {
             if(state) {
                 if (!jbGestionMesas.isSelected()) {
                     jbGestionMesas.setForeground(Color.MAGENTA);
-
                 } else {
                     jbGestionMesas.setForeground(Color.BLACK);
                 }

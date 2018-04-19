@@ -1,9 +1,9 @@
 package servidor.view;
 
-import servidor.controller.PlatosViewListener;
 import servidor.model.Plato;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -12,7 +12,6 @@ public class PlatosView extends JPanel {
 
     private LinkedList<PlatoView> platosView;
     private JPanel jpMain;
-
     private JPanel jpPlatos;
     private JScrollPane jspPlatos;
 
@@ -21,12 +20,6 @@ public class PlatosView extends JPanel {
         setLayout(new BorderLayout());
 
         platosView = new LinkedList<>();
-
-        /*jpPlatos = new JPanel();
-        jpPlatos.setLayout(new BoxLayout(jpPlatos, BoxLayout.Y_AXIS));
-        add(jpPlatos, BorderLayout.CENTER);
-        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));*/
-
 
         jpPlatos = new JPanel();
         jpPlatos.setLayout(new BoxLayout(jpPlatos, BoxLayout.Y_AXIS));
@@ -38,73 +31,69 @@ public class PlatosView extends JPanel {
         jpMain = new JPanel(new BorderLayout());
         jpMain.add(jspPlatos, BorderLayout.CENTER);
 
-
         add(jpMain, BorderLayout.CENTER);
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-
-
-        /*jpPedidos.add(jtPedidos, BorderLayout.CENTER);
-
-        jspPedidos = new JScrollPane();
-        jspPedidos.getViewport().setView(jpPedidos);
-        jspPedidos.setBorder(BorderFactory.createEmptyBorder());
-
-        jpMain = new JPanel(new BorderLayout());
-
-        jpMain.add(jspPedidos, BorderLayout.CENTER);
-
-        add(jtPedidos.getTableHeader(), BorderLayout.NORTH);
-        add(jpMain, BorderLayout.CENTER);*/
     }
 
-    public void addPlato() { }
-
-    public void addPlatos() { }
-
-    public void initPlatos(LinkedList<Plato> platos) {
-
+    public void initPlatosView(LinkedList<Plato> platos) {
         for(Plato pl : platos) {
             platosView.add(new PlatoView(pl));
             jpPlatos.add(platosView.getLast());
-            setLabelsBackground2(false);
+            setSelectedPlatosState(false);
         }
-        //jspPlatos.getViewport().setView(jpPlatos);
-        //jspPlatos.getViewport().setView(jpPlatos);
-        //add(jpMain, BorderLayout.CENTER);
     }
 
-    public void refreshPlatos(LinkedList<Plato> platos, PlatosViewListener platosViewListener) {
-
-        platosView.clear();
-        jpPlatos.removeAll();
-        updateUI();
-        initPlatos(platos);
-        registerControllers(platosViewListener);
-        setLabelsBackground2(false);
-
-    }
-
-    public void registerControllers(PlatosViewListener platosViewListener) {
-
+    public void registerControllers(MouseInputListener gestionCartaViewListener) {
         for (PlatoView pv : platosView) {
-            pv.registerControllers(platosViewListener);
+            pv.registerControllers(gestionCartaViewListener);
         }
     }
 
-    public void setLabelsBackground(String id, boolean state) {
+    public void addPlato(Plato plato, MouseInputListener gestionCartaViewListener) {
+        platosView.add(new PlatoView(plato));
+        platosView.getLast().registerControllers(gestionCartaViewListener);
+        jpPlatos.add(platosView.getLast());
+        setSelectedPlatosState(false);
+        jpPlatos.updateUI();
+    }
 
+    public void updatePlato(String id, String type, String title, String price, String units) {
         for(PlatoView pv : platosView) {
-            if (pv.getJlId().equals(id)) {
-                pv.setLabelsBackground(state);
-            } else {
-                pv.setLabelsBackground(false);
+            if(pv.getJlProductId().equals(id)) {
+                pv.setJlTitle(title);
+                pv.setJlPrice(price);
+                pv.setJlUnits(units);
+                jpPlatos.updateUI();
+                break;
             }
         }
     }
 
-    public void setLabelsBackground2(boolean state) {
+    public void deletePlato(String productId) {
+        for(int i = 0; i < platosView.size(); i++) {
+            if (platosView.get(i).getJlProductId().equals(productId)){
+                platosView.remove(i);
+                jpPlatos.remove(i);
+                setSelectedPlatosState(false);
+                jpPlatos.updateUI();
+                break;
+            }
+        }
+    }
+
+    public void setSelectedPlatoState(String id, boolean state) {
         for(PlatoView pv : platosView) {
-            pv.setLabelsBackground(state);
+            if (pv.getJlProductId().equals(id)) {
+                pv.setSelectedState(state);
+            } else {
+                pv.setSelectedState(false);
+            }
+        }
+    }
+
+    public void setSelectedPlatosState(boolean state) {
+        for(PlatoView pv : platosView) {
+            pv.setSelectedState(state);
         }
     }
 

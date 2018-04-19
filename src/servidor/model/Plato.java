@@ -71,7 +71,6 @@ public class Plato implements Serializable {
         this.units += units;
     }
 
-
     public synchronized void updatePlato(String type, String title, float price, int units) {
         setType(type);
         setTitle(title);

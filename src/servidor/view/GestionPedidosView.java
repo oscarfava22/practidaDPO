@@ -38,7 +38,7 @@ public class GestionPedidosView extends JPanel {
 
         PlatosManager pl = new PlatosManager();
 
-        platosPendientes.initPlatos(pl.getPlatos());
+        platosPendientes.initPlatosView(pl.getPlatos());
         platosPendientes.setBorder(BorderFactory.createTitledBorder("Platos Pendientes"));
 
         jbServe = new JButton("Servir");
@@ -50,7 +50,7 @@ public class GestionPedidosView extends JPanel {
         jpPlatosPendientes.add(platosPendientes, BorderLayout.CENTER);
         jpPlatosPendientes.add(jbServe, BorderLayout.SOUTH);
 
-        platosProcesados.initPlatos(pl.getPlatos());
+        platosProcesados.initPlatosView(pl.getPlatos());
         platosProcesados.setBorder(BorderFactory.createTitledBorder("Platos Procesados"));
 
         jpPedidos = new JPanel(new GridLayout(1,2));
