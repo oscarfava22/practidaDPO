@@ -26,20 +26,20 @@ public class Main {
 
                 MainView mainView = new MainView();
                 mainView.initMainView(mainViewModel, loginModel, platosManager.getPlatos(), mesasManager.getMesas(),
-                        reservasManager.getReservas());
+                                      reservasManager.getReservas());
 
                 SelectorViewListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
                 ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
 
                 MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
-                MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(mainView.getGestionCartaView().getPlatosOptionsView(),
-                        mainView.getGestionCartaView().getPlatosView() ,platosManager);
+                MouseInputListener gestionCartaViewListener = new GestionCartaViewListener(
+                                                                  mainView.getGestionCartaView().getPlatosOptionsView(),
+                                                                  mainView.getGestionCartaView().getPlatosView(),
+                                                                  platosManager);
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
                 MouseInputListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView);
 
-                MouseInputListener loginDialogViewListener = new LoginDialogViewListener(mainView, loginModel);
                 MouseInputListener settingsDialogViewListener = new SettingsDialogViewListener(mainView);
-
 
                 MesasViewListener mesasViewListener = new MesasViewListener(mainView, mesasManager);
                 MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView, mesasManager, mesasViewListener);
@@ -52,7 +52,6 @@ public class Main {
                                              gestionCartaViewListener,
                                              gestionPedidosViewListener,
                                              gestionTop5ViewListener,
-                                             loginDialogViewListener,
                                              settingsDialogViewListener,
 
                                              mesasOptionsViewListener,

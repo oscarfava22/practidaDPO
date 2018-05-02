@@ -28,14 +28,15 @@ public class MainServer {
         reservaServer.start();
     }
 
+    //TODO
     public void sendEntryServerBroadcast() {
         entryServer.sendBroadcast();
     }
-
+    //TODO
     public void sendResrvaServerBroadcast() {
         entryServer.sendBroadcast();
     }
-
+    //TODO
     public void sendGlobalBroadcast() {
         sendEntryServerBroadcast();
         sendResrvaServerBroadcast();

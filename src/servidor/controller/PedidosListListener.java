@@ -25,21 +25,13 @@ public class PedidosListListener implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        last_value = mainView.getSelectedRow();
 
-        /*if(selected){
-            selected=false;
-            System.out.println();
-            System.out.println(Arrays.toString(mainView.getJtPedidos().getSelectedRows()));
-            //CODIGO
-            selected=true;
-        }*/
+        if (last_value != mainView.getSelectedRow() ) {
+            System.out.println("Click");
+            last_value = mainView.getSelectedRow();
 
-        //if(selected) {
-            System.out.println("Row: " + mainView.getSelectedRow());
-        //}
+        }
 
-        //System.out.println("Column: " + mainView.getJtPedidos().getSelectedColumn());
     }
 
 }

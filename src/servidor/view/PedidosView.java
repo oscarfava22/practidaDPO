@@ -24,7 +24,16 @@ public class PedidosView extends JPanel {
 
         setLayout(new BorderLayout());
 
-        jtPedidos = new JTable(pedidos, columnNames);
+        jtPedidos = new JTable() {
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.setDataVector(pedidos, columnNames);
 
         jpPedidos = new JPanel(new BorderLayout());
         jpPedidos.add(jtPedidos, BorderLayout.CENTER);
@@ -48,28 +57,25 @@ public class PedidosView extends JPanel {
         for(int i = 0; i < reservaArray.length; i++){
             pedidos[i] = reservaArray[i].toObjectArray();
         }
-        //System.out.println(reservas.toString());
-        //jtPedidos = null;
-        //jpPedidos.removeAll();
 
-        /*Object[] obj2 = reservas.toArray();
+        jtPedidos = new JTable() {
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
 
-        System.out.println(reservas.get(0).toString().split("%").length);
-
-        Object[][] obj;
-        obj = new Object[reservas.get(0).toString().split("%").length][reservas.size()];
-
-        for(int i = 0; i < reservas.size(); i++) {
-
-            //obj[i+]
+        for (int i = 0; i < jtPedidos.getRowCount(); i++) {
+            for (int j = 0; j < jtPedidos.getColumnCount(); j++) {
+                jtPedidos.isCellEditable(i,j);
+            }
         }
 
+        DefaultTableModel model = new DefaultTableModel();
+        model.setDataVector(pedidos, columnNames);
+        jtPedidos.setModel(model);
 
-        System.out.println(obj2.length);
-        System.out.println(obj2[0]);*/
 
-        jtPedidos.setModel(new DefaultTableModel());
-        jtPedidos = new JTable(pedidos, columnNames);
         jpPedidos.removeAll();
 
         jpPedidos.add(jtPedidos, BorderLayout.CENTER);

@@ -25,7 +25,7 @@ public class MenuBarViewListener implements ActionListener {
                 break;
             case "Log In":
                 System.out.println("Log In");
-                mainView.showLoginDialog();
+
                 break;
             case "Exit":
                 System.out.println("Exit");

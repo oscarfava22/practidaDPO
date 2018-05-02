@@ -21,7 +21,6 @@ public class MainView extends JFrame {
     private GestionPedidosView gestionPedidosView;
     private GestionTop5View gestionTop5View;
 
-    private LoginDialogView loginDialogView;
     private SettingsDialogView settingsDialogView;
 
     private StatusBarView statusBarView;
@@ -38,7 +37,6 @@ public class MainView extends JFrame {
         gestionPedidosView = new GestionPedidosView();
         gestionTop5View = new GestionTop5View();
 
-        loginDialogView = new LoginDialogView();
         settingsDialogView = new SettingsDialogView();
 
         statusBarView = new StatusBarView();
@@ -78,7 +76,6 @@ public class MainView extends JFrame {
                                     MouseInputListener gestionCartaViewListener,
                                     MouseInputListener gestionPedidosViewListener,
                                     MouseInputListener gestionTop5ViewListener,
-                                    MouseInputListener loginDialogViewListener,
                                     MouseInputListener settingsDialogViewListener,
                                     MesasOptionsViewListener mesasOptionsViewListener,
                                     MesasViewListener mesasViewListener,
@@ -90,7 +87,6 @@ public class MainView extends JFrame {
         gestionCartaView.registerControllers(gestionCartaViewListener);
         gestionPedidosView.registerControllers(gestionPedidosViewListener, pedidosListListener);
         gestionTop5View.registerControllers(gestionTop5ViewListener);
-        loginDialogView.registerControllers(loginDialogViewListener);
         settingsDialogView.registerControllers(settingsDialogViewListener);
     }
 
@@ -130,28 +126,9 @@ public class MainView extends JFrame {
         }
     }
 
-    public void showLoginDialog() {
-        loginDialogView.setVisible(true);
-    }
 
     public void showSettingsDialog() {
         settingsDialogView.setVisible(true);
-    }
-
-    public String getUsername() {
-        return loginDialogView.getJtfUsernameText();
-    }
-
-    public String getPassword() {
-        return loginDialogView.getJtfPasswordText();
-    }
-
-    public char[] getPassword2() {
-        return loginDialogView.getJpfPassword();
-    }
-
-    public void setLoginDialogVisible(boolean state) {
-        loginDialogView.setVisible(state);
     }
 
     public void setConnectedState(boolean state) {
