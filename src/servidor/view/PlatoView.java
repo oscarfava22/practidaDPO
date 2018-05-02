@@ -1,10 +1,10 @@
 package servidor.view;
 
-import servidor.controller.PlatosViewListener;
 import servidor.model.Plato;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
 
 public class PlatoView extends JPanel {
@@ -13,93 +13,88 @@ public class PlatoView extends JPanel {
                                     BorderFactory.createLineBorder(Color.DARK_GRAY),
                                     BorderFactory.createEmptyBorder(10,10,10,10));
 
-    private CustomLabel jlId;
+    private CustomLabel jlProductId;
     private CustomLabel jlTitle;
     private CustomLabel jlPrice;
     private CustomLabel jlUnits;
 
     public PlatoView() {
-
         setLayout(new GridLayout(1,5));
+    }
 
-        jlId = new CustomLabel();
-        jlId.setBorder(compounBorder);
-        jlId.setOpaque(true);
-        jlId.setBackground(Color.GRAY);
+    public PlatoView(Plato plato) {
+        this();
+        initPlatoView(plato);
+    }
 
-        jlTitle = new CustomLabel();
+    public void initPlatoView(Plato plato) {
+        initLabels(plato);
+        add(jlProductId);
+        add(jlTitle);
+        add(jlPrice);
+        add(jlUnits);
+    }
+
+    public void initLabels(Plato plato) {
+
+        jlProductId = new CustomLabel(String.valueOf(plato.getId()));
+        jlProductId.setBorder(compounBorder);
+        jlProductId.setOpaque(true);
+        jlProductId.setBackground(Color.GRAY);
+        setJlProductId(String.valueOf(plato.getId()));
+
+        jlTitle = new CustomLabel(String.valueOf(plato.getId()));
         jlTitle.setBorder(compounBorder);
         jlTitle.setOpaque(true);
         jlTitle.setBackground(Color.LIGHT_GRAY);
+        setJlTitle(plato.getTitle());
 
-        jlPrice = new CustomLabel();
+        jlPrice = new CustomLabel(String.valueOf(plato.getId()));
         jlPrice.setBorder(compounBorder);
         jlPrice.setOpaque(true);
         jlPrice.setHorizontalAlignment(SwingConstants.RIGHT);
         jlPrice.setBackground(Color.LIGHT_GRAY);
+        setJlPrice(String.valueOf(plato.getPrice()));
 
-        jlUnits = new CustomLabel();
+        jlUnits = new CustomLabel(String.valueOf(plato.getId()));
         jlUnits.setBorder(compounBorder);
         jlUnits.setOpaque(true);
         jlUnits.setHorizontalAlignment(SwingConstants.RIGHT);
         jlUnits.setBackground(Color.LIGHT_GRAY);
-
-        add(jlId);
-        add(jlTitle);
-        add(jlPrice);
-        add(jlUnits);
-
-        //setBorder(new LineBorder(Color.RED, 2));
+        setJlUnits(String.valueOf(plato.getUnits()));
     }
 
+    public void registerControllers(MouseInputListener gestionCartaViewListener) {
 
-    public PlatoView(Plato plato) {
-        this();
-        setJlLabels(String.valueOf(plato.getId()), String.valueOf(plato.getId()), plato.getTitle(), String.valueOf(plato.getPrice()), String.valueOf(plato.getUnits()));
-    }
-    
-    private void setJlLabels(String index, String id, String title, String price, String units) {
-        setJlId(index, id);
-        setJlTitle(index, title);
-        setJlPrice(index, price);
-        setJlUnits(index, units);
-    }
-
-    public void initPlatoView() {
-
+        jlProductId.addMouseListener(gestionCartaViewListener);
+        jlProductId.addMouseMotionListener(gestionCartaViewListener);
+        jlTitle.addMouseListener(gestionCartaViewListener);
+        jlTitle.addMouseMotionListener(gestionCartaViewListener);
+        jlPrice.addMouseListener(gestionCartaViewListener);
+        jlPrice.addMouseMotionListener(gestionCartaViewListener);
+        jlUnits.addMouseListener(gestionCartaViewListener);
+        jlUnits.addMouseMotionListener(gestionCartaViewListener);
     }
 
-    public void registerControllers(PlatosViewListener platosViewListener) {
-
-        jlId.addMouseListener(platosViewListener);
-        jlId.addMouseMotionListener(platosViewListener);
-
-        jlTitle.addMouseListener(platosViewListener);
-        jlTitle.addMouseMotionListener(platosViewListener);
-
-        jlPrice.addMouseListener(platosViewListener);
-        jlPrice.addMouseMotionListener(platosViewListener);
-
-        jlUnits.addMouseListener(platosViewListener);
-        jlUnits.addMouseMotionListener(platosViewListener);
+    public void updatePlatoView(Plato plato) {
+        setJlTitle(plato.getTitle());
+        setJlPrice(String.valueOf(plato.getPrice()));
+        setJlUnits(String.valueOf(plato.getUnits()));
     }
 
-
-    public String getJlId() {
-        return jlId.getText();
+    public String getJlProductId() {
+        return jlProductId.getText();
     }
 
-    public void setJlId(String index, String id) {
-        jlId.setId(index);
-        jlId.setText(id);
+    public void setJlProductId(String productId) {
+        jlProductId.setText(productId);
     }
 
     public String getJlTitle() {
         return jlTitle.getText();
     }
 
-    public void setJlTitle(String index, String title) {
-        jlTitle.setId(index);
+    public void setJlTitle(String title) {
         jlTitle.setText(title);
     }
 
@@ -107,8 +102,7 @@ public class PlatoView extends JPanel {
         return jlPrice.getText();
     }
 
-    public void setJlPrice(String index, String price) {
-        jlPrice.setId(index);
+    public void setJlPrice(String price) {
         jlPrice.setText(price);
     }
 
@@ -116,28 +110,25 @@ public class PlatoView extends JPanel {
         return jlUnits.getText();
     }
 
-    public void setJlUnits(String index, String units) {
-        jlUnits.setId(index);
+    public void setJlUnits(String units) {
         jlUnits.setText(units);
     }
 
-    public void setLabelsBackground(boolean state) {
+    public void setSelectedState(boolean state) {
 
         if (state) {
-            //setBorder(new LineBorder(Color.ORANGE, 2));
-            jlId.setBackground(Color.ORANGE);
+            jlProductId.setBackground(Color.ORANGE);
             jlTitle.setBackground(Color.ORANGE);
             jlPrice.setBackground(Color.ORANGE);
             jlUnits.setBackground(Color.ORANGE);
 
         } else {
-            //setBorder(new LineBorder(Color.DARK_GRAY, 2));
-
-            jlId.setBackground(Color.GRAY);
+            jlProductId.setBackground(Color.GRAY);
             jlTitle.setBackground(Color.LIGHT_GRAY);
             jlPrice.setBackground(Color.LIGHT_GRAY);
             jlUnits.setBackground(Color.LIGHT_GRAY);
         }
+
         if(jlUnits.getText().equals("0")) {
             jlUnits.setForeground(Color.RED);
         }

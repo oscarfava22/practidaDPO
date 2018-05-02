@@ -19,8 +19,10 @@ public class GestionPedidosView extends JPanel {
     private PlatosView platosProcesados;
 
     private JPanel jpPedidos;
-
     private JSplitPane splitPane;
+
+    private JButton jbServe;
+    private JPanel jpPlatosPendientes;
 
 
     public GestionPedidosView() {
@@ -36,14 +38,24 @@ public class GestionPedidosView extends JPanel {
 
         PlatosManager pl = new PlatosManager();
 
-        platosPendientes.initPlatos(pl.getPlatos());
+        platosPendientes.initPlatosView(pl.getPlatos());
         platosPendientes.setBorder(BorderFactory.createTitledBorder("Platos Pendientes"));
-        platosProcesados.initPlatos(pl.getPlatos());
+
+        jbServe = new JButton("Servir");
+        jbServe.setFocusPainted(false);
+        //jbServe.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        //jbServe.setBorder();
+        jpPlatosPendientes = new JPanel(new BorderLayout());
+
+        jpPlatosPendientes.add(platosPendientes, BorderLayout.CENTER);
+        jpPlatosPendientes.add(jbServe, BorderLayout.SOUTH);
+
+        platosProcesados.initPlatosView(pl.getPlatos());
         platosProcesados.setBorder(BorderFactory.createTitledBorder("Platos Procesados"));
 
         jpPedidos = new JPanel(new GridLayout(1,2));
 
-        jpPedidos.add(platosPendientes);
+        jpPedidos.add(jpPlatosPendientes);
         jpPedidos.add(platosProcesados);
 
 
@@ -69,7 +81,6 @@ public class GestionPedidosView extends JPanel {
     public void registerControllers(MouseInputListener gestionPedidosViewListener, PedidosListListener pedidosListListener) {
 
         pedidosView.registerControllers(pedidosListListener);
-
     }
 
     public JTable getJtPedidos() {

@@ -13,14 +13,16 @@ import java.awt.event.MouseEvent;
 
 public class MesasOptionsViewListener implements ActionListener {
 
+    private MesasViewListener mesasViewListener;
     private MainView mainView;
     private MesasManager mesasManager;
     private AddMesaDialogView addDialog;
     private JDialog deleteDialog;
 
-    public MesasOptionsViewListener(MainView mainView, MesasManager mesasManager){
+    public MesasOptionsViewListener(MainView mainView, MesasManager mesasManager, MesasViewListener mesasViewListener){
         this.mainView = mainView;
         this.mesasManager = mesasManager;
+        this.mesasViewListener = mesasViewListener;
     }
 
     @Override
@@ -37,14 +39,23 @@ public class MesasOptionsViewListener implements ActionListener {
                 //TODO: Aparecer Dialog para añadir mesa
                     //TODO: Conectar con la bbd si en el dialog ha clicado a "AÑADIR"
                     //TODO: Crear la mesa en la bbdd
+                mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
                 break;
 
             case GestionMesasView.ELIMINAR_MESA_TAG:
-                deleteDialog = new JDialog(mainView, "Eliminar mesa");
+                int delete = JOptionPane.showConfirmDialog(null,
+                        "ELiminar la mesa seleccionada?",
+                        "Eliminar mesa", JOptionPane.YES_NO_OPTION);
 
-                //TODO: Aparecer Dialog para confirmar que desea eliminar la mesa
+                if (delete == JOptionPane.YES_OPTION){
+                    System.out.println("Eliminar mesa");
                     //TODO: Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                     //TODO: Eliminar la mesa y todas sus reservas de la bbdd
+                    mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
+                } else if(delete == JOptionPane.NO_OPTION) {
+                    System.out.println("No eliminar mesa");
+                }
+
                 break;
         }
     }

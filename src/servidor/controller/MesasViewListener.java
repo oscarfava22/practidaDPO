@@ -12,12 +12,10 @@ public class MesasViewListener implements MouseInputListener{
 
     private MainView mainView;
     private MesasManager mesasManager;
-    private MesasOptionsViewListener mesasOptionsViewListener;
 
-    public MesasViewListener(MainView mainView, MesasManager mesasManager, MesasOptionsViewListener mesasOptionsViewListener) {
+    public MesasViewListener(MainView mainView, MesasManager mesasManager) {
         this.mainView = mainView;
         this.mesasManager = mesasManager;
-        this.mesasOptionsViewListener = mesasOptionsViewListener;
     }
 
     @Override

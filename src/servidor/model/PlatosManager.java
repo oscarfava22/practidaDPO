@@ -30,15 +30,6 @@ public class PlatosManager {
         }
     }
 
-    public Plato getPlato(int index) {
-        if(platos.isEmpty()) {
-            System.out.println("No hay platos en el sistema");
-            return null;
-        }else {
-            return platos.get(index);
-        }
-    }
-
     public void addPlato(Plato plato) {
         platos.add(plato);
     }
@@ -48,26 +39,41 @@ public class PlatosManager {
         platos.add(plato);
     }
 
-    public LinkedList<Plato> getPlatos() {
-        return platos;
-    }
-
-    public void updatePlato(Plato plato) {
-
+    public void updatePlato(long id, String type, String title, float price, int units) {
         for(Plato pl : platos) {
-            if (pl.getId() == plato.getId()) {
-                pl.updatePlato(plato);
+            if (pl.getId() == id) {
+                pl.updatePlato(type, title, price, units);
             }
         }
     }
 
-    public void removePlato(long id) {
+    public void updatePlato(Plato plato) {
+        updatePlato(plato.getId(), plato.getType(), plato.getTitle(), plato.getPrice(), plato.getUnits());
+    }
 
+    public void removePlato(long id) {
         for(int i = 0; i < platos.size(); i++) {
             if (platos.get(i).getId() == id){
                 platos.remove(i);
             }
         }
+    }
+
+    public String[] getProductTypes() {
+        return productsTypes;
+    }
+
+    public Plato getPlato(int index) {
+        if(platos.isEmpty()) {
+            System.out.println("No hay platos en el sistema");
+            return null;
+        }else {
+            return platos.get(index);
+        }
+    }
+
+    public LinkedList<Plato> getPlatos() {
+        return platos;
     }
 
 }

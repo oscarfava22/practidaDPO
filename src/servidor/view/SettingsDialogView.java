@@ -37,5 +37,4 @@ public class SettingsDialogView extends JDialog {
         jlSettings.addMouseListener(settingsDialogViewListener);
     }
 
-
 }

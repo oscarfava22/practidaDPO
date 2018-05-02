@@ -48,18 +48,15 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void initView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas,
+    public void initMainView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas,
                          LinkedList<Reserva> reservas) {
 
         selectorView.initView(mainViewModel);
         gestionMesasView.initView(mainViewModel, mesas);
         gestionCartaView.initView(mainViewModel, platos);
         gestionPedidosView.initView(mainViewModel, reservas);
-        settingsDialogView.initView(mainViewModel);
-
         statusBarView.initView(loginModel);
-
-        jpGestionView.add(gestionMesasView, BorderLayout.CENTER);
+        settingsDialogView.initView(mainViewModel);
 
         jpGestionView.add(new JLabel(mainViewModel.getMainLogo()) , BorderLayout.CENTER);
 
@@ -74,7 +71,6 @@ public class MainView extends JFrame {
         setVisible(true);
 
         //loginDialogView.initView(mainViewModel);
-
     }
 
     public void registerControllers(SelectorViewListener selectorViewListener, ActionListener menuBarViewListener,
@@ -84,21 +80,16 @@ public class MainView extends JFrame {
                                     MouseInputListener gestionTop5ViewListener,
                                     MouseInputListener loginDialogViewListener,
                                     MouseInputListener settingsDialogViewListener,
-                                    PlatosViewListener platosViewListener,
-                                    PlatosOptionsViewListener platosOptionsViewListener,
                                     MesasOptionsViewListener mesasOptionsViewListener,
                                     MesasViewListener mesasViewListener,
                                     PedidosListListener pedidosListListener) {
 
-
         selectorView.registerControllers(selectorViewListener);
         menuBarView.registerControllers(menuBarViewListener);
-
         gestionMesasView.registerControllers(mesasOptionsViewListener, mesasViewListener);
-        gestionCartaView.registerControllers(gestionCartaViewListener, platosViewListener, platosOptionsViewListener);
+        gestionCartaView.registerControllers(gestionCartaViewListener);
         gestionPedidosView.registerControllers(gestionPedidosViewListener, pedidosListListener);
         gestionTop5View.registerControllers(gestionTop5ViewListener);
-
         loginDialogView.registerControllers(loginDialogViewListener);
         settingsDialogView.registerControllers(settingsDialogViewListener);
     }
@@ -171,65 +162,25 @@ public class MainView extends JFrame {
         statusBarView.setEntryServerStatus(state);
     }
 
-    public void setLabelsBackground(String id, boolean state) {
-        gestionCartaView.setLabelsBackground(id, state);
-    }
-
-    public void setOptionsText(Plato plato) {
-        gestionCartaView.setOptionsText(plato);
-    }
-
-    public boolean getGCVEditState() {
-        return gestionCartaView.getPOVEditState();
-    }
-
-    public boolean getGCVAddState() { return gestionCartaView.getPOVAddState(); }
-
-    public void setOptionsEditState(boolean state) {
-        gestionCartaView.setEditState(state);
-    }
-
-    public void setAddProductState(boolean state) {
-        gestionCartaView.setAddProductState(state);
-    }
-
-    public String getIdText() {
-        return gestionCartaView.getIdText();
-    }
-
-    public String getTitleText() {
-        return gestionCartaView.getTitleText();
-    }
-
-    public String getPriceText() {
-        return gestionCartaView.getPriceText();
-    }
-
-    public String getUnitsText() {
-        return gestionCartaView.getUnitsText();
-    }
-
-    public  String getTypeText() {
-        return gestionCartaView.getTypeText();
-    }
-
-    public void refreshPlatos(LinkedList<Plato> platos, PlatosViewListener platosViewListener) {
-        gestionCartaView.refreshPlatos(platos, platosViewListener);
-    }
-
-    public void resetTextFields() {
-        gestionCartaView.resetTextFields();
+    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener){
+        gestionMesasView.refreshMesas(mesas, mesasViewListener);
     }
 
     public void setConnectedDevices(Integer count) {
         statusBarView.setConnectedDevices(count);
     }
 
-
     public JTable getJtPedidos() {
         return gestionPedidosView.getJtPedidos();
     }
+
     public int getSelectedRow() {
         return gestionPedidosView.getSelectedRow();
     }
+
+    public GestionCartaView getGestionCartaView() {
+        return gestionCartaView;
+    }
+
+    public GestionPedidosView gestGestionPedidosView() { return gestionPedidosView; }
 }
