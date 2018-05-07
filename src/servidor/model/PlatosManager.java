@@ -89,6 +89,11 @@ public class PlatosManager {
 
     public void removePlato(long id) {
         //TODO removePlato
+        manager.connect();
+        String query = new StringBuilder().append("DELETE FROM Plato WHERE id_plato=").append(id).append(";").toString();
+        manager.modificationQuery(query);
+        manager.disconnect();
+
         for(int i = 0; i < platos.size(); i++) {
             if (platos.get(i).getId() == id){
                 platos.remove(i);
