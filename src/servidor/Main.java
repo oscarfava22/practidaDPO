@@ -2,6 +2,7 @@ package servidor;
 
 import servidor.controller.*;
 import servidor.model.*;
+import servidor.model.Database.BBDDManager;
 import servidor.network.MainServer;
 import servidor.view.MainView;
 
@@ -10,6 +11,10 @@ import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionListener;
 
 public class Main {
+
+    public static final String BBDD = "Restaurant";
+    public static final String USERNAME = "Testo";
+    public static final String PASSWORD = "machino";
 
     public static void main(String[] args) {
 
@@ -23,6 +28,13 @@ public class Main {
                 ReservasManager reservasManager = new ReservasManager();
                 PedidosManager pedidosManager = new PedidosManager();
                 MesasManager mesasManager = new MesasManager();
+
+                //TODO FALTA USER Y PASSWORD
+                BBDDManager.setUsername(USERNAME);
+                BBDDManager.setPassword(PASSWORD);
+                BBDDManager.getInstance(BBDD);
+                //TODO PORFAVOR
+                //TODO WindowAdapter for my penis y cerrar la bbdd
 
                 MainView mainView = new MainView();
                 mainView.initMainView(mainViewModel, loginModel, platosManager.getPlatos(), mesasManager.getMesas(),
