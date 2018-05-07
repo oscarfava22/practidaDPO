@@ -17,6 +17,7 @@ public class PlatosManager {
     private final BBDDManager manager;
 
     public PlatosManager() {
+        platos = new LinkedList<>();
         manager = BBDDManager.getInstance(Main.BBDD);
         manager.connect();
         ResultSet set = manager.readQuery("SELECT * FROM Plato;");
@@ -56,8 +57,8 @@ public class PlatosManager {
 
     public void addPlato(Plato plato) {
         manager.connect();
-        String query = new StringBuilder().append("INSERT INTO Plato VALUES(").append(plato.getId()).append(",")
-                .append(plato.getTitle()).append(",").append(plato.getUnits()).append(",").append(plato.getType())
+        String query = new StringBuilder().append("INSERT INTO Plato VALUES(").append(plato.getId()).append(",'")
+                .append(plato.getTitle()).append("',").append(plato.getUnits()).append(",").append(plato.getType())
                 .append(",").append(plato.getPrice()).append(");").toString();
         manager.modificationQuery(query);
         manager.disconnect();
@@ -70,10 +71,9 @@ public class PlatosManager {
     }
 
     public void updatePlato(long id, String type, String title, float price, int units) {
-        //TODO updatePlato
         manager.connect();
-        String query = new StringBuilder().append("UPDATE Plato SET nombre='").append(title).append("' unidades=").append(units)
-                .append(" id_tipus=").append(type).append(" precio=").append(price).append(" WHERE id_plato=").append(id).append(";").toString();
+        String query = new StringBuilder().append("UPDATE Plato SET nombre='").append(title).append("', unidades=").append(units)
+                .append(", id_tipus=").append(type).append(", precio=").append(price).append(" WHERE id_plato=").append(id).append(";").toString();
         manager.modificationQuery(query);
         manager.disconnect();
         for(Plato pl : platos) {
