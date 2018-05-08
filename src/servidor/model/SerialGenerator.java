@@ -10,7 +10,7 @@ public class SerialGenerator {
         return productId;
     }
 
-    public static long getResrvaId() {
+    public static long getReservaId() {
         reservaId++;
         return reservaId;
     }

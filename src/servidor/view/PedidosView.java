@@ -14,9 +14,9 @@ public class PedidosView extends JPanel {
     private JScrollPane jspPedidos;
     private JPanel jpMain;
 
-    private String[] columnNames = {"Id", "Title", "Date", "# of Products", "# of Pending Products"};
+    private String[] columnNames = {"Id", "Reservation Name", "Date", "Nº of Persons" , "# of Products", "# of Pending Products"};
 
-    private Object[][] pedidos = {{"","","","",""}};
+    private Object[][] pedidos = {{"","","","","",""}};
 
     private JTable jtPedidos;
 

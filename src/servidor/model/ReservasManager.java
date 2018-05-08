@@ -2,11 +2,7 @@ package servidor.model;
 
 import Network.Reserva.ReservaRequest;
 import Network.Reserva.ReservaResponse;
-import json.io.JsonIO;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class ReservasManager {
@@ -16,29 +12,40 @@ public class ReservasManager {
 
     public ReservasManager() {
         reservas = new LinkedList<>();
+        loadReservas();
 
-        //try {
-            //Reserva[] reservas = (Reserva[]) JsonIO.readJson(Reserva[].class, "/data/json/reservas.json");
-            //this.reservas.addAll(Arrays.asList(reservas));
+    }
 
-            System.out.println("Num Reservas: " + this.reservas.size());
+    public void loadReservas() {
+        /*try {
+        Reserva[] reservas = (Reserva[]) JsonIO.readJson(Reserva[].class, "/data/json/reservas.json");
+        this.reservas.addAll(Arrays.asList(reservas));
 
-            for (Reserva reserva : reservas) {
-                reserva.setId(SerialGenerator.getResrvaId());
-                System.out.println(reserva.toString());
-            }
+        System.out.println("Num Reservas: " + this.reservas.size());
 
-        //} catch (IOException e) {
-          //  e.printStackTrace();
-        //}
+        for (Reserva reserva : reservas) {
+            reserva.setId(SerialGenerator.getReservaId());
+            System.out.println(reserva.toString());
+        }
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        }*/
+
+        //TODO Connect to BBDD and load data
     }
 
     public void addReservas(LinkedList<Reserva> reservas) {
         this.reservas.addAll(reservas);
     }
 
-    public void addReserva() {
-        reservas.add(new Reserva(1,"Alex", new Date(), 4));
+    public void addReserva(Reserva reserva) {
+        reservas.add(reserva);
+        //TODO Add Reserva to BBDD
+    }
+
+    public void removeReserva() {
+
     }
 
     public LinkedList<Reserva> getReservas() {
@@ -49,7 +56,12 @@ public class ReservasManager {
         ReservaResponse response = null;
 
         if (checkAvailability()) {
-            response = new ReservaResponse("Hola",true);
+            Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(), reservaRequest.getDate(), reservaRequest.getAmount(), "Pass", 0);
+            addReserva(reserva);
+            System.out.println("New Reserva Created: ");
+            System.out.println("\t" + reserva.toString());
+
+            response = new ReservaResponse(reserva.getPassword(),true);
         } else {
             response = new ReservaResponse("", false);
         }
@@ -60,8 +72,25 @@ public class ReservasManager {
     public boolean checkAvailability() {
         boolean ok = true;
 
-        //TODO CHECK AVAILABILITY
+        //TODO CHECK AVAILABILITY VIA BBDD
 
         return ok;
+    }
+
+    public Reserva searchReserva(String name, String password) {
+
+        //TODO SEARCH RESERVA VIA BBDD, IF FOUND UPDATE RESERVA STATE
+
+        for(Reserva reserva : reservas) {
+            if(reserva.getName().equals(name) && reserva.getPassword().equals(password)) {
+                if(reserva.getState() == 0) {
+                    reserva.setState(1);
+                    return reserva;
+                }
+                break;
+            }
+        }
+
+        return null;
     }
 }

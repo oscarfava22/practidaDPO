@@ -52,7 +52,7 @@ public class ReservaServer extends Thread {
                 Socket reservaClientSocket = reservaServerSocket.accept();
                 System.out.println("Reserva Client connected");
 
-                ReservaDedicatedServer reservaDedicatedServer = new ReservaDedicatedServer(this, reservaClientSocket, mainView, platosManager);
+                ReservaDedicatedServer reservaDedicatedServer = new ReservaDedicatedServer(this, reservaClientSocket, mainView, platosManager, reservasManager);
 
                 reservaDedicatedServers.add(reservaDedicatedServer);
                 reservaDedicatedServer.start();
@@ -81,7 +81,7 @@ public class ReservaServer extends Thread {
     }
 
     public void updatePedidosView() {
-        reservasManager.addReserva();
+        //reservasManager.addReserva();
         mainView.getGestionPedidosView().getPedidosView().initView(reservasManager.getReservas());
         mainView.getGestionPedidosView().getPedidosView().registerControllers(new PedidosListListener(mainView, pedidosManager,platosManager));
     }

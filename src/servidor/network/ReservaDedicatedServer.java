@@ -1,6 +1,7 @@
 package servidor.network;
 
 import servidor.model.PlatosManager;
+import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
 import java.io.*;
@@ -12,6 +13,7 @@ public class ReservaDedicatedServer extends Thread {
     private Socket reservaClientSocket;
     private MainView mainView;
     private PlatosManager platosManager;
+    private ReservasManager reservasManager;
     private boolean isRunning;
 
     private ObjectInputStream ois;
@@ -19,11 +21,12 @@ public class ReservaDedicatedServer extends Thread {
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView, PlatosManager platosManager) {
+    public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
         this.reservaServer = reservaServer;
         this.reservaClientSocket = reservaClientSocket;
         this.mainView = mainView;
         this.platosManager = platosManager;
+        this.reservasManager = reservasManager;
         isRunning = false;
     }
 
@@ -40,10 +43,11 @@ public class ReservaDedicatedServer extends Thread {
 
             while (isRunning) {
                 //TODO Reserva Comm Protocol
+                String string = (String) ois.readObject();
+                System.out.println(string);
+                String[] s = string.split("%%");
 
-                String s = (String) ois.readObject();
-                System.out.println(s);
-                if (s.equals("Alex%%1234")) {
+                if (reservasManager.searchReserva(s[0], s[1]) != null) {
                     System.out.println("OK");
                     oos.writeObject("OK");
 
@@ -53,7 +57,6 @@ public class ReservaDedicatedServer extends Thread {
                     oos.writeObject("KO");
                 }
             }
-
 
         } catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
