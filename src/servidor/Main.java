@@ -2,6 +2,7 @@ package servidor;
 
 import servidor.controller.*;
 import servidor.model.*;
+import servidor.model.Database.BBDDManager;
 import servidor.network.MainServer;
 import servidor.view.MainView;
 
@@ -11,11 +12,22 @@ import java.awt.event.ActionListener;
 
 public class Main {
 
+    public static final String BBDD = "Restaurant";
+    public static final String USERNAME = "test";
+    public static final String PASSWORD = "";
+
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+
+                //TODO FALTA USER Y PASSWORD
+                BBDDManager.setUsername(USERNAME);
+                BBDDManager.setPassword(PASSWORD);
+                BBDDManager.getInstance(BBDD);
+                //TODO PORFAVOR
+                //TODO WindowAdapter for my penis y cerrar la bbdd
 
                 MainViewModel mainViewModel = new MainViewModel();
                 LoginModel loginModel = new LoginModel();

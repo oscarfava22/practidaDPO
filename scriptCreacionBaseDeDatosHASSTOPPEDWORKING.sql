@@ -25,6 +25,7 @@ CREATE TABLE Plato(
     nombre varchar(255),
     unidades int,
     id_tipus int,
+    precio DOUBLE,
     PRIMARY KEY (id_plato)    
 );
 
