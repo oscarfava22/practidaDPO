@@ -1,10 +1,8 @@
 package servidor.view;
 
 import servidor.controller.PedidosListListener;
-import servidor.model.MainViewModel;
-import servidor.model.PlatosManager;
-import servidor.model.Reserva;
-import servidor.model.ReservasManager;
+import servidor.controller.PlatosPendientesController;
+import servidor.model.*;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -38,7 +36,7 @@ public class GestionPedidosView extends JPanel {
 
         PlatosManager pl = new PlatosManager();
 
-        platosPendientes.initPlatosView(pl.getPlatos());
+        //platosPendientes.initPlatosView(pl.getPlatos());
         platosPendientes.setBorder(BorderFactory.createTitledBorder("Platos Pendientes"));
 
         jbServe = new JButton("Servir");
@@ -50,15 +48,13 @@ public class GestionPedidosView extends JPanel {
         jpPlatosPendientes.add(platosPendientes, BorderLayout.CENTER);
         jpPlatosPendientes.add(jbServe, BorderLayout.SOUTH);
 
-        platosProcesados.initPlatosView(pl.getPlatos());
+        //platosProcesados.initPlatosView(pl.getPlatos());
         platosProcesados.setBorder(BorderFactory.createTitledBorder("Platos Procesados"));
 
         jpPedidos = new JPanel(new GridLayout(1,2));
 
         jpPedidos.add(jpPlatosPendientes);
         jpPedidos.add(platosProcesados);
-
-
 
         splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.setPreferredSize(new Dimension(800,200));
@@ -78,8 +74,39 @@ public class GestionPedidosView extends JPanel {
         pedidosView.initView(reservas);
     }
 
+    public PedidosView getPedidosView() {
+        return pedidosView;
+    }
+
+    public void initPlatosPendientesView(LinkedList<Plato> platos) {
+        platosPendientes.initPlatosView(platos);
+        //jpPlatosPendientes.add(platosPendientes, BorderLayout.CENTER);
+        //jpPedidos = new JPanel(new GridLayout(1,2));
+
+        //jpPedidos.add(jpPlatosPendientes);
+        //jpPedidos.add(platosProcesados);
+        updateUI();
+    }
+
+    public PlatosView getPlatosPendientes() {
+        return platosPendientes;
+    }
+
+    public void registerPlatosPendientesController(PlatosPendientesController controller) {
+        platosPendientes.registerControllers(controller);
+    }
+    public void initPlatosProcesadosView(LinkedList<Plato> platos) {
+        platosProcesados.initPlatosView(platos);
+
+    }
+
     public void registerControllers(MouseInputListener gestionPedidosViewListener, PedidosListListener pedidosListListener) {
 
+        registerPedidosListController(pedidosListListener);
+    }
+
+
+    public void registerPedidosListController(PedidosListListener pedidosListListener) {
         pedidosView.registerControllers(pedidosListListener);
     }
 

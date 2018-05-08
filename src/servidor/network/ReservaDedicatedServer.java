@@ -1,6 +1,8 @@
 package servidor.network;
 
 import servidor.model.PlatosManager;
+import servidor.model.ReservasManager;
+import servidor.view.MainView;
 
 import java.io.*;
 import java.net.Socket;
@@ -9,7 +11,9 @@ public class ReservaDedicatedServer extends Thread {
 
     private ReservaServer reservaServer;
     private Socket reservaClientSocket;
+    private MainView mainView;
     private PlatosManager platosManager;
+    private ReservasManager reservasManager;
     private boolean isRunning;
 
     private ObjectInputStream ois;
@@ -17,10 +21,12 @@ public class ReservaDedicatedServer extends Thread {
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    public ReservaDedicatedServer(ReservaServer reservaServer,Socket reservaClientSocket, PlatosManager platosManager) {
+    public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
         this.reservaServer = reservaServer;
         this.reservaClientSocket = reservaClientSocket;
+        this.mainView = mainView;
         this.platosManager = platosManager;
+        this.reservasManager = reservasManager;
         isRunning = false;
     }
 
@@ -36,15 +42,26 @@ public class ReservaDedicatedServer extends Thread {
             isRunning = true;
 
             while (isRunning) {
-
                 //TODO Reserva Comm Protocol
+                String string = (String) ois.readObject();
+                System.out.println(string);
+                String[] s = string.split("%%");
+
+                if (reservasManager.searchReserva(s[0], s[1]) != null) {
+                    System.out.println("OK");
+                    oos.writeObject("OK");
+
+                    reservaServer.updatePedidosView();
+                    updateMessageToClient();
+                } else {
+                    oos.writeObject("KO");
+                }
             }
 
-
-        } catch (IOException  e) {
+        } catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
-            System.out.println("A Reserva Client Disconnected from Server");
             reservaServer.removeDedicatedServer(this);
+            mainView.setConnectedDevices(reservaServer.getDedicatedServersCount());
         }
         finally {
             try {
@@ -66,13 +83,12 @@ public class ReservaDedicatedServer extends Thread {
     }
 
     public void updateMessageToClient() {
-
-        /*try {
-
+        try {
+            oos = new ObjectOutputStream(reservaClientSocket.getOutputStream());
+            oos.writeObject(platosManager.getPlatos());
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
-
 
 }

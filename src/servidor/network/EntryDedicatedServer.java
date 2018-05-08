@@ -1,8 +1,8 @@
 package servidor.network;
 
 import Network.Reserva.ReservaRequest;
-import Network.Reserva.ReservaResponse;
 import servidor.model.PlatosManager;
+import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
 import java.io.*;
@@ -14,18 +14,19 @@ public class EntryDedicatedServer extends Thread{
     private Socket entryClientSocket;
     private MainView mainView;
     private PlatosManager platosManager;
+    private ReservasManager reservasManager;
     private boolean isRunning;
 
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
-    private DataInputStream dis;
-    private DataOutputStream dos;
 
-    public EntryDedicatedServer(EntryServer entryServer, Socket entryClientSocket, MainView mainView, PlatosManager platosManager) {
+
+    public EntryDedicatedServer(EntryServer entryServer, Socket entryClientSocket, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
         this.entryServer = entryServer;
         this.entryClientSocket = entryClientSocket;
         this.mainView = mainView;
         this.platosManager = platosManager;
+        this.reservasManager = reservasManager;
         isRunning = false;
     }
 
@@ -33,35 +34,13 @@ public class EntryDedicatedServer extends Thread{
     public void run() {
 
         try {
+            isRunning = true;
             ois = new ObjectInputStream(entryClientSocket.getInputStream());
             oos = new ObjectOutputStream(entryClientSocket.getOutputStream());
-            dis = new DataInputStream(entryClientSocket.getInputStream());
-            dos = new DataOutputStream(entryClientSocket.getOutputStream());
-
-            isRunning = true;
-
             while (isRunning) {
-
-                ReservaRequest rr = (ReservaRequest) ois.readObject();
-
-                ReservaResponse response = new ReservaResponse("Hola",true);
-                oos.writeObject(response);
-
-                //int num_tables = (Integer) ois.readObject();
-                //System.out.println(num_tables);
-
-                //String string2 = (String)ois.readObject();
-                //System.out.println(string2);
-
-                //Object object = ois.readObject();
-                //System.out.println(object.toString());
-
-                //dos.writeInt(1);
-                //dos.writeUTF("Hola mundo");
-                //updateMessageToClient();
-
+                ReservaRequest reservaRequest = (ReservaRequest) ois.readObject();
+                oos.writeObject(reservasManager.verifyRequest(reservaRequest));
             }
-
 
         } catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
@@ -78,12 +57,6 @@ public class EntryDedicatedServer extends Thread{
                 oos.close();
             } catch (IOException e) {}
             try {
-                dis.close();
-            } catch (IOException e) {}
-            try {
-                dos.close();
-            } catch (IOException e) {}
-            try {
                 entryClientSocket.close();
             } catch (IOException e) {}
         }
@@ -91,13 +64,13 @@ public class EntryDedicatedServer extends Thread{
 
     public void updateMessageToClient() {
 
-        try {
+        /*try {
             dos.writeBoolean(true);
             dos.writeUTF("123");
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 

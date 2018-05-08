@@ -1,8 +1,7 @@
 package servidor.network;
 
-import servidor.model.PlatosManager;
-import servidor.model.Reserva;
-import servidor.model.ReservasManager;
+import servidor.controller.PedidosListListener;
+import servidor.model.*;
 import servidor.view.MainView;
 
 import java.io.IOException;
@@ -19,15 +18,19 @@ public class ReservaServer extends Thread {
     private MainView mainView;
     private PlatosManager platosManager;
     private ReservasManager reservasManager;
+    private PedidosManager pedidosManager;
 
     private LinkedList<ReservaDedicatedServer> reservaDedicatedServers;
 
-    public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
+    public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager, PedidosManager pedidosManager) {
 
         this.mainServer = mainServer;
         this.mainView = mainView;
         this.platosManager = platosManager;
         this.reservasManager = reservasManager;
+        this.pedidosManager = pedidosManager;
+
+        reservaDedicatedServers = new LinkedList<>();
 
         try {
             reservaServerSocket = new ServerSocket(Network.RESERVA_SERVER_PORT);
@@ -49,7 +52,7 @@ public class ReservaServer extends Thread {
                 Socket reservaClientSocket = reservaServerSocket.accept();
                 System.out.println("Reserva Client connected");
 
-                ReservaDedicatedServer reservaDedicatedServer = new ReservaDedicatedServer(this, reservaClientSocket, platosManager);
+                ReservaDedicatedServer reservaDedicatedServer = new ReservaDedicatedServer(this, reservaClientSocket, mainView, platosManager, reservasManager);
 
                 reservaDedicatedServers.add(reservaDedicatedServer);
                 reservaDedicatedServer.start();
@@ -67,10 +70,19 @@ public class ReservaServer extends Thread {
         reservaDedicatedServers.remove(entryDedicatedServer);
     }
 
-    public void sendBroadcast() {
+    public int getDedicatedServersCount() {
+        return reservaDedicatedServers.size();
+    }
 
+    public void sendBroadcast() {
         for(ReservaDedicatedServer rds : reservaDedicatedServers) {
             rds.updateMessageToClient();
         }
+    }
+
+    public void updatePedidosView() {
+        //reservasManager.addReserva();
+        mainView.getGestionPedidosView().getPedidosView().initView(reservasManager.getReservas());
+        mainView.getGestionPedidosView().getPedidosView().registerControllers(new PedidosListListener(mainView, pedidosManager,platosManager));
     }
 }

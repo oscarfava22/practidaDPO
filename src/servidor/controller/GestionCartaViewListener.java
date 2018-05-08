@@ -3,6 +3,8 @@ package servidor.controller;
 import servidor.model.Plato;
 import servidor.model.PlatosManager;
 import servidor.model.SerialGenerator;
+import servidor.network.MainServer;
+import servidor.network.ReservaServer;
 import servidor.view.CustomLabel;
 import servidor.view.PlatosOptionsView;
 import servidor.view.PlatosView;
@@ -16,6 +18,7 @@ public class GestionCartaViewListener implements MouseInputListener {
     private PlatosOptionsView platosOptionsView;
     private PlatosView platosView;
     private PlatosManager platosManager;
+    private ReservaServer reservaServer;
 
     public GestionCartaViewListener(PlatosOptionsView platosOptionsView, PlatosView platosView, PlatosManager platosManager) {
         this.platosOptionsView = platosOptionsView;
@@ -61,6 +64,7 @@ public class GestionCartaViewListener implements MouseInputListener {
                                                        platosOptionsView.getUnitsText());
 
                                 platosOptionsView.setEditState(false);
+                                reservaServer.sendBroadcast();
 
                             } else if(option == JOptionPane.NO_OPTION) {
                                 platosOptionsView.setEditState(true);
@@ -96,6 +100,7 @@ public class GestionCartaViewListener implements MouseInputListener {
                                 platosOptionsView.setEditState(false);
                                 platosOptionsView.setAddProductState(false);
                                 platosView.addPlato(platosManager.getPlatos().getLast(), this);
+                                reservaServer.sendBroadcast();
 
                             } else if(option2 == JOptionPane.NO_OPTION) {
                                 platosOptionsView.setEditState(true);
@@ -125,13 +130,13 @@ public class GestionCartaViewListener implements MouseInputListener {
                                 "Edit Product Info", JOptionPane.YES_NO_OPTION);
 
                         if (option == JOptionPane.YES_OPTION) {
-
                             platosManager.removePlato(Long.parseLong(platosOptionsView.getIdText()));
                             platosView.deletePlato(platosOptionsView.getIdText());
 
                             platosOptionsView.resetTextFields();
                             platosOptionsView.setEditState(false);
                             platosOptionsView.setAddProductState(false);
+                            reservaServer.sendBroadcast();
 
                         } else if(option == JOptionPane.NO_OPTION) {
                             platosOptionsView.setEditState(true);
@@ -185,6 +190,10 @@ public class GestionCartaViewListener implements MouseInputListener {
                 }
             }
         }
+    }
+
+    public void registerServer(ReservaServer reservaServer) {
+        this.reservaServer = reservaServer;
     }
 
     @Override

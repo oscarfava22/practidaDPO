@@ -2,13 +2,11 @@ package servidor.view;
 
 import servidor.controller.*;
 import servidor.model.*;
-import servidor.model.Database.InfoResultSetReserva;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainView extends JFrame {
@@ -70,7 +68,6 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //loginDialogView.initView(mainViewModel);
     }
 
     public void registerControllers(SelectorViewListener selectorViewListener, ActionListener menuBarViewListener,
@@ -147,6 +144,7 @@ public class MainView extends JFrame {
 
     public void setConnectedDevices(Integer count) {
         statusBarView.setConnectedDevices(count);
+        statusBarView.updateUI();
     }
 
     public JTable getJtPedidos() {
@@ -161,13 +159,5 @@ public class MainView extends JFrame {
         return gestionCartaView;
     }
 
-    public GestionMesasView getGestionMesasView(){
-        return gestionMesasView;
-    }
-
-    public GestionPedidosView gestGestionPedidosView() { return gestionPedidosView; }
-
-    public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
-        gestionMesasView.refreshReservas(reservas);
-    }
+    public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
 }
