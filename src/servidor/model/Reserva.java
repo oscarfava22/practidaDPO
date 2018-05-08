@@ -1,8 +1,6 @@
 package servidor.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reserva implements Serializable {
@@ -15,9 +13,7 @@ public class Reserva implements Serializable {
     private int state = 0;
 
     public Reserva() {
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        //Date date = new Date();
-        //System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+
     }
 
     public Reserva(long id, String name, Date date, int amount, String password, int state) {

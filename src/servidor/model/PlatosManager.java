@@ -62,6 +62,7 @@ public class PlatosManager {
                 .append(",").append(plato.getPrice()).append(");").toString();
         manager.modificationQuery(query);
         manager.disconnect();
+
         platos.add(plato);
     }
 
@@ -76,6 +77,7 @@ public class PlatosManager {
                 .append(", id_tipus=").append(type).append(", precio=").append(price).append(" WHERE id_plato=").append(id).append(";").toString();
         manager.modificationQuery(query);
         manager.disconnect();
+
         for(Plato pl : platos) {
             if (pl.getId() == id) {
                 pl.updatePlato(type, title, price, units);
