@@ -52,7 +52,7 @@ public class EntryServer extends Thread {
                 Socket entryClientSocket = entryServerSocket.accept();
                 System.out.println("Entry Client connected");
 
-                EntryDedicatedServer entryDedicatedServer = new EntryDedicatedServer(this, entryClientSocket, mainView, platosManager);
+                EntryDedicatedServer entryDedicatedServer = new EntryDedicatedServer(this, entryClientSocket, mainView, platosManager, reservasManager);
 
                 entryDedicatedServers.add(entryDedicatedServer);
                 entryDedicatedServer.start();

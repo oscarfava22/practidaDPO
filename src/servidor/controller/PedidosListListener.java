@@ -2,6 +2,7 @@ package servidor.controller;
 
 import javafx.collections.ListChangeListener;
 import servidor.model.PedidosManager;
+import servidor.model.PlatosManager;
 import servidor.view.MainView;
 
 import javax.swing.*;
@@ -16,11 +17,13 @@ public class PedidosListListener implements ListSelectionListener {
     private MainView mainView;
     private PedidosManager pedidosManager;
     private boolean selected = true;
-    private int last_value = 0;
+    private int last_value = -1;
+    private PlatosManager platosManager;
 
-    public PedidosListListener(MainView mainView, PedidosManager pedidosManager) {
+    public PedidosListListener(MainView mainView, PedidosManager pedidosManager, PlatosManager platosManager) {
         this.mainView = mainView;
         this.pedidosManager = pedidosManager;
+        this.platosManager = platosManager;
     }
 
     @Override
@@ -29,7 +32,8 @@ public class PedidosListListener implements ListSelectionListener {
         if (last_value != mainView.getSelectedRow() ) {
             System.out.println("Click");
             last_value = mainView.getSelectedRow();
-
+            mainView.getGestionPedidosView().initPlatosPendientesView(platosManager.getPlatos());
+            mainView.getGestionPedidosView().registerPlatosPendientesController(new PlatosPendientesController(mainView.getGestionPedidosView().getPlatosPendientes()));
         }
 
     }

@@ -68,7 +68,6 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //loginDialogView.initView(mainViewModel);
     }
 
     public void registerControllers(SelectorViewListener selectorViewListener, ActionListener menuBarViewListener,
@@ -145,6 +144,7 @@ public class MainView extends JFrame {
 
     public void setConnectedDevices(Integer count) {
         statusBarView.setConnectedDevices(count);
+        statusBarView.updateUI();
     }
 
     public JTable getJtPedidos() {
@@ -159,5 +159,5 @@ public class MainView extends JFrame {
         return gestionCartaView;
     }
 
-    public GestionPedidosView gestGestionPedidosView() { return gestionPedidosView; }
+    public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
 }

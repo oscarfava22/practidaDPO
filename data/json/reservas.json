@@ -1,27 +1,27 @@
 [
   {
     "id": 0,
-    "title":"Reserva0",
+    "name":"Reserva0",
     "date": "20/04/2018"
   },
   {
     "id": 1,
-    "title":"Reserva1",
+    "name":"Reserva1",
     "date": "21/04/2018"
   },
   {
     "id": 2,
-    "title":"Reserva2",
+    "name":"Reserva2",
     "date": "22/04/2018"
   },
   {
     "id": 3,
-    "title":"Reserva3",
+    "name":"Reserva3",
     "date": "23/04/2018"
   },
   {
     "id": 4,
-    "title":"Reserva4",
+    "name":"Reserva4",
     "date": "24/04/2018"
   }
 

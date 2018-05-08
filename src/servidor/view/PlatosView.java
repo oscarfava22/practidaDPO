@@ -35,7 +35,9 @@ public class PlatosView extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
     }
 
-    public void initPlatosView(LinkedList<Plato> platos) {
+    public synchronized void initPlatosView(LinkedList<Plato> platos) {
+        platosView.clear();
+        jpPlatos.removeAll();
         for(Plato pl : platos) {
             platosView.add(new PlatoView(pl));
             jpPlatos.add(platosView.getLast());
@@ -49,7 +51,7 @@ public class PlatosView extends JPanel {
         }
     }
 
-    public void addPlato(Plato plato, MouseInputListener gestionCartaViewListener) {
+    public synchronized void addPlato(Plato plato, MouseInputListener gestionCartaViewListener) {
         platosView.add(new PlatoView(plato));
         platosView.getLast().registerControllers(gestionCartaViewListener);
         jpPlatos.add(platosView.getLast());
@@ -57,7 +59,7 @@ public class PlatosView extends JPanel {
         jpPlatos.updateUI();
     }
 
-    public void updatePlato(String id, String type, String title, String price, String units) {
+    public synchronized void updatePlato(String id, String type, String title, String price, String units) {
         for(PlatoView pv : platosView) {
             if(pv.getJlProductId().equals(id)) {
                 pv.setJlTitle(title);
@@ -69,7 +71,7 @@ public class PlatosView extends JPanel {
         }
     }
 
-    public void deletePlato(String productId) {
+    public synchronized void deletePlato(String productId) {
         for(int i = 0; i < platosView.size(); i++) {
             if (platosView.get(i).getJlProductId().equals(productId)){
                 platosView.remove(i);
@@ -81,7 +83,7 @@ public class PlatosView extends JPanel {
         }
     }
 
-    public void setSelectedPlatoState(String id, boolean state) {
+    public synchronized void setSelectedPlatoState(String id, boolean state) {
         for(PlatoView pv : platosView) {
             if (pv.getJlProductId().equals(id)) {
                 pv.setSelectedState(state);
@@ -91,7 +93,7 @@ public class PlatosView extends JPanel {
         }
     }
 
-    public void setSelectedPlatosState(boolean state) {
+    public synchronized void setSelectedPlatosState(boolean state) {
         for(PlatoView pv : platosView) {
             pv.setSelectedState(state);
         }
