@@ -51,4 +51,7 @@ CREATE TABLE Comanda(
     FOREIGN KEY (id_plato) REFERENCES Plato(id_plato)
 );
 
-select * from Mesa;
+DROP USER IF EXISTS RestaurantUser;
+CREATE USER 'RestaurantUser' IDENTIFIED BY 'ResUser';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'RestaurantUser';
+GRANT INSERT,SELECT,UPDATE,DELETE ON Restaurant.* TO 'RestaurantUser' IDENTIFIED BY 'ResUser';

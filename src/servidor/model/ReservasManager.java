@@ -52,7 +52,7 @@ public class ReservasManager {
                 reserva.setDate(set.getDate("r.data"));
                 reserva.setId(set.getInt("r.id_reserva"));
                 reserva.setName(set.getString("c.nombre"));
-                reserva.setPassword(set.getString("c.password"));
+                reserva.setPassword(set.getString("r.password"));
                 reserva.setState(set.getInt("r.state"));
                 reservas.add(reserva);
             }
@@ -72,7 +72,9 @@ public class ReservasManager {
         reservas.add(reserva);
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
-        String query = new StringBuilder().append("INSERT INTO Reserva VALUES(").append(String.valueOf(reserva.getId())).append(",")
+        String query = "INSERT INTO Cliente VALUES('"+reserva.getPassword()+"','"+request.getName()+"')";
+        bbdd.modificationQuery(query);
+        query = new StringBuilder().append("INSERT INTO Reserva VALUES(").append(String.valueOf(reserva.getId())).append(",")
                 .append(String.valueOf(mesa.getId())).append(",'")
                 .append(dateFormat.format(request.getDate())).append("','")
                 .append(dateTimeFormat.format(request.getDate())).append("','")
