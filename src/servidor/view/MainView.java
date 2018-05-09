@@ -52,7 +52,7 @@ public class MainView extends JFrame {
                          LinkedList<Reserva> reservas) {
 
         selectorView.initView(mainViewModel);
-        gestionMesasView.initView(mainViewModel, mesas);
+        gestionMesasView.initView(mainViewModel, mesas, new ArrayList<InfoResultSetReserva>());
         gestionCartaView.initView(mainViewModel, platos);
         gestionPedidosView.initView(mainViewModel, reservas);
         statusBarView.initView(loginModel);

@@ -61,7 +61,9 @@ public class ReservasView extends JPanel {
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView.clear();
         jpMain.removeAll();
-        updateUI();
+
         initReservas(reservas);
+        this.updateUI();
+        paintAll(getGraphics());
     }
 }

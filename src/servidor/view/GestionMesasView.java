@@ -73,6 +73,10 @@ public class GestionMesasView extends JPanel {
         jpMesaSelected.add(jlIdMesaSelected, BorderLayout.CENTER);
         jpReservas.add(jpMesaSelected, BorderLayout.PAGE_START);
 
+        reservasView = new ReservasView();
+
+        jpReservas.add(reservasView, BorderLayout.CENTER);
+
         jpRight.add(jpReservas, BorderLayout.CENTER);
 
 
@@ -101,13 +105,15 @@ public class GestionMesasView extends JPanel {
      * Crea la vista del apartado Gestionar Mesas
      * @param mainViewModel
      */
-    public void initView(MainViewModel mainViewModel, LinkedList<Mesa> mesas) {
+    public void initView(MainViewModel mainViewModel, LinkedList<Mesa> mesas, ArrayList<InfoResultSetReserva> reservas) {
         mesasView = new MesasView();
         mesasView.initMesas(mesas);
 
         jpMesas.add(mesasView, BorderLayout.CENTER);
 
-        reservasView = new ReservasView();
+        reservasView.initReservas(reservas);
+        jpReservas.add(reservasView, BorderLayout.CENTER);
+
     }
 
     public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {

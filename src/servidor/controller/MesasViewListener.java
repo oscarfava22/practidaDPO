@@ -46,8 +46,6 @@ public class MesasViewListener implements MouseInputListener{
 
         //TODO: Mostrar info reservas de la mesa en la parte derecha de la pantalla
         //Llamar a setUser y setPassword del usuario de la bbdd
-        BBDDManager.setUsername("xose");
-        BBDDManager.setPassword("1234");
 
         //Llamar al getInstance
         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
@@ -57,7 +55,7 @@ public class MesasViewListener implements MouseInputListener{
 
         //Querie --> select reserves de la taula amb id especificat
         String idMesaToString = mv.getJlIdMesa().getText().toString();
-        String query = "SELECT r.id_reserva, r.id_mesa, r.password, r.data, r.dataConcreta FROM Reservas AS r Where r.id_mesa = " + idMesaToString + " ;";
+        String query = "SELECT r.id_reserva, r.id_mesa, r.password, r.data, r.dataConcreta FROM Reserva AS r Where r.id_mesa = " + idMesaToString + " ;";
 
         //Obtenir resultSet de la query
         ResultSet resultSet = bbddManager.readQuery(query);
@@ -72,10 +70,11 @@ public class MesasViewListener implements MouseInputListener{
 
                 //Obtenim el password i fem la query
                 String password = reserva.getPassword();
-                String queryNombre = "SELECT c.nombre FROM Cliente AS c WHERE c.password = " + password + ";";
+                String queryNombre = "SELECT c.nombre FROM Cliente AS c WHERE c.password = '" + password + "';";
 
                 //Obtenim el resultSet i obtenim el nom
                 ResultSet resultSetNombre = bbddManager.readQuery(queryNombre);
+                resultSetNombre.next();
                 String nombre = resultSetNombre.getString("nombre");
                 //Afegim el nom a la reserva
                 reserva.setNombre(nombre);
@@ -119,8 +118,6 @@ public class MesasViewListener implements MouseInputListener{
 
     public ArrayList<InfoResultSetReserva> llegirResultSetSelectReservas(ResultSet resultSet) throws SQLException {
         ArrayList<InfoResultSetReserva> reservas = new ArrayList<InfoResultSetReserva>();
-
-        ResultSet rs = resultSet;
 
         while (resultSet.next()){
             int idReserva = resultSet.getInt("id_reserva");
