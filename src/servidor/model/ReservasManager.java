@@ -21,8 +21,8 @@ public class ReservasManager {
 
     public ReservasManager() {
         reservas = new LinkedList<>();
-        dateFormat = new SimpleDateFormat("dd:MM:yyyy");
-        dateTimeFormat = new SimpleDateFormat("dd:MM:yyyy:mm:HH:ss");
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         loadReservas();
 
     }
@@ -68,9 +68,18 @@ public class ReservasManager {
         this.reservas.addAll(reservas);
     }
 
-    public void addReserva(Reserva reserva,Mesa mesa) {
+    public void addReserva(Reserva reserva,Mesa mesa,ReservaRequest request) {
         reservas.add(reserva);
-        //TODO Add Reserva to BBDD
+        BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
+        bbdd.connect();
+        String query = new StringBuilder().append("INSERT INTO Reserva VALUES(").append(String.valueOf(reserva.getId())).append(",")
+                .append(String.valueOf(mesa.getId())).append(",'")
+                .append(dateFormat.format(request.getDate())).append("','")
+                .append(dateTimeFormat.format(request.getDate())).append("','")
+                .append(reserva.getPassword()).append("',").append(reserva.getState())
+                .append(");").toString();
+        bbdd.modificationQuery(query);
+        bbdd.disconnect();
     }
 
     public void removeReserva() {
@@ -86,7 +95,7 @@ public class ReservasManager {
         Mesa mesa;
         if ((mesa=checkAvailability(reservaRequest))!=null) {
             Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(), reservaRequest.getDate(), reservaRequest.getAmount(), "Pass", 0);
-            addReserva(reserva,mesa);
+            addReserva(reserva,mesa,reservaRequest);
             System.out.println("New Reserva Created: ");
             System.out.println("\t" + reserva.toString());
 
@@ -102,11 +111,11 @@ public class ReservasManager {
         Mesa mesa=null;
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
-        String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL")
-                .append("and NOT EXISTS(SELECT * FROM Reserva as r1 WHERE r1.dataConcreta BETWEEN to_date(").append(dateTimeFormat.format(addAnHour(request.getDate(), -1)))
-                .append(",").append(dateTimeFormat.toPattern()).append(") AND to_date(")
+        String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL ")
+                .append("and NOT EXISTS(SELECT * FROM Reserva as r1 WHERE r1.dataConcreta BETWEEN '").append(dateTimeFormat.format(addAnHour(request.getDate(), -1)))
+                .append("' AND '")
                 .append(dateTimeFormat.format(addAnHour(request.getDate(), 1)))
-                .append(",").append(dateTimeFormat.toPattern()).append(") and r1.id_mesa = m.id_mesa);").toString();
+                .append("' and r1.id_mesa = m.id_mesa);").toString();
         ResultSet set = bbdd.readQuery(query);
         try {
             if(set.next()){
@@ -130,12 +139,17 @@ public class ReservasManager {
 
     public Reserva searchReserva(String name, String password) {
 
-        //TODO SEARCH RESERVA VIA BBDD, IF FOUND UPDATE RESERVA STATE
 
         for(Reserva reserva : reservas) {
             if(reserva.getName().equals(name) && reserva.getPassword().equals(password)) {
                 if(reserva.getState() == 0) {
                     reserva.setState(1);
+                    BBDDManager manager = BBDDManager.getInstance(Main.BBDD);
+                    manager.connect();
+                    String query = new StringBuilder().append("UPDATE Reserva SET state = ").append(1)
+                            .append(" WHERE password = '").append(password).append("';").toString();
+                    manager.modificationQuery(query);
+                    manager.disconnect();
                     return reserva;
                 }
                 break;
