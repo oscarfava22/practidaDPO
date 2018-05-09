@@ -5,6 +5,8 @@ public class Mesa {
     private int id;
     private int numComensales;
 
+    public Mesa() {}
+
     //Constructor
     public Mesa(int id, int numComensales) {
         this.numComensales = numComensales;

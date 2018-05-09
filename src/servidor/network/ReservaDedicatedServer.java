@@ -1,11 +1,12 @@
 package servidor.network;
 
-import servidor.model.PlatosManager;
-import servidor.model.ReservasManager;
+import servidor.model.*;
 import servidor.view.MainView;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ReservaDedicatedServer extends Thread {
 
@@ -14,6 +15,7 @@ public class ReservaDedicatedServer extends Thread {
     private MainView mainView;
     private PlatosManager platosManager;
     private ReservasManager reservasManager;
+    private PedidosManager pedidosManager;
     private boolean isRunning;
 
     private ObjectInputStream ois;
@@ -21,12 +23,17 @@ public class ReservaDedicatedServer extends Thread {
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
+    private String name = "";
+    private String password = "";
+
+    public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView,
+                                  PlatosManager platosManager, ReservasManager reservasManager, PedidosManager pedidosManager) {
         this.reservaServer = reservaServer;
         this.reservaClientSocket = reservaClientSocket;
         this.mainView = mainView;
         this.platosManager = platosManager;
         this.reservasManager = reservasManager;
+        this.pedidosManager = pedidosManager;
         isRunning = false;
     }
 
@@ -43,16 +50,31 @@ public class ReservaDedicatedServer extends Thread {
 
             while (isRunning) {
                 //TODO Reserva Comm Protocol
-                String string = (String) ois.readObject();
-                System.out.println(string);
-                String[] s = string.split("%%");
+                String obj = (String) ois.readObject();
 
-                if (reservasManager.searchReserva(s[0], s[1]) != null) {
+                System.out.println(obj);
+                String[] s = obj.split("%%");
+                name = s[0];
+                password = s[1];
+                Reserva reserva;
+                if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
+
                     System.out.println("OK");
                     oos.writeObject("OK");
-
+                    Pedido pedido = new Pedido(reserva, new Mesa());
+                    pedidosManager.addPedido(pedido);
                     reservaServer.updatePedidosView();
                     updateMessageToClient();
+
+                    while (isRunning) {
+                        System.out.println("Waiting Comand");
+                        ArrayList<Plat> plats =  (ArrayList<Plat>) ois.readObject();
+                        pedidosManager.getPedidoByReservaName(name).setPlatosPendientes(platosManager.getPlatos());
+                        pedidosManager.getPedidoByReservaName(name).setPlatosProcesados(new LinkedList<>());
+                        System.out.println("Comanda Received");
+                        System.out.println("Comanda Size" + plats.size());
+
+                    }
                 } else {
                     oos.writeObject("KO");
                 }

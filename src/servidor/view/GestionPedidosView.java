@@ -2,6 +2,7 @@ package servidor.view;
 
 import servidor.controller.PedidosListListener;
 import servidor.controller.PlatosPendientesController;
+import servidor.controller.PlatosProcesadosListener;
 import servidor.model.*;
 
 import javax.swing.*;
@@ -33,8 +34,6 @@ public class GestionPedidosView extends JPanel {
 
         platosPendientes = new PlatosView();
         platosProcesados = new PlatosView();
-
-        PlatosManager pl = new PlatosManager();
 
         //platosPendientes.initPlatosView(pl.getPlatos());
         platosPendientes.setBorder(BorderFactory.createTitledBorder("Platos Pendientes"));
@@ -88,16 +87,27 @@ public class GestionPedidosView extends JPanel {
         updateUI();
     }
 
+
     public PlatosView getPlatosPendientes() {
         return platosPendientes;
     }
 
+    public PlatosView getPlatosProcesados() {
+        return platosProcesados;
+    }
+
     public void registerPlatosPendientesController(PlatosPendientesController controller) {
         platosPendientes.registerControllers(controller);
+        jbServe.addMouseListener(controller);
     }
+
+    public void registerPlatosProcesadosController(PlatosProcesadosListener controller) {
+        platosProcesados.registerControllers(controller);
+    }
+
     public void initPlatosProcesadosView(LinkedList<Plato> platos) {
         platosProcesados.initPlatosView(platos);
-
+        updateUI();
     }
 
     public void registerControllers(MouseInputListener gestionPedidosViewListener, PedidosListListener pedidosListListener) {

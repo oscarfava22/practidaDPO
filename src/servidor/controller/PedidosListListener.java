@@ -1,23 +1,19 @@
 package servidor.controller;
 
-import javafx.collections.ListChangeListener;
+import servidor.model.Pedido;
 import servidor.model.PedidosManager;
 import servidor.model.PlatosManager;
 import servidor.view.MainView;
 
-import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.util.Arrays;
 
 public class PedidosListListener implements ListSelectionListener {
 
     private MainView mainView;
     private PedidosManager pedidosManager;
     private boolean selected = true;
-    private int last_value = -1;
+    private long last_value = -1;
     private PlatosManager platosManager;
 
     public PedidosListListener(MainView mainView, PedidosManager pedidosManager, PlatosManager platosManager) {
@@ -29,11 +25,21 @@ public class PedidosListListener implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
-        if (last_value != mainView.getSelectedRow() ) {
-            System.out.println("Click");
-            last_value = mainView.getSelectedRow();
-            mainView.getGestionPedidosView().initPlatosPendientesView(platosManager.getPlatos());
-            mainView.getGestionPedidosView().registerPlatosPendientesController(new PlatosPendientesController(mainView.getGestionPedidosView().getPlatosPendientes()));
+
+        if (last_value != (long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0) ) {
+            System.out.println("Click id:" + (long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0));
+            last_value = (long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0);
+
+            Pedido pedido =  pedidosManager.getPedidoByReservaId((long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0));
+
+
+            //mainView.getGestionPedidosView().getPlatosPendientes()
+
+
+            mainView.getGestionPedidosView().initPlatosPendientesView(pedido.getPlatosPendientes().getPlatos());
+            mainView.getGestionPedidosView().registerPlatosPendientesController(new PlatosPendientesController(mainView, mainView.getGestionPedidosView().getPlatosPendientes(), pedidosManager));
+            mainView.getGestionPedidosView().initPlatosProcesadosView(pedido.getPlatosProcesados().getPlatos());
+            mainView.getGestionPedidosView().registerPlatosProcesadosController(new PlatosProcesadosListener(mainView.getGestionPedidosView().getPlatosProcesados()));
         }
 
     }
