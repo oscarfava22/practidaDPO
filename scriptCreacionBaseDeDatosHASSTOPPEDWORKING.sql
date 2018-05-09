@@ -35,6 +35,7 @@ CREATE TABLE Reserva(
     data date, ## año mes y dia
     dataConcreta DateTime, ## Hora minuto y segundo
     password varchar(255),
+    state int,
     PRIMARY KEY(id_reserva),
     FOREIGN KEY (password) REFERENCES Cliente(password), 
     FOREIGN KEY (id_mesa) REFERENCES Mesa(id_mesa)
