@@ -22,7 +22,7 @@ public class MesasView extends JPanel{
 
         setLayout(new BorderLayout());
 
-        add(jpMain, BorderLayout.CENTER);
+        add(jpMain, BorderLayout.PAGE_START);
     }
 
     public void initMesas(LinkedList<Mesa> mesas) {
@@ -66,5 +66,21 @@ public class MesasView extends JPanel{
         for(MesaView mv : mesasView) {
             mv.setLabelsBackground(state);
         }
+    }
+
+    public LinkedList<MesaView> getMesasView() {
+        return mesasView;
+    }
+
+    public void setMesasView(LinkedList<MesaView> mesasView) {
+        this.mesasView = mesasView;
+    }
+
+    public JPanel getJpMain() {
+        return jpMain;
+    }
+
+    public void setJpMain(JPanel jpMain) {
+        this.jpMain = jpMain;
     }
 }

@@ -15,6 +15,7 @@ public class MesaView extends JPanel {
 
     private CustomLabel jlIdMesa;
     private CustomLabel jlNumComensalsMax;
+    private boolean selected;
 
     public MesaView(){
         setLayout(new GridLayout(2, 1));
@@ -32,6 +33,7 @@ public class MesaView extends JPanel {
 
         add(jlIdMesa);
         add(jlNumComensalsMax);
+        selected = false;
     }
 
     public MesaView(Mesa mesa){
@@ -64,8 +66,8 @@ public class MesaView extends JPanel {
 
         if (state) {
             //setBorder(new LineBorder(Color.ORANGE, 2));
-            jlIdMesa.setBackground(Color.CYAN);
-            jlNumComensalsMax.setBackground(Color.CYAN);
+            jlIdMesa.setBackground(Color.ORANGE);
+            jlNumComensalsMax.setBackground(Color.ORANGE);
         } else {
             //setBorder(new LineBorder(Color.DARK_GRAY, 2));
             jlIdMesa.setBackground(Color.GRAY);
@@ -73,12 +75,22 @@ public class MesaView extends JPanel {
         }
     }
 
-    public void registerControllers(MesasViewListener mesasViewListener) {
-        jlIdMesa.addMouseListener(mesasViewListener);
-        jlIdMesa.addMouseMotionListener(mesasViewListener);
-
-        jlNumComensalsMax.addMouseListener(mesasViewListener);
-        jlNumComensalsMax.addMouseMotionListener(mesasViewListener);
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
+    public void registerControllers(MesasViewListener mesasViewListener) {
+        this.addMouseListener(mesasViewListener);
+        this.addMouseMotionListener(mesasViewListener);
+
+        //jlIdMesa.addMouseListener(mesasViewListener);
+        //jlIdMesa.addMouseMotionListener(mesasViewListener);
+
+        //jlNumComensalsMax.addMouseListener(mesasViewListener);
+        //jlNumComensalsMax.addMouseMotionListener(mesasViewListener);
+    }
+
+    public boolean getSelected() {
+        return selected;
+    }
 }

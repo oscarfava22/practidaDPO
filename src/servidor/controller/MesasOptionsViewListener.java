@@ -1,17 +1,18 @@
 package servidor.controller;
 
+import servidor.model.Database.BBDDManager;
 import servidor.model.MesasManager;
 import servidor.view.AddMesaDialogView;
 import servidor.view.GestionMesasView;
 import servidor.view.MainView;
+import servidor.view.MesaView;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 
-public class MesasOptionsViewListener implements ActionListener {
+public class MesasOptionsViewListener implements ActionListener{
 
     private MesasViewListener mesasViewListener;
     private MainView mainView;
@@ -32,32 +33,71 @@ public class MesasOptionsViewListener implements ActionListener {
                 addDialog = new AddMesaDialogView(mainView);
                 addDialog.initDialog();
 
-                AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog);
+                AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog, mainView);
                 addDialog.registerControllers(addListener);
 
-                //while (addDialog.isVisible()){}
-                //TODO: Aparecer Dialog para añadir mesa
-                    //TODO: Conectar con la bbd si en el dialog ha clicado a "AÑADIR"
-                    //TODO: Crear la mesa en la bbdd
                 mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
                 break;
 
             case GestionMesasView.ELIMINAR_MESA_TAG:
-                int delete = JOptionPane.showConfirmDialog(null,
-                        "ELiminar la mesa seleccionada?",
-                        "Eliminar mesa", JOptionPane.YES_NO_OPTION);
+                int idMesaSeleccionada = obtenerIdMesaSeleccionada(mainView);
+                if (idMesaSeleccionada != -1){
+                    int delete = JOptionPane.showConfirmDialog(null,
+                            "ELiminar la mesa seleccionada?",
+                            "Eliminar mesa", JOptionPane.YES_NO_OPTION);
 
-                if (delete == JOptionPane.YES_OPTION){
-                    System.out.println("Eliminar mesa");
-                    //TODO: Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
-                    //TODO: Eliminar la mesa y todas sus reservas de la bbdd
-                    mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
-                } else if(delete == JOptionPane.NO_OPTION) {
-                    System.out.println("No eliminar mesa");
+                    if (delete == JOptionPane.YES_OPTION){
+                        System.out.println("Eliminar mesa");
+
+                        //TODO: Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
+                        //Llamar a setUser y setPassword del usuario de la bbdd
+                        BBDDManager.setUsername("test");
+                        //BBDDManager.setPassword("1234");
+                        //Llamar al getInstance
+                        BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+                        // Del objeto getInstance hacer un connect
+                        bbddManager.connect();
+
+
+                        //Querie --> eliminar la taula amb id de taula idMesaSeleccionada
+                        //TODO: hacer la query
+                        String idMesaSeleccionadaString = Integer.toString(idMesaSeleccionada);
+                        String queryMesa = "DELETE FROM Mesa AS m WHERE m.id_mesa = " + idMesaSeleccionadaString + ";";
+                        String queryReservas = "DELETE FROM Reserva AS r WHERE r.id_mesa = " + idMesaSeleccionadaString + ";";
+
+                        //TODO: obtener el resultado
+                        bbddManager.modificationQuery(queryMesa);
+                        bbddManager.modificationQuery(queryReservas);
+
+                        //TODO: actualizar mainview
+
+                        // Del objeto getInstance, desconectar
+                        bbddManager.disconnect();
+                        mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
+                    } else if(delete == JOptionPane.NO_OPTION) {
+                        System.out.println("No eliminar mesa");
+                    }
+                }else {
+                    System.out.println("Mesa no seleccionada");
                 }
+
 
                 break;
         }
+    }
+
+    private int obtenerIdMesaSeleccionada(MainView mainView) {
+        int idMesaSelected = -1;
+
+        LinkedList<MesaView> mesas = mainView.getGestionMesasView().getMesasView().getMesasView();
+
+        for (int i = 0; i < mesas.size(); i++){
+            if (mesas.get(i).getSelected()){
+                idMesaSelected = Integer.parseInt(mesas.get(i).getJlIdMesa().getText().toString());
+            }
+        }
+
+        return idMesaSelected;
     }
 
     public void initDeleteDialog(){

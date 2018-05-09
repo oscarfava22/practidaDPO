@@ -2,11 +2,13 @@ package servidor.view;
 
 import servidor.controller.MesasOptionsViewListener;
 import servidor.controller.MesasViewListener;
+import servidor.model.Database.InfoResultSetReserva;
 import servidor.model.MainViewModel;
 import servidor.model.Mesa;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GestionMesasView extends JPanel {
@@ -18,8 +20,7 @@ public class GestionMesasView extends JPanel {
     public static final String ELIMINAR_MESA_TAG = "Eliminar mesa";
     public static final String AÑADIR_MESA_TAG = "Añadir mesa";
     public static final String LISTADO_MESAS_TAG = "Listado de mesas";
-
-    public static int NUMERO_MESAS;
+    public static final String NINGUNA_MESA_SELECCIONADA_TAG = "Ninguna mesa seleccionada";
 
     private JPanel jpLeft;
         private JScrollPane jspListaMesas;
@@ -29,11 +30,8 @@ public class GestionMesasView extends JPanel {
         private JPanel jpReservas;
             private JPanel jpMesaSelected;
                 private JLabel jlIdMesaSelected;
-            private JScrollPane jspReservasMesa;
-                private JPanel jpListaReservasMesa;
-                    private JLabel[] jlNombresReserva;
-                    private JLabel[] jlHorasReserva;
-                    private JLabel[] jlFechasReserva;
+            private JPanel jpReservasPane;
+            private ReservasView reservasView;
         private JPanel jpBotones;
             private JButton jbEliminarMesa;
             private JButton jbAnadirMesa;
@@ -46,7 +44,7 @@ public class GestionMesasView extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 10));
 
         //PANEL SCROLLABLE A LA IZQUIERDA
-        jpMesas = new JPanel();
+        jpMesas = new JPanel(new BorderLayout());
         jspListaMesas = new JScrollPane();
         jspListaMesas.getViewport().setView(jpMesas);
 
@@ -68,36 +66,10 @@ public class GestionMesasView extends JPanel {
 
         //Panel Central
         jpReservas = new JPanel(new BorderLayout());
-        jspReservasMesa = new JScrollPane();
-
-        jpListaReservasMesa = new JPanel(new GridLayout(1, 3));
-        jpListaReservasMesa.setBorder(BorderFactory.createTitledBorder(RESERVAS_TAG));
-        Font titleFont = new Font(getFont().getName(), Font.BOLD, getFont().getSize());
-        JLabel jlNombreReserva = new JLabel(NOMBRE_RESERVA_TAG);
-        jlNombreReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
-        jlNombreReserva.setHorizontalAlignment(SwingConstants.CENTER);
-        jlNombreReserva.setVerticalAlignment(SwingConstants.NORTH);
-        jlNombreReserva.setFont(titleFont);
-        jpListaReservasMesa.add(jlNombreReserva);
-        JLabel jlHoraReserva = new JLabel(HORA_TAG);
-        jlHoraReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
-        jlHoraReserva.setHorizontalAlignment(SwingConstants.CENTER);
-        jlHoraReserva.setVerticalAlignment(SwingConstants.NORTH);
-        jlHoraReserva.setFont(titleFont);
-        jpListaReservasMesa.add(jlHoraReserva);
-        JLabel jlFechaReserva = new JLabel(FECHA_TAG);
-        jlFechaReserva.setBorder(BorderFactory.createMatteBorder(2,2,4,2, Color.BLACK));
-        jlFechaReserva.setHorizontalAlignment(SwingConstants.CENTER);
-        jlFechaReserva.setVerticalAlignment(SwingConstants.NORTH);
-        jlFechaReserva.setFont(titleFont);
-        jpListaReservasMesa.add(jlFechaReserva);
-
-        jspReservasMesa = new JScrollPane(jpListaReservasMesa);
-        jpReservas.add(jspReservasMesa, BorderLayout.CENTER);
 
         jpMesaSelected = new JPanel(new BorderLayout());
         jpMesaSelected.add(new JLabel("Mesa: "), BorderLayout.LINE_START);
-        jlIdMesaSelected = new JLabel("Ninguna mesa seleccionada");
+        jlIdMesaSelected = new JLabel(NINGUNA_MESA_SELECCIONADA_TAG);
         jpMesaSelected.add(jlIdMesaSelected, BorderLayout.CENTER);
         jpReservas.add(jpMesaSelected, BorderLayout.PAGE_START);
 
@@ -132,7 +104,10 @@ public class GestionMesasView extends JPanel {
     public void initView(MainViewModel mainViewModel, LinkedList<Mesa> mesas) {
         mesasView = new MesasView();
         mesasView.initMesas(mesas);
+
         jpMesas.add(mesasView, BorderLayout.CENTER);
+
+        reservasView = new ReservasView();
     }
 
     public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {
@@ -156,5 +131,18 @@ public class GestionMesasView extends JPanel {
 
     public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
         mesasView.refreshMesas(mesas, mesasViewListener);
+        System.out.println("REFRESH");
+    }
+
+    public JPanel getJpMesas() {
+        return jpMesas;
+    }
+
+    public MesasView getMesasView() {
+        return mesasView;
+    }
+
+    public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
+        reservasView.refreshReservas(reservas);
     }
 }

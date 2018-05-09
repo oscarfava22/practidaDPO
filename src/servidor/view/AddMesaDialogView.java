@@ -55,6 +55,10 @@ public class AddMesaDialogView extends JDialog{
     }
 
 
+    public int getNumComensales(){
+        String numComensalesString = jtNumCom.getText().toString();
+        return Integer.parseInt(numComensalesString);
+    }
     public boolean isNumComensalesCorrect(){
         boolean correct = false;
 
