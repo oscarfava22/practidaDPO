@@ -35,6 +35,7 @@ public class MesasViewListener implements MouseInputListener{
         mv.setSelected(!mv.getSelected());
 
         System.out.println("ID mesa apretada: " + mv.getJlIdMesa().getText().toString());
+        mainView.getGestionMesasView().setIdMesaSeleccionada(mv.getJlIdMesa().getText().toString());
 
         MesasView mesasView = mainView.getGestionMesasView().getMesasView();
         for (int i = 0; i < mesasView.getMesasView().size(); i++){
@@ -83,7 +84,22 @@ public class MesasViewListener implements MouseInputListener{
                 reservas.remove(i);
                 reservas.add(reserva);
             }
+/*
 
+            ArrayList<InfoResultSetReserva> reservas = new ArrayList<InfoResultSetReserva>();
+            InfoResultSetReserva r1 = new InfoResultSetReserva(12, 56, "hola", new Date(), new Time(15, 34, 20));
+            r1.setNombre("Xose");
+            reservas.add(r1);
+            InfoResultSetReserva r2 = new InfoResultSetReserva(13, 56, "hola2", new Date(), new Time(18, 54, 40));
+            r2.setNombre("Bernard");
+            reservas.add(r2);
+            InfoResultSetReserva r3 = new InfoResultSetReserva(14, 56, "hola3", new Date(), new Time(05, 24, 15));
+            r3.setNombre("Olksiy");
+            reservas.add(r3);
+            InfoResultSetReserva r4 = new InfoResultSetReserva(15, 56, "hola4", new Date(), new Time(11, 54, 06));
+            r4.setNombre("Oscar");
+            reservas.add(r4);
+*/
             reservas.sort(new Comparator<InfoResultSetReserva>() {
                 @Override
                 public int compare(InfoResultSetReserva o1, InfoResultSetReserva o2) {
@@ -100,7 +116,6 @@ public class MesasViewListener implements MouseInputListener{
                 }
             });
 
-            //TODO: Actualitzar vista de reserves de la taula que has cercat
             mainView.refreshReservas(reservas);
 
         } catch (SQLException e1) {
@@ -111,7 +126,7 @@ public class MesasViewListener implements MouseInputListener{
         mainView.refreshMesas(mesasManager.getMesas(), this);
 
         // Del objeto getInstance, desconectar
-        bbddManager.disconnect();
+//        bbddManager.disconnect();
 
 
     }

@@ -49,7 +49,7 @@ public class MesasOptionsViewListener implements ActionListener{
                     if (delete == JOptionPane.YES_OPTION){
                         System.out.println("Eliminar mesa");
 
-                        //TODO: Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
+                        //Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                         //Llamar a setUser y setPassword del usuario de la bbdd
                         BBDDManager.setUsername("test");
                         //BBDDManager.setPassword("1234");
@@ -60,7 +60,6 @@ public class MesasOptionsViewListener implements ActionListener{
 
 
                         //Querie --> eliminar la taula amb id de taula idMesaSeleccionada
-                        //TODO: hacer la query
                         String idMesaSeleccionadaString = Integer.toString(idMesaSeleccionada);
                         String queryMesa = "DELETE FROM Mesa AS m WHERE m.id_mesa = " + idMesaSeleccionadaString + ";";
                         String queryReservas = "DELETE FROM Reserva AS r WHERE r.id_mesa = " + idMesaSeleccionadaString + ";";

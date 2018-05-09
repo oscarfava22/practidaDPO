@@ -21,6 +21,7 @@ public class GestionMesasView extends JPanel {
     public static final String AÑADIR_MESA_TAG = "Añadir mesa";
     public static final String LISTADO_MESAS_TAG = "Listado de mesas";
     public static final String NINGUNA_MESA_SELECCIONADA_TAG = "Ninguna mesa seleccionada";
+    public static final String MESA_SELECCIONADA = "Mesa seleccionada: ";
 
     private JPanel jpLeft;
         private JScrollPane jspListaMesas;
@@ -111,7 +112,9 @@ public class GestionMesasView extends JPanel {
 
         jpMesas.add(mesasView, BorderLayout.CENTER);
 
+        reservasView = new ReservasView();
         reservasView.initReservas(reservas);
+
         jpReservas.add(reservasView, BorderLayout.CENTER);
 
     }
@@ -150,5 +153,9 @@ public class GestionMesasView extends JPanel {
 
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView.refreshReservas(reservas);
+    }
+
+    public void setIdMesaSeleccionada(String idMesaSeleccionada){
+        jlIdMesaSelected.setText(MESA_SELECCIONADA + idMesaSeleccionada);
     }
 }
