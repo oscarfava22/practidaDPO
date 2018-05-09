@@ -32,6 +32,7 @@ public class Main {
                 MainViewModel mainViewModel = new MainViewModel();
                 LoginModel loginModel = new LoginModel();
                 PlatosManager platosManager = new PlatosManager();
+                platosManager.loadPlatos();
                 ReservasManager reservasManager = new ReservasManager();
                 PedidosManager pedidosManager = new PedidosManager();
                 MesasManager mesasManager = new MesasManager();

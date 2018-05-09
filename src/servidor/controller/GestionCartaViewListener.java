@@ -181,13 +181,7 @@ public class GestionCartaViewListener implements MouseInputListener {
                 platosView.setSelectedPlatoState(cl.getId(), true);
                 //Default State
                 platosOptionsView.setEditState(false);
-
-                for(int i = 0; i < platosManager.getPlatos().size(); i++) {
-                    if(platosManager.getPlatos().get(i).getId() == Long.parseLong(cl.getId())) {
-                        platosOptionsView.setTextFields(platosManager.getPlato(i));
-                        break;
-                    }
-                }
+                platosOptionsView.setTextFields(platosManager.getPlato(Long.parseLong(cl.getId())));
             }
         }
     }

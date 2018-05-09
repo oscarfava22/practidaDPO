@@ -43,6 +43,7 @@ public class PlatosView extends JPanel {
             jpPlatos.add(platosView.getLast());
             setSelectedPlatosState(false);
         }
+        jpPlatos.updateUI();
     }
 
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
@@ -57,6 +58,10 @@ public class PlatosView extends JPanel {
         jpPlatos.add(platosView.getLast());
         setSelectedPlatosState(false);
         jpPlatos.updateUI();
+    }
+
+    public synchronized void registerPlato(MouseInputListener controller) {
+
     }
 
     public synchronized void updatePlato(String id, String type, String title, String price, String units) {
