@@ -102,13 +102,9 @@ public class GestionMesasView extends JPanel {
         this.jlIdMesaSelected = jlIdMesaSelected;
     }
 
-    /**
-     * Crea la vista del apartado Gestionar Mesas
-     * @param mainViewModel
-     */
-    public void initView(MainViewModel mainViewModel, LinkedList<Mesa> mesas, ArrayList<InfoResultSetReserva> reservas) {
+    public void initView(ArrayList<InfoResultSetReserva> reservas) {
         mesasView = new MesasView();
-        mesasView.initMesas(mesas);
+        mesasView.initMesas();
 
         jpMesas.add(mesasView, BorderLayout.CENTER);
 
@@ -116,7 +112,6 @@ public class GestionMesasView extends JPanel {
         reservasView.initReservas(reservas);
 
         jpReservas.add(reservasView, BorderLayout.CENTER);
-
     }
 
     public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {
@@ -129,17 +124,13 @@ public class GestionMesasView extends JPanel {
         mesasView.setLabelsBackground(id, state);
     }
 
-    public void refreshPlatos(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
-        mesasView.refreshMesas(mesas, mesasViewListener);
-    }
-
     public void setActionCommands(){
         jbAnadirMesa.setActionCommand(AÑADIR_MESA_TAG);
         jbEliminarMesa.setActionCommand(ELIMINAR_MESA_TAG);
     }
 
-    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
-        mesasView.refreshMesas(mesas, mesasViewListener);
+    public void refreshMesas(MesasViewListener mesasViewListener) {
+        mesasView.refreshMesas(mesasViewListener);
     }
 
     public JPanel getJpMesas() {

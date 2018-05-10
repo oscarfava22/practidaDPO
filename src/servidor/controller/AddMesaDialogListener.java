@@ -28,7 +28,7 @@ public class AddMesaDialogListener implements ActionListener{
                     int numComensales = view.getNumComensales();
                     int idSerial = SerialMesasGenerator.getSerial();
 
-/*                    //Llamar al getInstance
+                    //Llamar al getInstance
                     BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
                     // Del objeto getInstance hacer un connect
                     bbddManager.connect();
@@ -43,9 +43,8 @@ public class AddMesaDialogListener implements ActionListener{
 
                     // Del objeto getInstance, desconectar
                     bbddManager.disconnect();
-*/
 
-                    //TODO: actualizar mainview
+                    //TODO: actualizar mainview (AQUI O AL SALIR DEL DIALOG)
                     //mainView.getGestionMesasView().refreshMesas();
 
                     //Cerrar el dialog

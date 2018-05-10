@@ -45,6 +45,7 @@ public class ReservasView extends JPanel {
     }
 
     public void initReservas(ArrayList<InfoResultSetReserva> reservas) {
+        reservasView = new ArrayList<ReservaView>();
         for(InfoResultSetReserva reserva : reservas) {
             ReservaView reservaView = new ReservaView(reserva);
             reservasView.add(reservaView);

@@ -48,11 +48,7 @@ public class MesasViewListener implements MouseInputListener{
                 mesasView.getMesasView().get(i).setSelected(true);
             }
         }
-        //mv.setLabelsBackground(true);
-        //mv.setSelected(true);
 
-        //Llamar a setUser y setPassword del usuario de la bbdd
-/*
         //Llamar al getInstance
         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
 
@@ -89,8 +85,8 @@ public class MesasViewListener implements MouseInputListener{
                 reservas.remove(i);
                 reservas.add(reserva);
             }
-*/
 
+/*          ----PRUEBA SIN BBDD----
             ArrayList<InfoResultSetReserva> reservas = new ArrayList<InfoResultSetReserva>();
             InfoResultSetReserva r1 = new InfoResultSetReserva(12, 56, "hola", new Date(), new Time(15, 34, 20));
             r1.setNombre("Xose");
@@ -104,8 +100,9 @@ public class MesasViewListener implements MouseInputListener{
             InfoResultSetReserva r4 = new InfoResultSetReserva(15, 56, "hola4", new Date(), new Time(11, 54, 06));
             r4.setNombre("Oscar");
             reservas.add(r4);
-
+*/
             reservas.sort(new Comparator<InfoResultSetReserva>() {
+                //TODO: Revisar si funciona bien el Comparator
                 @Override
                 public int compare(InfoResultSetReserva o1, InfoResultSetReserva o2) {
                     Date date1 = o1.getDate();
@@ -123,9 +120,9 @@ public class MesasViewListener implements MouseInputListener{
 
             mainView.refreshReservas(reservas);
 
-        //} catch (SQLException e1) {
+        } catch (SQLException e1) {
             //System.out.println("Error al llegir RESULTSET");
-        //}
+        }
 
         //Actualizar mainview
         mainView.refreshMesas(mesasManager.getMesas(), this);

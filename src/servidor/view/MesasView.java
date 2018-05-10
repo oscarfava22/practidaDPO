@@ -28,8 +28,8 @@ public class MesasView extends JPanel{
         add(jpMain, BorderLayout.PAGE_START);
     }
 
-    public void initMesas(LinkedList<Mesa> mesas) {
-        //TODO: Connect with bbdd to get mesas every time we refresh it
+    public void initMesas() {
+        //Connect with bbdd to get mesas every time we refresh the view
         //Llamar al getInstance
         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
         // Del objeto getInstance hacer un connect
@@ -40,6 +40,8 @@ public class MesasView extends JPanel{
 
         try {
             LinkedList<Mesa> mesaLinkedList = leerMesasFromResultSet(resultSet);
+            //mesasView = new LinkedList<MesaView>();
+            mesasView.clear();
             for (Mesa ml : mesaLinkedList) {
                 mesasView.add(new MesaView(ml));
                 jpMain.add(mesasView.getLast());
@@ -52,7 +54,6 @@ public class MesasView extends JPanel{
 
         // Del objeto getInstance, desconectar
         bbddManager.disconnect();
-
     }
 
     public LinkedList<Mesa> leerMesasFromResultSet(ResultSet resultSet) throws SQLException {
@@ -71,11 +72,11 @@ public class MesasView extends JPanel{
         return mesas;
     }
 
-    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
+    public void refreshMesas(MesasViewListener mesasViewListener) {
         mesasView.clear();
         jpMain.removeAll();
         updateUI();
-        initMesas(mesas);
+        initMesas();
         registerControllers(mesasViewListener);
         setLabelsBackground2(false);
 
