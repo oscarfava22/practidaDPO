@@ -35,6 +35,7 @@ CREATE TABLE Reserva(
     data date, ## año mes y dia
     dataConcreta DateTime, ## Hora minuto y segundo
     password varchar(255),
+    state int,
     PRIMARY KEY(id_reserva),
     FOREIGN KEY (password) REFERENCES Cliente(password), 
     FOREIGN KEY (id_mesa) REFERENCES Mesa(id_mesa)
@@ -50,4 +51,7 @@ CREATE TABLE Comanda(
     FOREIGN KEY (id_plato) REFERENCES Plato(id_plato)
 );
 
-select * from Mesa;
+DROP USER IF EXISTS RestaurantUser;
+CREATE USER 'RestaurantUser' IDENTIFIED BY 'ResUser';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'RestaurantUser';
+GRANT INSERT,SELECT,UPDATE,DELETE ON Restaurant.* TO 'RestaurantUser' IDENTIFIED BY 'ResUser';

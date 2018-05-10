@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 public class Main {
 
     public static final String BBDD = "Restaurant";
-    public static final String USERNAME = "test";
-    public static final String PASSWORD = "";
+    public static final String USERNAME = "RestaurantUser";
+    public static final String PASSWORD = "ResUser";
 
     public static void main(String[] args) {
 

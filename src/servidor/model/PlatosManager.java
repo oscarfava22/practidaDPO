@@ -14,11 +14,11 @@ public class PlatosManager {
 
     private LinkedList<Plato> platos;
     private String[] productsTypes = { "Entrante", "Plato Principal", "Postre", "Bebidas" };
-    //private final BBDDManager manager;
+    private final BBDDManager manager;
 
     public PlatosManager() {
         platos = new LinkedList<>();
-        /*manager = BBDDManager.getInstance(Main.BBDD);
+        manager = BBDDManager.getInstance(Main.BBDD);
         manager.connect();
         ResultSet set = manager.readQuery("SELECT * FROM Plato;");
         if(set!=null){
@@ -37,7 +37,7 @@ public class PlatosManager {
                 e.printStackTrace();
             }
         }
-        manager.disconnect();*/
+        manager.disconnect();
         //loadPlatos();
 
     }
@@ -64,12 +64,12 @@ public class PlatosManager {
     }
 
     public void addPlato(Plato plato) {
-        /*manager.connect();
+        manager.connect();
         String query = new StringBuilder().append("INSERT INTO Plato VALUES(").append(plato.getId()).append(",'")
                 .append(plato.getTitle()).append("',").append(plato.getUnits()).append(",").append(plato.getType())
                 .append(",").append(plato.getPrice()).append(");").toString();
         manager.modificationQuery(query);
-        manager.disconnect();*/
+        manager.disconnect();
 
         platos.add(plato);
     }
@@ -84,11 +84,11 @@ public class PlatosManager {
     }
 
     public void updatePlato(long id, String type, String title, float price, int units) {
-        /*manager.connect();
+        manager.connect();
         String query = new StringBuilder().append("UPDATE Plato SET nombre='").append(title).append("', unidades=").append(units)
                 .append(", id_tipus=").append(type).append(", precio=").append(price).append(" WHERE id_plato=").append(id).append(";").toString();
         manager.modificationQuery(query);
-        manager.disconnect();*/
+        manager.disconnect();
 
         for(Plato pl : platos) {
             if (pl.getId() == id) {
@@ -102,11 +102,10 @@ public class PlatosManager {
     }
 
     public void removePlato(long id) {
-        //TODO removePlato
-        /*manager.connect();
+        manager.connect();
         String query = new StringBuilder().append("DELETE FROM Plato WHERE id_plato=").append(id).append(";").toString();
         manager.modificationQuery(query);
-        manager.disconnect();*/
+        manager.disconnect();
 
         for(int i = 0; i < platos.size(); i++) {
             if (platos.get(i).getId() == id){
