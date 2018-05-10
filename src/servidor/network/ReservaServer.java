@@ -19,16 +19,20 @@ public class ReservaServer extends Thread {
     private PlatosManager platosManager;
     private ReservasManager reservasManager;
     private PedidosManager pedidosManager;
+    private PedidosListListener pedidosListListener;
 
     private LinkedList<ReservaDedicatedServer> reservaDedicatedServers;
 
-    public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager, PedidosManager pedidosManager) {
+    public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager,
+                         ReservasManager reservasManager, PedidosManager pedidosManager,
+                         PedidosListListener pedidosListListener) {
 
         this.mainServer = mainServer;
         this.mainView = mainView;
         this.platosManager = platosManager;
         this.reservasManager = reservasManager;
         this.pedidosManager = pedidosManager;
+        this.pedidosListListener = pedidosListListener;
 
         reservaDedicatedServers = new LinkedList<>();
 
@@ -82,7 +86,7 @@ public class ReservaServer extends Thread {
 
     public void updatePedidosView() {
         //reservasManager.addReserva();
-        mainView.getGestionPedidosView().getPedidosView().initView(reservasManager.getReservas());
-        mainView.getGestionPedidosView().getPedidosView().registerControllers(new PedidosListListener(mainView, pedidosManager,platosManager));
+        mainView.getGestionPedidosView().getPedidosView().initView(pedidosManager.getPedidos());
+        mainView.getGestionPedidosView().getPedidosView().registerControllers(pedidosListListener);
     }
 }

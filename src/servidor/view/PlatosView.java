@@ -60,10 +60,6 @@ public class PlatosView extends JPanel {
         jpPlatos.updateUI();
     }
 
-    public synchronized void registerPlato(MouseInputListener controller) {
-
-    }
-
     public synchronized void updatePlato(String id, String type, String title, String price, String units) {
         for(PlatoView pv : platosView) {
             if(pv.getJlProductId().equals(id)) {

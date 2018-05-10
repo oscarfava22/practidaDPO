@@ -6,6 +6,8 @@ import servidor.view.MainView;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class ReservaDedicatedServer extends Thread {
@@ -51,26 +53,44 @@ public class ReservaDedicatedServer extends Thread {
             while (isRunning) {
                 //TODO Reserva Comm Protocol
                 String obj = (String) ois.readObject();
-
-                System.out.println(obj);
                 String[] s = obj.split("%%");
-                name = s[0];
-                password = s[1];
+                System.out.println(obj);
                 Reserva reserva;
-                if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
 
+                if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
+                    name = s[0];
+                    password = s[1];
                     System.out.println("OK");
                     oos.writeObject("OK");
                     Pedido pedido = new Pedido(reserva, new Mesa());
                     pedidosManager.addPedido(pedido);
-                    reservaServer.updatePedidosView();
+                    //reservaServer.updatePedidosView();
                     updateMessageToClient();
 
                     while (isRunning) {
                         System.out.println("Waiting Comand");
                         ArrayList<Plat> plats =  (ArrayList<Plat>) ois.readObject();
-                        pedidosManager.getPedidoByReservaName(name).setPlatosPendientes(platosManager.getPlatos());
-                        pedidosManager.getPedidoByReservaName(name).setPlatosProcesados(new LinkedList<>());
+                        LinkedList<Plato> platos = new LinkedList<>();
+                        LinkedList<Plato> platos1 = new LinkedList<>(platosManager.getPlatos());
+                        platos = (LinkedList<Plato>) platos1.clone();
+
+                        Plato[] plato = new Plato[platos1.size()];
+                        plato = platos.toArray(plato);
+
+                        Plato[] plato2 = new Plato[plato.length];
+                        for(int i=0;i<plato.length;i++) plato2[i] = new Plato(plato[i]);
+                        platos =new LinkedList(Arrays.asList(plato2));
+
+
+                        //Collections.copy(platos, platosManager.getPlatos());
+
+                        //Pedido Send
+                        reserva.setState(2);
+                        //pedidosManager.getPedidoByReservaName(name).setPlatosPendientes(platos);
+                        pedidosManager.getPedidoByReservaName(name).addPlatosPendientes(platos);
+                        //pedidosManager.getPedidoByReservaName(name).setPlatosProcesados(new LinkedList<>());
+                        reservaServer.updatePedidosView();
+
                         System.out.println("Comanda Received");
                         System.out.println("Comanda Size" + plats.size());
 
@@ -106,7 +126,6 @@ public class ReservaDedicatedServer extends Thread {
 
     public void updateMessageToClient() {
         try {
-            oos = new ObjectOutputStream(reservaClientSocket.getOutputStream());
             oos.writeObject(platosManager.getPlatos());
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package servidor.view;
 
 import servidor.controller.PedidosListListener;
-import servidor.model.Reserva;
+import servidor.model.Pedido;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,13 +49,24 @@ public class PedidosView extends JPanel {
         add(jpMain, BorderLayout.CENTER);
     }
 
-    public void initView(LinkedList<Reserva> reservas) {
-        Reserva[] reservaArray = new Reserva[reservas.size()];
-        reservaArray = reservas.toArray(reservaArray);
+    public void initView(LinkedList<Pedido> pedidosList) {
 
-        pedidos = new Object[reservaArray.length][];
-        for(int i = 0; i < reservaArray.length; i++){
-            pedidos[i] = reservaArray[i].toObjectArray();
+        LinkedList<Pedido> temp = new LinkedList<>();
+
+        for (Pedido pedido : pedidosList) {
+            if (pedido.getReserva().getState() == 2) {
+                temp.add(pedido);
+            }
+        }
+
+        Pedido[] pedidosArray = new Pedido[temp.size()];
+        pedidosArray = temp.toArray(pedidosArray);
+
+        pedidos = new Object[pedidosArray.length][];
+        for(int i = 0; i < pedidosArray.length; i++){
+            if (pedidosArray[i].getReserva().getState() == 2) {
+                pedidos[i] = pedidosArray[i].toObjectArray();
+            }
         }
 
         jtPedidos = new JTable() {
@@ -75,18 +86,22 @@ public class PedidosView extends JPanel {
         model.setDataVector(pedidos, columnNames);
         jtPedidos.setModel(model);
 
-
         jpPedidos.removeAll();
 
         jpPedidos.add(jtPedidos, BorderLayout.CENTER);
         jpPedidos.updateUI();
 
-        add(jtPedidos.getTableHeader(), BorderLayout.NORTH);
+        remove(jtPedidos.getTableHeader());
 
+        add(jtPedidos.getTableHeader(), BorderLayout.NORTH);
+        updateUI();
     }
 
     public void registerControllers (PedidosListListener pedidosListListener) {
+        jtPedidos.getSelectionModel().removeListSelectionListener(pedidosListListener);
         jtPedidos.getSelectionModel().addListSelectionListener(pedidosListListener);
+        jtPedidos.updateUI();
+        jpPedidos.updateUI();
     }
 
     public JTable getJtPedidos () {

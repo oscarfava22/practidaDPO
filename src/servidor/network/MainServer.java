@@ -1,5 +1,6 @@
 package servidor.network;
 
+import servidor.controller.PedidosListListener;
 import servidor.model.PedidosManager;
 import servidor.model.Plato;
 import servidor.model.PlatosManager;
@@ -14,19 +15,22 @@ public class MainServer {
     private PlatosManager platosManager;
     private ReservasManager reservasManager;
     private PedidosManager pedidosManager;
+    private PedidosListListener pedidosListListener;
 
     private EntryServer entryServer;
     private ReservaServer reservaServer;
 
-    public MainServer(MainView mainView, PlatosManager platosManager, ReservasManager reservasManager, PedidosManager pedidosManager) {
+    public MainServer(MainView mainView, PlatosManager platosManager, ReservasManager reservasManager,
+                      PedidosManager pedidosManager, PedidosListListener pedidosListListener) {
 
         this.mainView = mainView;
         this.platosManager = platosManager;
         this.reservasManager = reservasManager;
         this.pedidosManager = pedidosManager;
+        this.pedidosListListener = pedidosListListener;
 
         entryServer = new EntryServer(this, mainView, platosManager, reservasManager);
-        reservaServer = new ReservaServer(this, mainView, platosManager, reservasManager, pedidosManager);
+        reservaServer = new ReservaServer(this, mainView, platosManager, reservasManager, pedidosManager, this.pedidosListListener);
     }
 
     public void initServers() {
