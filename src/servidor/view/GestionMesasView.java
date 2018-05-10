@@ -140,7 +140,6 @@ public class GestionMesasView extends JPanel {
 
     public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
         mesasView.refreshMesas(mesas, mesasViewListener);
-        System.out.println("REFRESH");
     }
 
     public JPanel getJpMesas() {

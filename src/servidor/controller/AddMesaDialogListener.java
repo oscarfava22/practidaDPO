@@ -28,7 +28,7 @@ public class AddMesaDialogListener implements ActionListener{
                     int numComensales = view.getNumComensales();
                     int idSerial = SerialMesasGenerator.getSerial();
 
-                    //Llamar al getInstance
+/*                    //Llamar al getInstance
                     BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
                     // Del objeto getInstance hacer un connect
                     bbddManager.connect();
@@ -39,11 +39,14 @@ public class AddMesaDialogListener implements ActionListener{
                     String query = "INSERT INTO Mesa (id_mesa, num_comensales) VALUES (" + idSerialString + ", " + numComensalesString + ");";
                     bbddManager.modificationQuery(query);
 
-                    //TODO: actualizar mainview
-                    //mainView.getGestionMesasView().refreshMesas();
+
 
                     // Del objeto getInstance, desconectar
                     bbddManager.disconnect();
+*/
+
+                    //TODO: actualizar mainview
+                    //mainView.getGestionMesasView().refreshMesas();
 
                     //Cerrar el dialog
                     view.disable();
