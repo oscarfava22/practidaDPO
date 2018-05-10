@@ -125,7 +125,7 @@ public class MesasViewListener implements MouseInputListener{
         }
 
         //Actualizar mainview
-        mainView.refreshMesas(mesasManager.getMesas(), this);
+        mainView.refreshMesas(this);
 
         // Del objeto getInstance, desconectar
 //        bbddManager.disconnect();
