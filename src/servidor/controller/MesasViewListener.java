@@ -8,6 +8,7 @@ import servidor.view.MesaView;
 import servidor.view.MesasView;
 
 import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,21 +32,22 @@ public class MesasViewListener implements MouseInputListener{
     public void mouseClicked(MouseEvent e) {
 
         MesaView mv = (MesaView) e.getSource();
+        mv.setSelected(true);
         mv.setLabelsBackground(true);
-        mv.setSelected(!mv.getSelected());
 
         System.out.println("ID mesa apretada: " + mv.getJlIdMesa().getText().toString());
+        mainView.getGestionMesasView().setIdMesaSeleccionada(mv.getJlIdMesa().getText().toString());
 
         MesasView mesasView = mainView.getGestionMesasView().getMesasView();
         for (int i = 0; i < mesasView.getMesasView().size(); i++){
             if (!mv.equals(mesasView.getMesasView().get(i))){
                 mesasView.getMesasView().get(i).setLabelsBackground(false);
                 mesasView.getMesasView().get(i).setSelected(false);
+            }else {
+                mesasView.getMesasView().get(i).setLabelsBackground(true);
+                mesasView.getMesasView().get(i).setSelected(true);
             }
         }
-
-        //TODO: Mostrar info reservas de la mesa en la parte derecha de la pantalla
-        //Llamar a setUser y setPassword del usuario de la bbdd
 
         //Llamar al getInstance
         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
@@ -84,7 +86,23 @@ public class MesasViewListener implements MouseInputListener{
                 reservas.add(reserva);
             }
 
+/*          ----PRUEBA SIN BBDD----
+            ArrayList<InfoResultSetReserva> reservas = new ArrayList<InfoResultSetReserva>();
+            InfoResultSetReserva r1 = new InfoResultSetReserva(12, 56, "hola", new Date(), new Time(15, 34, 20));
+            r1.setNombre("Xose");
+            reservas.add(r1);
+            InfoResultSetReserva r2 = new InfoResultSetReserva(13, 56, "hola2", new Date(), new Time(18, 54, 40));
+            r2.setNombre("Bernard");
+            reservas.add(r2);
+            InfoResultSetReserva r3 = new InfoResultSetReserva(14, 56, "hola3", new Date(), new Time(05, 24, 15));
+            r3.setNombre("Olksiy");
+            reservas.add(r3);
+            InfoResultSetReserva r4 = new InfoResultSetReserva(15, 56, "hola4", new Date(), new Time(11, 54, 06));
+            r4.setNombre("Oscar");
+            reservas.add(r4);
+*/
             reservas.sort(new Comparator<InfoResultSetReserva>() {
+                //TODO: Revisar si funciona bien el Comparator
                 @Override
                 public int compare(InfoResultSetReserva o1, InfoResultSetReserva o2) {
                     Date date1 = o1.getDate();
@@ -100,18 +118,17 @@ public class MesasViewListener implements MouseInputListener{
                 }
             });
 
-            //TODO: Actualitzar vista de reserves de la taula que has cercat
             mainView.refreshReservas(reservas);
 
         } catch (SQLException e1) {
-            System.out.println("Error al llegir RESULTSET");
+            //System.out.println("Error al llegir RESULTSET");
         }
 
         //Actualizar mainview
-        mainView.refreshMesas(mesasManager.getMesas(), this);
+        mainView.refreshMesas(this);
 
         // Del objeto getInstance, desconectar
-        bbddManager.disconnect();
+//        bbddManager.disconnect();
 
 
     }

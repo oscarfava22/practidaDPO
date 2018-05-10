@@ -52,7 +52,7 @@ public class MainView extends JFrame {
                          LinkedList<Pedido> pedidos) {
 
         selectorView.initView(mainViewModel);
-        gestionMesasView.initView(mainViewModel, mesas, new ArrayList<InfoResultSetReserva>());
+        gestionMesasView.initView(new ArrayList<InfoResultSetReserva>());
         gestionCartaView.initView(mainViewModel, platos);
         gestionPedidosView.initView(mainViewModel, pedidos);
         statusBarView.initView(loginModel);
@@ -140,8 +140,8 @@ public class MainView extends JFrame {
         statusBarView.setEntryServerStatus(state);
     }
 
-    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener){
-        gestionMesasView.refreshMesas(mesas, mesasViewListener);
+    public void refreshMesas(MesasViewListener mesasViewListener){
+        gestionMesasView.refreshMesas(mesasViewListener);
     }
 
     public void setConnectedDevices(Integer count) {

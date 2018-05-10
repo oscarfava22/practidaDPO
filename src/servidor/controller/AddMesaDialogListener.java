@@ -39,11 +39,13 @@ public class AddMesaDialogListener implements ActionListener{
                     String query = "INSERT INTO Mesa (id_mesa, num_comensales) VALUES (" + idSerialString + ", " + numComensalesString + ");";
                     bbddManager.modificationQuery(query);
 
-                    //TODO: actualizar mainview
-                    //mainView.getGestionMesasView().refreshMesas();
+
 
                     // Del objeto getInstance, desconectar
                     bbddManager.disconnect();
+
+                    //TODO: actualizar mainview (AQUI O AL SALIR DEL DIALOG)
+                    //mainView.getGestionMesasView().refreshMesas();
 
                     //Cerrar el dialog
                     view.disable();

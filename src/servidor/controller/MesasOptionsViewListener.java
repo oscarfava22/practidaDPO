@@ -36,7 +36,7 @@ public class MesasOptionsViewListener implements ActionListener{
                 AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog, mainView);
                 addDialog.registerControllers(addListener);
 
-                mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
+                mainView.refreshMesas(mesasViewListener);
                 break;
 
             case GestionMesasView.ELIMINAR_MESA_TAG:
@@ -49,10 +49,7 @@ public class MesasOptionsViewListener implements ActionListener{
                     if (delete == JOptionPane.YES_OPTION){
                         System.out.println("Eliminar mesa");
 
-                        //TODO: Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
-                        //Llamar a setUser y setPassword del usuario de la bbdd
-                        BBDDManager.setUsername("test");
-                        //BBDDManager.setPassword("1234");
+                        //Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                         //Llamar al getInstance
                         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
                         // Del objeto getInstance hacer un connect
@@ -60,20 +57,18 @@ public class MesasOptionsViewListener implements ActionListener{
 
 
                         //Querie --> eliminar la taula amb id de taula idMesaSeleccionada
-                        //TODO: hacer la query
                         String idMesaSeleccionadaString = Integer.toString(idMesaSeleccionada);
                         String queryMesa = "DELETE FROM Mesa AS m WHERE m.id_mesa = " + idMesaSeleccionadaString + ";";
                         String queryReservas = "DELETE FROM Reserva AS r WHERE r.id_mesa = " + idMesaSeleccionadaString + ";";
 
-                        //TODO: obtener el resultado
                         bbddManager.modificationQuery(queryMesa);
                         bbddManager.modificationQuery(queryReservas);
 
-                        //TODO: actualizar mainview
-
                         // Del objeto getInstance, desconectar
                         bbddManager.disconnect();
-                        mainView.refreshMesas(mesasManager.getMesas(), mesasViewListener);
+
+                        mainView.refreshMesas(mesasViewListener);
+
                     } else if(delete == JOptionPane.NO_OPTION) {
                         System.out.println("No eliminar mesa");
                     }

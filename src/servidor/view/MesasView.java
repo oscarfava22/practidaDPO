@@ -2,10 +2,13 @@ package servidor.view;
 
 import servidor.controller.GestionMesasViewListener;
 import servidor.controller.MesasViewListener;
+import servidor.model.Database.BBDDManager;
 import servidor.model.Mesa;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class MesasView extends JPanel{
@@ -25,20 +28,55 @@ public class MesasView extends JPanel{
         add(jpMain, BorderLayout.PAGE_START);
     }
 
-    public void initMesas(LinkedList<Mesa> mesas) {
+    public void initMesas() {
+        //Connect with bbdd to get mesas every time we refresh the view
+        //Llamar al getInstance
+        BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+        // Del objeto getInstance hacer un connect
+        bbddManager.connect();
 
-        for (Mesa ml : mesas) {
-            mesasView.add(new MesaView(ml));
-            jpMain.add(mesasView.getLast());
-            setLabelsBackground2(false);
+        String query = "SELECT * FROM Mesa";
+        ResultSet resultSet = bbddManager.readQuery(query);
+
+        try {
+            LinkedList<Mesa> mesaLinkedList = leerMesasFromResultSet(resultSet);
+            //mesasView = new LinkedList<MesaView>();
+            mesasView.clear();
+            for (Mesa ml : mesaLinkedList) {
+                mesasView.add(new MesaView(ml));
+                jpMain.add(mesasView.getLast());
+                setLabelsBackground2(false);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        // Del objeto getInstance, desconectar
+        bbddManager.disconnect();
     }
 
-    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
+    public LinkedList<Mesa> leerMesasFromResultSet(ResultSet resultSet) throws SQLException {
+        LinkedList<Mesa> mesas = new LinkedList<Mesa>();
+
+        while (resultSet.next()){
+            int idMesa = resultSet.getInt("id_mesa");
+            int numComensales = resultSet.getInt("num_comensales");
+
+            Mesa mesa = new Mesa(idMesa, numComensales);
+            System.out.println(mesa.toString());
+
+            mesas.add(mesa);
+        }
+
+        return mesas;
+    }
+
+    public void refreshMesas(MesasViewListener mesasViewListener) {
         mesasView.clear();
         jpMain.removeAll();
         updateUI();
-        initMesas(mesas);
+        initMesas();
         registerControllers(mesasViewListener);
         setLabelsBackground2(false);
 

@@ -16,7 +16,7 @@ public class ReservaView extends JPanel {
     private CustomLabel jlHora;
 
     public ReservaView() {
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(1, 3));
     }
 
     public ReservaView(InfoResultSetReserva reserva){

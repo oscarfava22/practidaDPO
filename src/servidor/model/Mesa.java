@@ -29,4 +29,21 @@ public class Mesa {
     public void setNumComensales(int numComensales) {
         this.numComensales = numComensales;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Id Mesa: ");
+        stringBuilder.append(id);
+
+        stringBuilder.append(System.lineSeparator());
+
+        stringBuilder.append("Num Comensales: ");
+        stringBuilder.append(numComensales);
+
+        stringBuilder.append(System.lineSeparator());
+
+        return stringBuilder.toString();
+    }
 }

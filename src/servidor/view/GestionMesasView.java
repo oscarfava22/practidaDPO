@@ -21,6 +21,7 @@ public class GestionMesasView extends JPanel {
     public static final String AÑADIR_MESA_TAG = "Añadir mesa";
     public static final String LISTADO_MESAS_TAG = "Listado de mesas";
     public static final String NINGUNA_MESA_SELECCIONADA_TAG = "Ninguna mesa seleccionada";
+    public static final String MESA_SELECCIONADA = "Mesa seleccionada: ";
 
     private JPanel jpLeft;
         private JScrollPane jspListaMesas;
@@ -101,19 +102,16 @@ public class GestionMesasView extends JPanel {
         this.jlIdMesaSelected = jlIdMesaSelected;
     }
 
-    /**
-     * Crea la vista del apartado Gestionar Mesas
-     * @param mainViewModel
-     */
-    public void initView(MainViewModel mainViewModel, LinkedList<Mesa> mesas, ArrayList<InfoResultSetReserva> reservas) {
+    public void initView(ArrayList<InfoResultSetReserva> reservas) {
         mesasView = new MesasView();
-        mesasView.initMesas(mesas);
+        mesasView.initMesas();
 
         jpMesas.add(mesasView, BorderLayout.CENTER);
 
+        reservasView = new ReservasView();
         reservasView.initReservas(reservas);
-        jpReservas.add(reservasView, BorderLayout.CENTER);
 
+        jpReservas.add(reservasView, BorderLayout.CENTER);
     }
 
     public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {
@@ -126,18 +124,13 @@ public class GestionMesasView extends JPanel {
         mesasView.setLabelsBackground(id, state);
     }
 
-    public void refreshPlatos(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
-        mesasView.refreshMesas(mesas, mesasViewListener);
-    }
-
     public void setActionCommands(){
         jbAnadirMesa.setActionCommand(AÑADIR_MESA_TAG);
         jbEliminarMesa.setActionCommand(ELIMINAR_MESA_TAG);
     }
 
-    public void refreshMesas(LinkedList<Mesa> mesas, MesasViewListener mesasViewListener) {
-        mesasView.refreshMesas(mesas, mesasViewListener);
-        System.out.println("REFRESH");
+    public void refreshMesas(MesasViewListener mesasViewListener) {
+        mesasView.refreshMesas(mesasViewListener);
     }
 
     public JPanel getJpMesas() {
@@ -150,5 +143,9 @@ public class GestionMesasView extends JPanel {
 
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView.refreshReservas(reservas);
+    }
+
+    public void setIdMesaSeleccionada(String idMesaSeleccionada){
+        jlIdMesaSelected.setText(MESA_SELECCIONADA + idMesaSeleccionada);
     }
 }

@@ -19,13 +19,14 @@ public class MesasManager {
     //Constructor
     public MesasManager() {
         mesas = new LinkedList<>();
+        //TODO: Obtener mesas de la bbdd aqui o en el initMesas (mejor init)
         //Obtener mesas del config.json
-        try {
+        /*try {
             getMesasFromJson();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("No s'ha pogut llegir l'arxiu .json");
-        }
+        }*/
     }
 
     public void getMesasFromJson() throws FileNotFoundException {
