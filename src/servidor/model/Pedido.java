@@ -6,19 +6,14 @@ public class Pedido {
 
     private Reserva reserva;
     private Mesa mesa;
-    private LinkedList<Plato> platosPendientes;
-    private LinkedList<Plato> platosProcesados;
-
-    private PlatosManager platosPendientes1;
-    private PlatosManager platosProcesados1;
+    private PlatosManager platosPendientes;
+    private PlatosManager platosProcesados;
 
     public Pedido() {
         reserva = new Reserva();
         mesa = new Mesa();
-        platosPendientes = new LinkedList<>();
-        platosProcesados = new LinkedList<>();
-        platosPendientes1 = new PlatosManager();
-        platosProcesados1 = new PlatosManager();
+        platosPendientes = new PlatosManager();
+        platosProcesados = new PlatosManager();
     }
 
     public Pedido(Reserva reserva, Mesa mesa) {
@@ -40,11 +35,40 @@ public class Pedido {
     }
 
     public void setPlatosPendientes(LinkedList<Plato> platosPendientes) {
-        this.platosPendientes1.setPlatos(platosPendientes);
+        this.platosPendientes.setPlatos(platosPendientes);
+    }
+
+    public void addPlatosPendientes(LinkedList<Plato> platos){
+
+        if (platosPendientes.getPlatos().size() == 0) {
+            System.out.println("First ADD");
+            if (platos.size() != 0){
+                platosPendientes.addPlatos(platos);
+            }
+        } else {
+            for (int i = 0; i < platos.size(); i++) {
+                int found = -1;
+                for (int j = 0; j < platosPendientes.getPlatos().size(); j++) {
+                    if (platos.get(i).getId() == platosPendientes.getPlatos().get(j).getId()) {
+                        found = j;
+                        break;
+                    }
+                }
+
+                if (found != -1) {
+                    //Update Existing Plato Units
+                    platosPendientes.getPlatos().get(found).updateUnits(platos.get(i).getUnits());
+                } else {
+                    //Add New Plato
+                    platosPendientes.addPlato(platos.get(i));
+                }
+            }
+        }
+
     }
 
     public PlatosManager getPlatosPendientes() {
-        return platosPendientes1;
+        return platosPendientes;
     }
 
     public Reserva getReserva() {
@@ -56,17 +80,31 @@ public class Pedido {
     }
 
     public void setPlatosProcesados(LinkedList<Plato> platosProcesados) {
-        this.platosProcesados1.setPlatos(platosProcesados);
+        this.platosProcesados.setPlatos(platosProcesados);
     }
 
     public PlatosManager getPlatosProcesados() {
-        return platosProcesados1;
+        return platosProcesados;
     }
 
     public void servirPlato(long id) {
-        Plato plato = platosPendientes1.getPlato(id);
-        platosProcesados1.addPlato(plato);
-        platosPendientes1.removePlato(id);
+        Plato plato = platosPendientes.getPlato(id);
+        platosProcesados.addPlato(plato);
+        platosPendientes.removePlato(id);
     }
 
+    public int getTotalPlatos() {
+        return platosPendientes.getPlatos().size() + platosProcesados.getPlatos().size();
+    }
+
+    public Object[] toObjectArray(){
+        Object[] data = new Object[6];
+        data[0] = reserva.getId();
+        data[1] = reserva.getName();
+        data[2] = reserva.getDate();
+        data[3] = reserva.getAmount();
+        data[4] = getTotalPlatos();
+        data[5] = platosPendientes.getPlatos().size();
+        return data;
+    }
 }

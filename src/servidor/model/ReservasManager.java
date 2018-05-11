@@ -110,7 +110,7 @@ public class ReservasManager {
     }
 
     public Mesa checkAvailability(ReservaRequest request) {
-        Mesa mesa=null;
+        /*Mesa mesa=null;
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL ")
@@ -127,9 +127,9 @@ public class ReservasManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        return mesa;
+        return new Mesa();
     }
 
     private Date addAnHour(Date date, int direction){

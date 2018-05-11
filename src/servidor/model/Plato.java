@@ -19,6 +19,11 @@ public class Plato implements Serializable {
         setPlato(id, type, title, price, units);
     }
 
+    public Plato(Plato plato) {
+        this();
+        setPlato(plato.getId(), plato.getType() ,plato.getTitle(), plato.getPrice(), plato.getUnits());
+    }
+
     public synchronized long getId() {
         return id;
     }

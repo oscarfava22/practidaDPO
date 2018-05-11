@@ -34,9 +34,10 @@ public class EntryDedicatedServer extends Thread{
     public void run() {
 
         try {
-            isRunning = true;
             ois = new ObjectInputStream(entryClientSocket.getInputStream());
             oos = new ObjectOutputStream(entryClientSocket.getOutputStream());
+            isRunning = true;
+
             while (isRunning) {
                 ReservaRequest reservaRequest = (ReservaRequest) ois.readObject();
                 oos.writeObject(reservasManager.verifyRequest(reservaRequest));

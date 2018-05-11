@@ -49,12 +49,12 @@ public class MainView extends JFrame {
     }
 
     public void initMainView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas,
-                         LinkedList<Reserva> reservas) {
+                         LinkedList<Pedido> pedidos) {
 
         selectorView.initView(mainViewModel);
         gestionMesasView.initView(new ArrayList<InfoResultSetReserva>());
         gestionCartaView.initView(mainViewModel, platos);
-        gestionPedidosView.initView(mainViewModel, reservas);
+        gestionPedidosView.initView(mainViewModel, pedidos);
         statusBarView.initView(loginModel);
         settingsDialogView.initView(mainViewModel);
 
