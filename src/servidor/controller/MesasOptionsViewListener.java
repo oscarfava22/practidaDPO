@@ -33,7 +33,7 @@ public class MesasOptionsViewListener implements ActionListener{
                 addDialog = new AddMesaDialogView(mainView);
                 addDialog.initDialog();
 
-                AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog, mainView);
+                AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog, mainView, mesasViewListener);
                 addDialog.registerControllers(addListener);
 
                 mainView.refreshMesas(mesasViewListener);

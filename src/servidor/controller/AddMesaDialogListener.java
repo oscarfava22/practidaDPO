@@ -10,13 +10,33 @@ import java.awt.event.ActionListener;
 
 public class AddMesaDialogListener implements ActionListener{
 
+    /**
+     * Atributos de la clase
+     */
     private AddMesaDialogView view;
     private MainView mainView;
+    private MesasViewListener listener;
 
-    public AddMesaDialogListener(AddMesaDialogView view, MainView mainView){
+    /**
+     * Constructor de la clase
+     * @param view
+     * @param mainView
+     * @param mesasViewListener
+     */
+    public AddMesaDialogListener(AddMesaDialogView view, MainView mainView, MesasViewListener mesasViewListener){
         this.view = view;
         this.mainView = mainView;
+        listener = mesasViewListener;
     }
+
+    /**
+     * El usuario clica en un botón, ya sea positivo o negativo:
+     *      Positive button: Comprueba que el número de comensales sea correcto
+     *          y posteriormente añade una mesa (con un id generado por
+     *          SerialMesaGenerator) a la BBDD y cierra el dialog.
+     *      Negative button: Cierra el dialog sin efectuar cambios en la BBDD.
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
@@ -45,7 +65,7 @@ public class AddMesaDialogListener implements ActionListener{
                     bbddManager.disconnect();
 
                     //TODO: actualizar mainview (AQUI O AL SALIR DEL DIALOG)
-                    //mainView.getGestionMesasView().refreshMesas();
+                    mainView.getGestionMesasView().refreshMesas(listener);
 
                     //Cerrar el dialog
                     view.disable();

@@ -15,16 +15,26 @@ import java.awt.event.MouseEvent;
 
 public class GestionCartaViewListener implements MouseInputListener {
 
+    /**
+     * Atributos de la clase
+     */
     private PlatosOptionsView platosOptionsView;
     private PlatosView platosView;
     private PlatosManager platosManager;
     private ReservaServer reservaServer;
 
+    /**
+     * Construcotr de la clase
+     * @param platosOptionsView
+     * @param platosView
+     * @param platosManager
+     */
     public GestionCartaViewListener(PlatosOptionsView platosOptionsView, PlatosView platosView, PlatosManager platosManager) {
         this.platosOptionsView = platosOptionsView;
         this.platosView = platosView;
         this.platosManager = platosManager;
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {

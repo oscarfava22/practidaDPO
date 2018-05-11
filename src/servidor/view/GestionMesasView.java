@@ -107,6 +107,7 @@ public class GestionMesasView extends JPanel {
         mesasView.initMesas();
 
         jpMesas.add(mesasView, BorderLayout.CENTER);
+        jpMesas.updateUI();
 
         reservasView = new ReservasView();
         reservasView.initReservas(reservas);

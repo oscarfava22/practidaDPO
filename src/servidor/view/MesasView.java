@@ -77,6 +77,7 @@ public class MesasView extends JPanel{
         jpMain.removeAll();
         updateUI();
         initMesas();
+        jpMain.updateUI();
         registerControllers(mesasViewListener);
         setLabelsBackground2(false);
 
