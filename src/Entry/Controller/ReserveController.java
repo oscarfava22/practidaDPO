@@ -64,7 +64,7 @@ public class ReserveController implements ActionListener{
             }
         }
         else if(state == 1){
-            view.showErrorMessage("Error, el numero de personas no es un numero");
+            view.showErrorMessage("Error, el numero de personas no es un numero o no es un numero valido");
         }
         else{
             view.showErrorMessage("Error, el nombre de la reserva, o el numero de comensales esta vacio");

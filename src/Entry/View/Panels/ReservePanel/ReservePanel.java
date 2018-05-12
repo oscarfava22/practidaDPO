@@ -96,7 +96,10 @@ public class ReservePanel extends JPanel {
                                 &&howMany.getFieldText()!=null&&!howMany.getFieldText().isEmpty();
         if(validation){
             try{
-                Integer.parseInt(howMany.getFieldText());
+                int data = Integer.parseInt(howMany.getFieldText());
+                if(data<1){
+                    return 1;
+                }
                 return 0;
             }catch (NumberFormatException ex){
                 return 1;
