@@ -2,16 +2,19 @@ package servidor.view;
 
 import servidor.controller.*;
 import servidor.model.*;
+import servidor.model.Database.BBDDManager;
 import servidor.model.Database.InfoResultSetReserva;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class MainView extends JFrame {
+public class MainView extends JFrame implements WindowListener {
 
     private MenuBarView menuBarView;
     private SelectorView selectorView;
@@ -169,4 +172,39 @@ public class MainView extends JFrame {
         gestionMesasView.refreshReservas(reservas);
     }
     public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        BBDDManager.recreateBBDD();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }
