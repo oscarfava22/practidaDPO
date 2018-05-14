@@ -5,20 +5,13 @@ import java.awt.*;
 
 public class ItemCartaView extends JPanel {
 
-    public ItemCartaView (String nom, int unitats, String textButton) {
+    public ItemCartaView (String nom, JButton jbAfegirUnitats, JButton jbTreureUnitats, JButton jbAfegir, JLabel jlUnitats) {
 
         this.setLayout(new GridLayout(1, 5));
         this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         JLabel jlNom = new JLabel(nom);
         jlNom.setBorder((BorderFactory.createEmptyBorder(0, 10, 0, 10)));
-
-        JLabel jlUnitats = new JLabel(String.valueOf(unitats));
-
-        JButton jbAfegirUnitats = new JButton("+");
-        //jbAfegirUnitats.setMargin(new Insets(5, 5, 5, 5));
-        JButton jbTreureUnitats = new JButton("-");
-        //jbTreureUnitats.setMargin(new Insets(5, 5, 5, 5));
 
         JPanel jpAfegirUnitats = new JPanel();
         jpAfegirUnitats.setLayout(new BoxLayout(jpAfegirUnitats, BoxLayout.Y_AXIS));
@@ -30,7 +23,6 @@ public class ItemCartaView extends JPanel {
         jpAfegirUnitats.add(container);
         jpAfegirUnitats.add(jbTreureUnitats);
 
-        JButton jbAfegir = new JButton(textButton);
         JPanel jpAfegir = new JPanel();
         jpAfegir.setLayout(new BoxLayout(jpAfegir, BoxLayout.Y_AXIS));
         //jpAfegir.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
