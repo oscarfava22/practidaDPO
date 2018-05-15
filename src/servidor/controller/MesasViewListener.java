@@ -32,8 +32,13 @@ public class MesasViewListener implements MouseInputListener{
     public void mouseClicked(MouseEvent e) {
 
         MesaView mv = (MesaView) e.getSource();
-        mv.setSelected(true);
-        mv.setLabelsBackground(true);
+        //mv.setSelected(true);
+        //mv.setLabelsBackground(true);
+
+        //TODO:
+        String idMesaSeleccionada = mv.getJlIdMesa().getText().toString();
+        mesasManager.setIdMesaSeleccionada(idMesaSeleccionada);
+        mainView.getGestionMesasView().getMesasView().setLabelsBackground(idMesaSeleccionada, true);
 
         System.out.println("ID mesa apretada: " + mv.getJlIdMesa().getText().toString());
         mainView.getGestionMesasView().setIdMesaSeleccionada(mv.getJlIdMesa().getText().toString());
@@ -46,6 +51,13 @@ public class MesasViewListener implements MouseInputListener{
             }else {
                 mesasView.getMesasView().get(i).setLabelsBackground(true);
                 mesasView.getMesasView().get(i).setSelected(true);
+            }
+        }
+
+        //TODO
+        for (int i = 0; i < mesasView.getMesasView().size(); i++){
+            if (mesasView.getMesasView().get(i).getJlIdMesa().getId() == idMesaSeleccionada){
+                mesasView.getMesasView().get(i).setLabelsBackground(true);
             }
         }
 

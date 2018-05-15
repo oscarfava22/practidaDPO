@@ -26,6 +26,10 @@ public class MesasOptionsViewListener implements ActionListener{
         this.mesasViewListener = mesasViewListener;
     }
 
+    /**
+     * Cuando se clique un botón miraremos si es el botón de añadir una mesa o bien el de eliminarla
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
@@ -43,11 +47,10 @@ public class MesasOptionsViewListener implements ActionListener{
                 int idMesaSeleccionada = obtenerIdMesaSeleccionada(mainView);
                 if (idMesaSeleccionada != -1){
                     int delete = JOptionPane.showConfirmDialog(null,
-                            "ELiminar la mesa seleccionada?",
+                            "Eliminar la mesa seleccionada?",
                             "Eliminar mesa", JOptionPane.YES_NO_OPTION);
 
                     if (delete == JOptionPane.YES_OPTION){
-                        System.out.println("Eliminar mesa");
 
                         //Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                         //Llamar al getInstance
@@ -55,14 +58,13 @@ public class MesasOptionsViewListener implements ActionListener{
                         // Del objeto getInstance hacer un connect
                         bbddManager.connect();
 
-
                         //Querie --> eliminar la taula amb id de taula idMesaSeleccionada
                         String idMesaSeleccionadaString = Integer.toString(idMesaSeleccionada);
-                        String queryMesa = "DELETE FROM Mesa AS m WHERE m.id_mesa = " + idMesaSeleccionadaString + ";";
-                        String queryReservas = "DELETE FROM Reserva AS r WHERE r.id_mesa = " + idMesaSeleccionadaString + ";";
+                        String queryMesa = "DELETE FROM Mesa WHERE id_mesa = " + idMesaSeleccionadaString + ";";
+                        String queryReservas = "DELETE FROM Reserva WHERE id_mesa = " + idMesaSeleccionadaString + ";";
 
-                        bbddManager.modificationQuery(queryMesa);
                         bbddManager.modificationQuery(queryReservas);
+                        bbddManager.modificationQuery(queryMesa);
 
                         // Del objeto getInstance, desconectar
                         bbddManager.disconnect();
@@ -81,18 +83,27 @@ public class MesasOptionsViewListener implements ActionListener{
         }
     }
 
-    private int obtenerIdMesaSeleccionada(MainView mainView) {
-        int idMesaSelected = -1;
 
-        LinkedList<MesaView> mesas = mainView.getGestionMesasView().getMesasView().getMesasView();
+    private int obtenerIdMesaSeleccionada(MainView mainView) {
+        String idMesaSelected = mainView.getGestionMesasView().getJlIdMesaSelected().getText().toString();
+
+/*        LinkedList<MesaView> mesas = mainView.getGestionMesasView().getMesasView().getMesasView();
 
         for (int i = 0; i < mesas.size(); i++){
             if (mesas.get(i).getSelected()){
                 idMesaSelected = Integer.parseInt(mesas.get(i).getJlIdMesa().getText().toString());
             }
         }
-
-        return idMesaSelected;
+*/
+        int id;
+        if (idMesaSelected.contains(GestionMesasView.NINGUNA_MESA_SELECCIONADA_TAG)){
+            id = -1;
+        }else{
+            int index = idMesaSelected.indexOf(":");
+            String substring = idMesaSelected.substring(idMesaSelected.lastIndexOf(":") + 2);
+            id = Integer.parseInt(substring);
+        }
+        return id;
     }
 
     public void initDeleteDialog(){
