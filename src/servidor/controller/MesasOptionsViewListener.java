@@ -87,6 +87,8 @@ public class MesasOptionsViewListener implements ActionListener{
                         System.out.println("No eliminar mesa");
                     }
                 }else {
+                    JOptionPane.showMessageDialog(null,
+                            "Ninguna mesa seleccionada", "Error!", JOptionPane.ERROR_MESSAGE);
                     System.out.println("Mesa no seleccionada");
                 }
                 break;

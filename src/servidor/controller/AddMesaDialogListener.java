@@ -5,6 +5,7 @@ import servidor.model.Database.SerialMesasGenerator;
 import servidor.view.AddMesaDialogView;
 import servidor.view.MainView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -72,6 +73,9 @@ public class AddMesaDialogListener implements ActionListener{
                     view.setVisible(false);
                     view.dispose();
                 }else{
+                    JOptionPane.showMessageDialog(null,
+                            "Formato de comensales incorrecto", "Error!", JOptionPane.ERROR_MESSAGE);
+
                     System.out.println("Numero de comensales incorrecto");
                 }
                 break;
