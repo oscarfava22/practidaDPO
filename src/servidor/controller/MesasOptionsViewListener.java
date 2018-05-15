@@ -27,31 +27,40 @@ public class MesasOptionsViewListener implements ActionListener{
     }
 
     /**
-     * Cuando se clique un botón miraremos si es el botón de añadir una mesa o bien el de eliminarla
-     * @param e
+     * Cuando se clique un botón miraremos si es el botón de añadir una mesa o bien el de eliminarla.
+     *       - Botón de Añadir Mesa: Abrimos un Dialog para preguntar de cuántos comensales será la mesa y refrescamos
+     *          la lista de las mesas para que aparezca la nueva.
+     *       - Botón de Eliminar Mesa: Abrimos un Dialog para preguntar si se está seguro de eliminar la mesa que
+     *          estaba seleccionada, si no hay ninguna seleccionada, no se abre el Dialog
+     * @param e: Action Event
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case GestionMesasView.AÑADIR_MESA_TAG:
+                //Abrimos Dialog
                 addDialog = new AddMesaDialogView(mainView);
                 addDialog.initDialog();
 
+                //Registramos el controlador del Dialog
                 AddMesaDialogListener addListener = new AddMesaDialogListener(addDialog, mainView, mesasViewListener);
                 addDialog.registerControllers(addListener);
 
+                //Refresh del panel de las mesas para que aparezca la nueva si
                 mainView.refreshMesas(mesasViewListener);
                 break;
 
             case GestionMesasView.ELIMINAR_MESA_TAG:
+                //Obtenemos el id de la mesa seleccionada
                 int idMesaSeleccionada = obtenerIdMesaSeleccionada(mainView);
+
                 if (idMesaSeleccionada != -1){
+                    //Abrimos Dialog para confirmar la eliminación de la mesa seleccionada
                     int delete = JOptionPane.showConfirmDialog(null,
                             "Eliminar la mesa seleccionada?",
                             "Eliminar mesa", JOptionPane.YES_NO_OPTION);
 
                     if (delete == JOptionPane.YES_OPTION){
-
                         //Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                         //Llamar al getInstance
                         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
@@ -63,6 +72,7 @@ public class MesasOptionsViewListener implements ActionListener{
                         String queryMesa = "DELETE FROM Mesa WHERE id_mesa = " + idMesaSeleccionadaString + ";";
                         String queryReservas = "DELETE FROM Reserva WHERE id_mesa = " + idMesaSeleccionadaString + ";";
 
+                        //Llancem les queries a la BBDD
                         bbddManager.modificationQuery(queryReservas);
                         bbddManager.modificationQuery(queryMesa);
 
@@ -70,6 +80,8 @@ public class MesasOptionsViewListener implements ActionListener{
                         bbddManager.disconnect();
 
                         mainView.refreshMesas(mesasViewListener);
+                        mainView.getGestionMesasView().getJlIdSelected().setText(GestionMesasView.NINGUNA_MESA_SELECCIONADA_TAG);
+                        mainView.getGestionMesasView().ponColorIdSelected();
 
                     } else if(delete == JOptionPane.NO_OPTION) {
                         System.out.println("No eliminar mesa");
@@ -77,24 +89,19 @@ public class MesasOptionsViewListener implements ActionListener{
                 }else {
                     System.out.println("Mesa no seleccionada");
                 }
-
-
                 break;
         }
     }
 
 
+    /**
+     * Obtener el id de la mesa seleccionada en el panel izquierdo
+     * @param mainView
+     * @return id de la mesa seleccionada o -1 si no hay ninguna mesa seleccionada
+     */
     private int obtenerIdMesaSeleccionada(MainView mainView) {
         String idMesaSelected = mainView.getGestionMesasView().getJlIdMesaSelected().getText().toString();
 
-/*        LinkedList<MesaView> mesas = mainView.getGestionMesasView().getMesasView().getMesasView();
-
-        for (int i = 0; i < mesas.size(); i++){
-            if (mesas.get(i).getSelected()){
-                idMesaSelected = Integer.parseInt(mesas.get(i).getJlIdMesa().getText().toString());
-            }
-        }
-*/
         int id;
         if (idMesaSelected.contains(GestionMesasView.NINGUNA_MESA_SELECCIONADA_TAG)){
             id = -1;
@@ -104,10 +111,5 @@ public class MesasOptionsViewListener implements ActionListener{
             id = Integer.parseInt(substring);
         }
         return id;
-    }
-
-    public void initDeleteDialog(){
-        deleteDialog.setVisible(true);
-        deleteDialog.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

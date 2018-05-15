@@ -5,6 +5,7 @@ import servidor.model.Mesa;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 
 public class MesaView extends JPanel {
@@ -20,16 +21,17 @@ public class MesaView extends JPanel {
     public MesaView(){
         setLayout(new GridLayout(2, 1));
         setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+        //setBackground(Color.GREEN);
 
         jlIdMesa = new CustomLabel();
         jlIdMesa.setBorder(compounBorder);
         jlIdMesa.setOpaque(true);
-        jlIdMesa.setBackground(Color.GRAY);
+        //jlIdMesa.setBackground(Color.GRAY);
 
         jlNumComensalsMax = new CustomLabel();
         jlNumComensalsMax.setBorder(compounBorder);
         jlNumComensalsMax.setOpaque(true);
-        jlNumComensalsMax.setBackground(Color.GRAY);
+        //jlNumComensalsMax.setBackground(Color.GRAY);
 
         add(jlIdMesa);
         add(jlNumComensalsMax);
@@ -38,7 +40,9 @@ public class MesaView extends JPanel {
 
     public MesaView(Mesa mesa){
         this();
-        setJlLabels(Integer.toString(mesa.getId()), Integer.toString(mesa.getNumComensales()));
+        setJlLabels("Id Mesa: " + Integer.toString(mesa.getId()), "Comensales: " + Integer.toString(mesa.getNumComensales()));
+        jlIdMesa.setFont(new Font("Comic Sans", Font.BOLD, 14));
+        jlIdMesa.setHorizontalAlignment(SwingConstants.RIGHT);
     }
 
     private void setJlLabels(String idMesa, String numComensalsMax) {
@@ -82,12 +86,6 @@ public class MesaView extends JPanel {
     public void registerControllers(MesasViewListener mesasViewListener) {
         this.addMouseListener(mesasViewListener);
         this.addMouseMotionListener(mesasViewListener);
-
-        //jlIdMesa.addMouseListener(mesasViewListener);
-        //jlIdMesa.addMouseMotionListener(mesasViewListener);
-
-        //jlNumComensalsMax.addMouseListener(mesasViewListener);
-        //jlNumComensalsMax.addMouseMotionListener(mesasViewListener);
     }
 
     public boolean getSelected() {

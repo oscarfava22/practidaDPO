@@ -7,11 +7,16 @@ import servidor.model.MainViewModel;
 import servidor.model.Mesa;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GestionMesasView extends JPanel {
+
+    private Border compounBorder =  BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.DARK_GRAY),
+            BorderFactory.createEmptyBorder(10,10,10,10));
 
     public static final String RESERVAS_TAG = "Reservas";
     public static final String NOMBRE_RESERVA_TAG = "Nombre de la Reserva";
@@ -30,8 +35,8 @@ public class GestionMesasView extends JPanel {
     private JPanel jpRight;
         private JPanel jpReservas;
             private JPanel jpMesaSelected;
+                private CustomLabel jlIdSelected;
                 private JLabel jlIdMesaSelected;
-            private JPanel jpReservasPane;
             private ReservasView reservasView;
         private JPanel jpBotones;
             private JButton jbEliminarMesa;
@@ -42,7 +47,7 @@ public class GestionMesasView extends JPanel {
      */
     public GestionMesasView() {
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 10));
+        setBorder(BorderFactory.createLineBorder(Color.PINK, 10));
 
         //PANEL SCROLLABLE A LA IZQUIERDA
         jpMesas = new JPanel(new BorderLayout());
@@ -69,14 +74,24 @@ public class GestionMesasView extends JPanel {
         jpReservas = new JPanel(new BorderLayout());
 
         jpMesaSelected = new JPanel(new BorderLayout());
-        jpMesaSelected.add(new JLabel("Mesa: "), BorderLayout.LINE_START);
-        jlIdMesaSelected = new JLabel(NINGUNA_MESA_SELECCIONADA_TAG);
-        jpMesaSelected.add(jlIdMesaSelected, BorderLayout.CENTER);
+        //jpMesaSelected.add(new JLabel("Mesa: "), BorderLayout.LINE_START);
+        //jlIdMesaSelected = new JLabel(NINGUNA_MESA_SELECCIONADA_TAG);
+        //jpMesaSelected.add(jlIdMesaSelected, BorderLayout.CENTER);
+        //jlIdSelected = new CustomLabel(NINGUNA_MESA_SELECCIONADA_TAG);
+        jlIdSelected = new CustomLabel();
+        jlIdSelected.setBorder(compounBorder);
+        jlIdSelected.setOpaque(true);
+        jlIdSelected.setText(NINGUNA_MESA_SELECCIONADA_TAG);
+
+        jpMesaSelected.add(jlIdSelected, BorderLayout.LINE_START);
         jpReservas.add(jpMesaSelected, BorderLayout.PAGE_START);
 
         reservasView = new ReservasView();
 
-        jpReservas.add(reservasView, BorderLayout.CENTER);
+        JPanel aux = new JPanel(new BorderLayout());
+        //jpReservas.add(reservasView, BorderLayout.CENTER);
+        aux.add(reservasView, BorderLayout.CENTER);
+        jpReservas.add(aux, BorderLayout.NORTH);
 
         jpRight.add(jpReservas, BorderLayout.CENTER);
 
@@ -95,7 +110,7 @@ public class GestionMesasView extends JPanel {
     }
 
     public JLabel getJlIdMesaSelected() {
-        return jlIdMesaSelected;
+        return jlIdSelected;
     }
 
     public void setJlIdMesaSelected(JLabel jlIdMesaSelected) {
@@ -112,7 +127,17 @@ public class GestionMesasView extends JPanel {
         reservasView = new ReservasView();
         reservasView.initReservas(reservas);
 
+        ponColorIdSelected();
+
         jpReservas.add(reservasView, BorderLayout.CENTER);
+    }
+
+    public void ponColorIdSelected() {
+        if (jlIdSelected.getText().toString().contains(NINGUNA_MESA_SELECCIONADA_TAG)){
+            jlIdSelected.setBackground(Color.RED);
+        }else{
+            jlIdSelected.setBackground(Color.orange);
+        }
     }
 
     public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {
@@ -132,6 +157,7 @@ public class GestionMesasView extends JPanel {
 
     public void refreshMesas(MesasViewListener mesasViewListener) {
         mesasView.refreshMesas(mesasViewListener);
+        ponColorIdSelected();
     }
 
     public JPanel getJpMesas() {
@@ -142,11 +168,17 @@ public class GestionMesasView extends JPanel {
         return mesasView;
     }
 
+    public CustomLabel getJlIdSelected() {
+        return jlIdSelected;
+    }
+
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView.refreshReservas(reservas);
+        ponColorIdSelected();
     }
 
     public void setIdMesaSeleccionada(String idMesaSeleccionada){
-        jlIdMesaSelected.setText(MESA_SELECCIONADA + idMesaSeleccionada);
+        //jlIdMesaSelected.setText(MESA_SELECCIONADA + idMesaSeleccionada);
+        jlIdSelected.setText(MESA_SELECCIONADA + idMesaSeleccionada);
     }
 }
