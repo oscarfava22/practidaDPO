@@ -76,7 +76,7 @@ public class BarChartPanel extends JPanel {
             g.setColor(Color.black);
             g.fillRect(10 + maxWidthNumber, 10, 1, barChartPanelHeight - labelMetrics.getHeight());
 
-            for (int i = 0; i < data.length; i++) {
+            for (int i = 0; i < data.length&&nomPlats[i]!=null; i++) {
 
                 int xCoord = i * barWidth + 40;
                 int yCoord;

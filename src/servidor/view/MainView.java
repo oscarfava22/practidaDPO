@@ -30,6 +30,8 @@ public class MainView extends JFrame implements WindowListener {
 
     private StatusBarView statusBarView;
 
+    private GestionTop5ViewListener gestorTop5View;
+
     public MainView() {
 
         menuBarView = new MenuBarView();
@@ -79,8 +81,7 @@ public class MainView extends JFrame implements WindowListener {
                                     MouseInputListener gestionMesasViewListener,
                                     MouseInputListener gestionCartaViewListener,
                                     MouseInputListener gestionPedidosViewListener,
-                                    MouseInputListener gestionTop5ViewListener,
-                                    MouseInputListener settingsDialogViewListener,
+                                    GestionTop5ViewListener gestionTop5ViewListener, MouseInputListener settingsDialogViewListener,
                                     MesasOptionsViewListener mesasOptionsViewListener,
                                     MesasViewListener mesasViewListener,
                                     PedidosListListener pedidosListListener) {
@@ -90,8 +91,8 @@ public class MainView extends JFrame implements WindowListener {
         gestionMesasView.registerControllers(mesasOptionsViewListener, mesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener);
         gestionPedidosView.registerControllers(gestionPedidosViewListener, pedidosListListener);
-        gestionTop5View.registerControllers(gestionTop5ViewListener);
         settingsDialogView.registerControllers(settingsDialogViewListener);
+        gestorTop5View = gestionTop5ViewListener;
     }
 
     public void setSVSelectedButton(String button) {
@@ -123,6 +124,7 @@ public class MainView extends JFrame implements WindowListener {
                 jpGestionView.updateUI();
                 break;
             case "Top 5":
+                gestorTop5View.calculaTop5();
                 jpGestionView.removeAll();
                 jpGestionView.add(gestionTop5View, BorderLayout.CENTER);
                 jpGestionView.updateUI();
@@ -166,6 +168,10 @@ public class MainView extends JFrame implements WindowListener {
 
     public GestionMesasView getGestionMesasView(){
         return gestionMesasView;
+    }
+
+    public GestionTop5View getGestionTop5View(){
+        return gestionTop5View;
     }
 
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {

@@ -8,26 +8,21 @@ import java.awt.*;
 
 public class GestionTop5View extends JPanel {
 
-    private JLabel jlTitle;
+    private final Top5View view;
 
     public GestionTop5View() {
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
 
-
-        jlTitle = new JLabel("Top 5");
-        jlTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        add(jlTitle, BorderLayout.NORTH);
+        view = new Top5View();
+        add(view,BorderLayout.CENTER);
 
     }
 
-    public void initView(MainViewModel mainViewModel) {
-        jlTitle.setText(mainViewModel.getTop5());
-    }
 
-    public void registerControllers(MouseInputListener gestionTop5ViewListener) {
 
-        jlTitle.addMouseListener(gestionTop5ViewListener);
+    public Top5View getView() {
+        return view;
     }
 }
