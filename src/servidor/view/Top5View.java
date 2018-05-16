@@ -31,7 +31,6 @@ public class Top5View extends JPanel{
         //frame.setSize(400, 250);
 
         this.setLayout(new BorderLayout());
-        bc = new BarChartPanel(values, labels, colors, title);
 
         //frame.add(bc);
         //frame.setVisible(true);
