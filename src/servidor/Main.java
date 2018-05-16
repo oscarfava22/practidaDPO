@@ -26,8 +26,6 @@ public class Main {
                 BBDDManager.setUsername(USERNAME);
                 BBDDManager.setPassword(PASSWORD);
                 BBDDManager.getInstance(BBDD);
-                //TODO PORFAVOR
-                //TODO WindowAdapter for my penis y cerrar la bbdd
 
                 MainViewModel mainViewModel = new MainViewModel();
                 LoginModel loginModel = new LoginModel();
@@ -55,7 +53,7 @@ public class Main {
                                                                   platosManager);
 
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
-                MouseInputListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView);
+                GestionTop5ViewListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView,BBDDManager.getInstance(BBDD),mainView.getGestionTop5View().getView());
 
                 MouseInputListener settingsDialogViewListener = new SettingsDialogViewListener(mainView);
 

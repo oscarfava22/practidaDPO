@@ -4,30 +4,62 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Ramon on 02/05/2018.
  * @project reservaClientProject
  */
-public class Top5View extends JFrame{
+public class Top5View extends JPanel{
 
+    private int [] values =  new int[5];
+    private  String[] labels = new String[5];
+    private BarChartPanel bc;
+    private Color[] colors = new Color[]{
+            Color.red,
+            Color.orange,
+            Color.yellow,
+            Color.green,
+            Color.blue
+    };
+    private String title = "Top 5";
+    //private JFrame frame;
+
+    /**
+     * Crea la grafica inicial i establece los parametros de configuracion.
+     */
     public Top5View () {
 
-        JFrame frame = new JFrame("Bar Chart Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 250);
+        //frame = new JFrame("Bar Chart Example");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setSize(400, 250);
 
-        String title = "Top 5";
-        int[] values = new int[]{11,25,32,120,5};
-        String[] labels = new String[]{"Chorizo","Queso","Polla","Carne","Cebolla"};
-        Color[] colors = new Color[]{
-                Color.red,
-                Color.orange,
-                Color.yellow,
-                Color.green,
-                Color.blue
-        };
-        BarChartPanel bc = new BarChartPanel(values, labels, colors, title);
+        this.setLayout(new BorderLayout());
+        bc = new BarChartPanel(values, labels, colors, title);
 
-        frame.add(bc);
-        frame.setVisible(true);
+        //frame.add(bc);
+        //frame.setVisible(true);
+    }
+
+    /**
+     * Actualiza la grafica siempre i con los nuevos valores de values i labels
+     */
+    public void modificaBC(){
+        bc = new BarChartPanel(values, labels, colors, title);
+        this.removeAll();
+        this.add(bc,BorderLayout.CENTER);
+        this.updateUI();
+    }
+
+    /**
+     * Establecer la cadena de nombres
+     * @param labels nombre del valor de contador
+     */
+    public void setLabels(String[] labels) {
+        this.labels = labels;
+    }
+
+    /**
+     * Establecer la cadena de valores
+     * @param values cadena para saber el valor de contador
+     */
+    public void setValues(int[] values) {
+        this.values = values;
     }
 }
