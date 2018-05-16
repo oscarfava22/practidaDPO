@@ -15,18 +15,12 @@ public class MesasManager {
 
     //Atributos
     private LinkedList<Mesa> mesas;
+    private String idMesaSeleccionada;
 
     //Constructor
     public MesasManager() {
         mesas = new LinkedList<>();
-        //TODO: Obtener mesas de la bbdd aqui o en el initMesas (mejor init)
-        //Obtener mesas del config.json
-        /*try {
-            getMesasFromJson();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("No s'ha pogut llegir l'arxiu .json");
-        }*/
+        idMesaSeleccionada = null;
     }
 
     public void getMesasFromJson() throws FileNotFoundException {
@@ -49,6 +43,14 @@ public class MesasManager {
 
     public void setMesas(LinkedList<Mesa> mesas) {
         this.mesas = mesas;
+    }
+
+    public String getIdMesaSeleccionada() {
+        return idMesaSeleccionada;
+    }
+
+    public void setIdMesaSeleccionada(String idMesaSeleccionada) {
+        this.idMesaSeleccionada = idMesaSeleccionada;
     }
 
     //Funciones & Métodos

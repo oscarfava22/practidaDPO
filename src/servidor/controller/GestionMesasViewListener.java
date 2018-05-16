@@ -17,18 +17,32 @@ import java.util.LinkedList;
 
 public class GestionMesasViewListener implements MouseInputListener{
 
+    /**
+     * Atributos de la clase
+     */
     private MainView mainView;
 
-    //Constructor
+    /**
+     * Construcotr de la clase
+     * @param mainView
+     */
     public GestionMesasViewListener(MainView mainView) {
         this.mainView = mainView;
     }
 
-    //Getters & Setters
+    //Getters i Setters
+    /**
+     * Getter
+     * @return mainView
+     */
     public MainView getMainView() {
         return mainView;
     }
 
+    /**
+     * Setter
+     * @param mainView
+     */
     public void setMainView(MainView mainView) {
         this.mainView = mainView;
     }

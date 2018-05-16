@@ -147,6 +147,10 @@ public class BBDDManager {
                 System.out.println("Connection ok");
             }
         } catch (SQLException e) {
+            System.out.println(url);
+            System.out.println(user);
+            System.out.println(BBDDManager.user);
+            System.out.println(BBDDManager.password);
             System.err.println("Error connecting to the database "+url+" with user: "+ BBDDManager.user+" and password: "
                     + BBDDManager.password);
         } catch (ClassNotFoundException e) {

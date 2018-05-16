@@ -1,5 +1,6 @@
 package servidor.network;
 
+import Model.Plat;
 import servidor.model.*;
 import servidor.view.MainView;
 

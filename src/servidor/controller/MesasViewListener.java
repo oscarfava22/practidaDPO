@@ -35,8 +35,15 @@ public class MesasViewListener implements MouseInputListener{
         mv.setSelected(true);
         mv.setLabelsBackground(true);
 
+        String string = mv.getJlIdMesa().getText().toString();
+        String idMesaSeleccionada = string.substring(string.indexOf(":") + 2);
+        System.out.println("Id mesa apretada es... :" + idMesaSeleccionada);
+
+        mesasManager.setIdMesaSeleccionada(idMesaSeleccionada);
+        mainView.getGestionMesasView().getMesasView().setLabelsBackground(idMesaSeleccionada, true);
+
         System.out.println("ID mesa apretada: " + mv.getJlIdMesa().getText().toString());
-        mainView.getGestionMesasView().setIdMesaSeleccionada(mv.getJlIdMesa().getText().toString());
+        mainView.getGestionMesasView().setIdMesaSeleccionada(idMesaSeleccionada);
 
         MesasView mesasView = mainView.getGestionMesasView().getMesasView();
         for (int i = 0; i < mesasView.getMesasView().size(); i++){
@@ -49,15 +56,21 @@ public class MesasViewListener implements MouseInputListener{
             }
         }
 
+        //TODO
+        for (int i = 0; i < mesasView.getMesasView().size(); i++){
+            if (mesasView.getMesasView().get(i).getJlIdMesa().getId() == idMesaSeleccionada){
+                mesasView.getMesasView().get(i).setLabelsBackground(true);
+            }
+        }
+
         //Llamar al getInstance
         BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
 
         // Del objeto getInstance hacer un connect
         bbddManager.connect();
 
-        //Querie --> select reserves de la taula amb id especificat
-        String idMesaToString = mv.getJlIdMesa().getText().toString();
-        String query = "SELECT r.id_reserva, r.id_mesa, r.password, r.data, r.dataConcreta FROM Reserva AS r Where r.id_mesa = " + idMesaToString + " ;";
+        //Querie --> select reserves de la taula amb id especificat;
+        String query = "SELECT r.id_reserva, r.id_mesa, r.password, r.data, r.dataConcreta FROM Reserva AS r Where r.id_mesa = " + idMesaSeleccionada + " ;";
 
         //Obtenir resultSet de la query
         ResultSet resultSet = bbddManager.readQuery(query);
@@ -86,21 +99,6 @@ public class MesasViewListener implements MouseInputListener{
                 reservas.add(reserva);
             }
 
-/*          ----PRUEBA SIN BBDD----
-            ArrayList<InfoResultSetReserva> reservas = new ArrayList<InfoResultSetReserva>();
-            InfoResultSetReserva r1 = new InfoResultSetReserva(12, 56, "hola", new Date(), new Time(15, 34, 20));
-            r1.setNombre("Xose");
-            reservas.add(r1);
-            InfoResultSetReserva r2 = new InfoResultSetReserva(13, 56, "hola2", new Date(), new Time(18, 54, 40));
-            r2.setNombre("Bernard");
-            reservas.add(r2);
-            InfoResultSetReserva r3 = new InfoResultSetReserva(14, 56, "hola3", new Date(), new Time(05, 24, 15));
-            r3.setNombre("Olksiy");
-            reservas.add(r3);
-            InfoResultSetReserva r4 = new InfoResultSetReserva(15, 56, "hola4", new Date(), new Time(11, 54, 06));
-            r4.setNombre("Oscar");
-            reservas.add(r4);
-*/
             reservas.sort(new Comparator<InfoResultSetReserva>() {
                 //TODO: Revisar si funciona bien el Comparator
                 @Override

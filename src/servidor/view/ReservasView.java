@@ -46,6 +46,9 @@ public class ReservasView extends JPanel {
 
     public void initReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView = new ArrayList<ReservaView>();
+        reservasView.clear();
+        jpReservas.removeAll();
+
         for(InfoResultSetReserva reserva : reservas) {
             ReservaView reservaView = new ReservaView(reserva);
             reservasView.add(reservaView);
@@ -65,12 +68,13 @@ public class ReservasView extends JPanel {
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView.clear();
         jpMain.removeAll();
+        updateUI();
 
         jpMain.add(jpTitle, BorderLayout.PAGE_START);
         jpMain.add(jpReservas, BorderLayout.CENTER);
 
         initReservas(reservas);
-        this.updateUI();
+        jpMain.updateUI();
         paintAll(getGraphics());
     }
 }
