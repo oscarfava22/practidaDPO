@@ -1,5 +1,8 @@
 package servidor.model;
 
+import servidor.Main;
+import servidor.model.Database.BBDDManager;
+
 import java.util.LinkedList;
 
 public class Pedido {
@@ -46,10 +49,12 @@ public class Pedido {
                 platosPendientes.addPlatos(platos);
             }
         } else {
-            for (int i = 0; i < platos.size(); i++) {
+            BBDDManager manager = BBDDManager.getInstance(Main.BBDD);
+            manager.connect();
+            for (Plato plato : platos) {
                 int found = -1;
                 for (int j = 0; j < platosPendientes.getPlatos().size(); j++) {
-                    if (platos.get(i).getId() == platosPendientes.getPlatos().get(j).getId()) {
+                    if (plato.getId() == platosPendientes.getPlatos().get(j).getId()) {
                         found = j;
                         break;
                     }
@@ -57,12 +62,16 @@ public class Pedido {
 
                 if (found != -1) {
                     //Update Existing Plato Units
-                    platosPendientes.getPlatos().get(found).updateUnits(platos.get(i).getUnits());
+                    platosPendientes.getPlatos().get(found).updateUnits(plato.getUnits());
+                    String query = "UPDATE Plato as p SET contador=(SELECT p1.contador FROM Plato as p1 WHERE p1.id_plato"+plato.getId()+") " +
+                            "WHERE p.id_plato = "+plato.getId();
+                    manager.modificationQuery(query);
                 } else {
                     //Add New Plato
-                    platosPendientes.addPlato(platos.get(i));
+                    platosPendientes.addPlato(plato);
                 }
             }
+            manager.disconnect();
         }
 
     }

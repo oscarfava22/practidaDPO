@@ -124,6 +124,7 @@ public class ReservaDedicatedServer extends Thread {
         }
     }
 
+
     public void updateMessageToClient() {
         try {
             oos.writeObject(platosManager.getPlatos());
