@@ -69,7 +69,7 @@ public class PlatosManager {
         /*manager.connect();
         String query = new StringBuilder().append("INSERT INTO Plato VALUES(").append(plato.getId()).append(",'")
                 .append(plato.getTitle()).append("',").append(plato.getUnits()).append(",").append(plato.getType())
-                .append(",").append(plato.getPrice()).append(");").toString();
+                .append(",").append(plato.getPrice()).append(",").append(1).append(");").toString();
         manager.modificationQuery(query);
         manager.disconnect();*/
 
@@ -77,7 +77,9 @@ public class PlatosManager {
     }
 
     public void addPlatos(LinkedList<Plato> platos) {
-        this.platos.addAll(platos);
+        for(Plato plato:platos){
+            addPlato(plato);
+        }
     }
 
     public void addPlato(long id, String type, String title, float price, int units) {

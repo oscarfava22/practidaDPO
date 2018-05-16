@@ -57,7 +57,7 @@ public class BBDDManager {
      * @param bbdd the database to connect
      * @return the instance of the manager
      */
-    public static BBDDManager getInstance(String bbdd){
+    public synchronized static BBDDManager getInstance(String bbdd){
         if(instance==null){
             instance = new BBDDManager(bbdd,ip,port);
         }
