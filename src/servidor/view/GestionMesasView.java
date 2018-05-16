@@ -43,7 +43,7 @@ public class GestionMesasView extends JPanel {
             private JButton jbAnadirMesa;
 
     /**
-     *
+     * Constructor de la vista de la gestión de las mesas
      */
     public GestionMesasView() {
         setLayout(new BorderLayout());
@@ -74,10 +74,6 @@ public class GestionMesasView extends JPanel {
         jpReservas = new JPanel(new BorderLayout());
 
         jpMesaSelected = new JPanel(new BorderLayout());
-        //jpMesaSelected.add(new JLabel("Mesa: "), BorderLayout.LINE_START);
-        //jlIdMesaSelected = new JLabel(NINGUNA_MESA_SELECCIONADA_TAG);
-        //jpMesaSelected.add(jlIdMesaSelected, BorderLayout.CENTER);
-        //jlIdSelected = new CustomLabel(NINGUNA_MESA_SELECCIONADA_TAG);
         jlIdSelected = new CustomLabel();
         jlIdSelected.setBorder(compounBorder);
         jlIdSelected.setOpaque(true);
@@ -89,7 +85,6 @@ public class GestionMesasView extends JPanel {
         reservasView = new ReservasView();
 
         JPanel aux = new JPanel(new BorderLayout());
-        //jpReservas.add(reservasView, BorderLayout.CENTER);
         aux.add(reservasView, BorderLayout.CENTER);
         jpReservas.add(aux, BorderLayout.NORTH);
 
@@ -109,14 +104,20 @@ public class GestionMesasView extends JPanel {
 
     }
 
+    /**
+     * Getters & Setters
+     */
     public JLabel getJlIdMesaSelected() {
         return jlIdSelected;
     }
-
     public void setJlIdMesaSelected(JLabel jlIdMesaSelected) {
         this.jlIdMesaSelected = jlIdMesaSelected;
     }
 
+    /**
+     * Función para inicializzar la vista
+     * @param reservas
+     */
     public void initView(ArrayList<InfoResultSetReserva> reservas) {
         mesasView = new MesasView();
         mesasView.initMesas();
@@ -132,6 +133,10 @@ public class GestionMesasView extends JPanel {
         jpReservas.add(reservasView, BorderLayout.CENTER);
     }
 
+    /**
+     * Procedimiento que pinta del colo ROJO o NARANJA la JLabel de la id de la mesa seleccionada dependiendo de si
+     *  hay alguna seleccionada o no
+     */
     public void ponColorIdSelected() {
         if (jlIdSelected.getText().toString().contains(NINGUNA_MESA_SELECCIONADA_TAG)){
             jlIdSelected.setBackground(Color.RED);
@@ -140,16 +145,30 @@ public class GestionMesasView extends JPanel {
         }
     }
 
+    /**
+     * Función para registrar los controladores a la vista, tanto el de añadir y eliminar mesa como el de
+     *  clicar en las mesas
+     * @param optionsListener
+     * @param mesasViewListener
+     */
     public void registerControllers(MesasOptionsViewListener optionsListener, MesasViewListener mesasViewListener) {
         mesasView.registerControllers(mesasViewListener);
         jbEliminarMesa.addActionListener(optionsListener);
         jbAnadirMesa.addActionListener(optionsListener);
     }
 
+    /**
+     * Dada una id (id), poner la mesa del color seleccionado o no segun el estado (state)
+     * @param id
+     * @param state
+     */
     public void setLabelsBackground(String id, boolean state) {
         mesasView.setLabelsBackground(id, state);
     }
 
+    /**
+     * A los botones de añadir y eliminar, poner sus respectivos ActionCommands
+     */
     public void setActionCommands(){
         jbAnadirMesa.setActionCommand(AÑADIR_MESA_TAG);
         jbEliminarMesa.setActionCommand(ELIMINAR_MESA_TAG);

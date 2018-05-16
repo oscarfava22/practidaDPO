@@ -1,14 +1,21 @@
 package servidor.model.Database;
 
+import servidor.Main;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Clase para generar los ids de las mesas del restaurante
+ */
 public class SerialMesasGenerator {
     public static int serial = 0;
 
+    /**
+     * Obtener el id serial para la próxima mesa
+     * @return
+     */
     public static int getSerial(){
-        System.out.println("Hola");
-        System.out.println("Hola");
         try {
             serial = getMaxIdFromDatabase();
         } catch (SQLException e) {
@@ -18,8 +25,13 @@ public class SerialMesasGenerator {
         return serial;
     }
 
+    /**
+     * Obtener el id más grande que haya guardado en la tabla Mesa de la base de datos
+     * @return
+     * @throws SQLException
+     */
     private static int getMaxIdFromDatabase() throws SQLException {
-        BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+        BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
         // Del objeto getInstance hacer un connect
         bbddManager.connect();
 

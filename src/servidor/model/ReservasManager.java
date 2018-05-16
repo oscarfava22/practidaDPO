@@ -76,7 +76,8 @@ public class ReservasManager {
         reservas.add(reserva);
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
-        String query = "INSERT INTO Cliente VALUES('"+reserva.getPassword()+"','"+request.getName()+"')";
+        System.out.println("2--------------");
+        String query = "INSERT INTO Cliente VALUES ('" + reserva.getPassword() + "', '" + request.getName() + "')";
         bbdd.modificationQuery(query);
         query = new StringBuilder().append("INSERT INTO Reserva VALUES(").append(String.valueOf(reserva.getId())).append(",")
                 .append(String.valueOf(mesa.getId())).append(",'")
@@ -84,6 +85,7 @@ public class ReservasManager {
                 .append(dateTimeFormat.format(request.getDate())).append("','")
                 .append(reserva.getPassword()).append("',").append(reserva.getState())
                 .append(");").toString();
+        System.out.println("Query::::: " + query);
         bbdd.modificationQuery(query);
         bbdd.disconnect();
     }
@@ -100,7 +102,8 @@ public class ReservasManager {
         ReservaResponse response = null;
         Mesa mesa;
         if ((mesa=checkAvailability(reservaRequest))!=null) {
-            Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(), reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0);
+            Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(),
+                    reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0);
             addReserva(reserva,mesa,reservaRequest);
             System.out.println("New Reserva Created: ");
             System.out.println("\t" + reserva.toString());
@@ -121,26 +124,46 @@ public class ReservasManager {
         for (int i = 0; i < PASSWORD_LENGTH; i++){
             pos = new Random().nextInt(numChar);
             builder.append(availableChar[pos]);
-            //System.out.println(availableChar[pos] + " que esta a la pos " + pos);
         }
         String randomPassword = builder.toString();
         System.out.println("New Password: " + randomPassword);
 
-        boolean available = isPasswordAvailable(randomPassword);
-        if (available){
-            return randomPassword;
-        }else {
+        boolean available = false;
+        try {
+            available = isPasswordAvailable(randomPassword);
+            if (available){
+                return randomPassword;
+            }else {
+                return generateRndmPassword();
+            }
+        } catch (SQLException e) {
             return generateRndmPassword();
         }
+
     }
 
-    public boolean isPasswordAvailable(String randomPassword) {
-        //TODO: Bernard. Comprovar si la password 'randomPassword' ya ha estado asignada
-        return false;
+    public boolean isPasswordAvailable(String randomPassword) throws SQLException {
+        BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
+        bbdd.connect();
+        System.out.println("1--------------");
+        String query= new StringBuilder().append("SELECT c.password FROM Cliente AS c WHERE c.password LIKE '")
+                .append(randomPassword)
+                .append("';").toString();
+        System.out.println("Query: " + query);
+        ResultSet set = bbdd.readQuery(query);
+        if (set.next()){
+            bbdd.disconnect();
+            return false;
+        }
+        else{
+            bbdd.disconnect();
+            return true;
+        }
     }
 
     public Mesa checkAvailability(ReservaRequest request) {
         Mesa mesa=null;
+        System.out.println("Hola");
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL ")

@@ -1,5 +1,6 @@
 package servidor.view;
 
+import servidor.Main;
 import servidor.controller.GestionMesasViewListener;
 import servidor.controller.MesasViewListener;
 import servidor.model.Database.BBDDManager;
@@ -31,7 +32,7 @@ public class MesasView extends JPanel{
     public void initMesas() {
         //Connect with bbdd to get mesas every time we refresh the view
         //Llamar al getInstance
-        BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+        BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
         // Del objeto getInstance hacer un connect
         bbddManager.connect();
 

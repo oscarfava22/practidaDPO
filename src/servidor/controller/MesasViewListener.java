@@ -1,5 +1,6 @@
 package servidor.controller;
 
+import servidor.Main;
 import servidor.model.Database.BBDDManager;
 import servidor.model.Database.InfoResultSetReserva;
 import servidor.model.MesasManager;
@@ -23,28 +24,39 @@ public class MesasViewListener implements MouseInputListener{
     private MainView mainView;
     private MesasManager mesasManager;
 
+    /**
+     * Constructor de la clase
+     * @param mainView
+     * @param mesasManager
+     */
     public MesasViewListener(MainView mainView, MesasManager mesasManager) {
         this.mainView = mainView;
         this.mesasManager = mesasManager;
     }
 
+    /**
+     * Función que se ejecuta cuando el usuario clica en una de las mesas de la lista de la parte izquierda de la
+     * pantalla GestionMesasView
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
+        //Obtenemos la mesa
         MesaView mv = (MesaView) e.getSource();
         mv.setSelected(true);
         mv.setLabelsBackground(true);
 
+        //Get id
         String string = mv.getJlIdMesa().getText().toString();
         String idMesaSeleccionada = string.substring(string.indexOf(":") + 2);
-        System.out.println("Id mesa apretada es... :" + idMesaSeleccionada);
 
+        //Actualizamos la pantalla con la mesa apretada
         mesasManager.setIdMesaSeleccionada(idMesaSeleccionada);
         mainView.getGestionMesasView().getMesasView().setLabelsBackground(idMesaSeleccionada, true);
-
-        System.out.println("ID mesa apretada: " + mv.getJlIdMesa().getText().toString());
         mainView.getGestionMesasView().setIdMesaSeleccionada(idMesaSeleccionada);
 
+        //Cambiamos el color de las mesas que no estan seleccionadas
         MesasView mesasView = mainView.getGestionMesasView().getMesasView();
         for (int i = 0; i < mesasView.getMesasView().size(); i++){
             if (!mv.equals(mesasView.getMesasView().get(i))){
@@ -56,7 +68,6 @@ public class MesasViewListener implements MouseInputListener{
             }
         }
 
-        //TODO
         for (int i = 0; i < mesasView.getMesasView().size(); i++){
             if (mesasView.getMesasView().get(i).getJlIdMesa().getId() == idMesaSeleccionada){
                 mesasView.getMesasView().get(i).setLabelsBackground(true);
@@ -64,7 +75,7 @@ public class MesasViewListener implements MouseInputListener{
         }
 
         //Llamar al getInstance
-        BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+        BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
 
         // Del objeto getInstance hacer un connect
         bbddManager.connect();
@@ -99,6 +110,7 @@ public class MesasViewListener implements MouseInputListener{
                 reservas.add(reserva);
             }
 
+            //Ordenar las reservas según la fecha de reserva
             reservas.sort(new Comparator<InfoResultSetReserva>() {
                 //TODO: Revisar si funciona bien el Comparator
                 @Override
@@ -116,6 +128,7 @@ public class MesasViewListener implements MouseInputListener{
                 }
             });
 
+            //Refrescamos el panel derecho, el lis
             mainView.refreshReservas(reservas);
 
         } catch (SQLException e1) {
@@ -126,11 +139,15 @@ public class MesasViewListener implements MouseInputListener{
         mainView.refreshMesas(this);
 
         // Del objeto getInstance, desconectar
-//        bbddManager.disconnect();
-
-
+        bbddManager.disconnect();
     }
 
+    /**
+     * Esta función se ejecutará para extraer la información de las reservas
+     * @param resultSet
+     * @return ArrayList of InfoResultSetReserva
+     * @throws SQLException
+     */
     public ArrayList<InfoResultSetReserva> llegirResultSetSelectReservas(ResultSet resultSet) throws SQLException {
         ArrayList<InfoResultSetReserva> reservas = new ArrayList<InfoResultSetReserva>();
 

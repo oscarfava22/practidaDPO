@@ -22,7 +22,6 @@ public class Main {
             @Override
             public void run() {
 
-                //TODO FALTA USER Y PASSWORD
                 BBDDManager.setUsername(USERNAME);
                 BBDDManager.setPassword(PASSWORD);
                 BBDDManager.getInstance(BBDD);

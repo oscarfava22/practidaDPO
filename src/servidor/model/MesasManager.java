@@ -17,43 +17,35 @@ public class MesasManager {
     private LinkedList<Mesa> mesas;
     private String idMesaSeleccionada;
 
-    //Constructor
+    /**
+     * Constructor de la clase
+     */
     public MesasManager() {
         mesas = new LinkedList<>();
         idMesaSeleccionada = null;
     }
 
-    public void getMesasFromJson() throws FileNotFoundException {
-        JsonParser parser = new JsonParser();
-
-        Object object = parser.parse(new FileReader("data/json/config.json"));
-
-        JsonObject jsonObject = (JsonObject)object;
-
-        JsonArray jsonArrayMesas = jsonObject.get("mesas").getAsJsonArray();
-        for (int i = 0; i < jsonArrayMesas.size(); i++){
-            addMesa(new Mesa(jsonArrayMesas.get(i).getAsJsonObject().get("id").getAsInt(), jsonArrayMesas.get(i).getAsJsonObject().get("numComensales").getAsInt()));
-        }
-    }
-
-    //Getters & Setters
+    /**
+     * Getters & Setters
+     */
     public LinkedList<Mesa> getMesas() {
         return mesas;
     }
-
     public void setMesas(LinkedList<Mesa> mesas) {
         this.mesas = mesas;
     }
-
     public String getIdMesaSeleccionada() {
         return idMesaSeleccionada;
     }
-
     public void setIdMesaSeleccionada(String idMesaSeleccionada) {
         this.idMesaSeleccionada = idMesaSeleccionada;
     }
 
-    //Funciones & Métodos
+    /**
+     * Función para añadir una nueva mesa
+     * --> Función ya no usada porque se hace cargando la base de datos entera, no es necesario ir añadiendo mesas
+     * @param nuevaMesa
+     */
     public void addMesa(Mesa nuevaMesa){
         mesas.add(nuevaMesa);
         mesas.sort(new Comparator<Mesa>() {

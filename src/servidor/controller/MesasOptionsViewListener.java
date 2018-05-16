@@ -1,5 +1,6 @@
 package servidor.controller;
 
+import servidor.Main;
 import servidor.model.Database.BBDDManager;
 import servidor.model.MesasManager;
 import servidor.view.AddMesaDialogView;
@@ -63,7 +64,7 @@ public class MesasOptionsViewListener implements ActionListener{
                     if (delete == JOptionPane.YES_OPTION){
                         //Conectar con la bbd si en el dialog ha clicado en "ELIMINAR"
                         //Llamar al getInstance
-                        BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+                        BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
                         // Del objeto getInstance hacer un connect
                         bbddManager.connect();
 
@@ -89,7 +90,7 @@ public class MesasOptionsViewListener implements ActionListener{
                 }else {
                     JOptionPane.showMessageDialog(null,
                             "Ninguna mesa seleccionada", "Error!", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("Mesa no seleccionada");
+
                 }
                 break;
         }
@@ -99,7 +100,7 @@ public class MesasOptionsViewListener implements ActionListener{
     /**
      * Obtener el id de la mesa seleccionada en el panel izquierdo
      * @param mainView
-     * @return id de la mesa seleccionada o -1 si no hay ninguna mesa seleccionada
+     * @return
      */
     private int obtenerIdMesaSeleccionada(MainView mainView) {
         String idMesaSelected = mainView.getGestionMesasView().getJlIdMesaSelected().getText().toString();

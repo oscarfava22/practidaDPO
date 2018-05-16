@@ -1,5 +1,6 @@
 package servidor.controller;
 
+import servidor.Main;
 import servidor.model.Database.BBDDManager;
 import servidor.model.Database.SerialMesasGenerator;
 import servidor.view.AddMesaDialogView;
@@ -50,7 +51,7 @@ public class AddMesaDialogListener implements ActionListener{
                     int idSerial = SerialMesasGenerator.getSerial();
 
                     //Llamar al getInstance
-                    BBDDManager bbddManager = BBDDManager.getInstance("Restaurant");
+                    BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
                     // Del objeto getInstance hacer un connect
                     bbddManager.connect();
 

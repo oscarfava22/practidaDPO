@@ -47,6 +47,10 @@ public class GestionMesasViewListener implements MouseInputListener{
         this.mainView = mainView;
     }
 
+    /**
+     * Función para cuando se clica un elemento
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().getClass().equals(JButton.class)) {

@@ -67,6 +67,22 @@ public class AutenticacioView extends JFrame {
         setVisible(true);
     }
 
+    public JTextField getJtfName() {
+        return jtfName;
+    }
+
+    public JTextField getJtfPassword() {
+        return jtfPassword;
+    }
+
+    public String getName(){
+        return jtfName.getText().toString();
+    }
+
+    public String getPassword(){
+        return jtfPassword.getText().toString();
+    }
+
     public void registerControllers (ActionListener actionListener) {
         jbAccess.addActionListener(actionListener);
         jbAccess.setActionCommand(ACCESS);
