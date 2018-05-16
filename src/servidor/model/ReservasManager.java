@@ -11,8 +11,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ReservasManager {
+
+    public static final int PASSWORD_LENGTH = 8;
 
     private LinkedList<Reserva> reservas;
     private SimpleDateFormat dateFormat;
@@ -96,7 +100,7 @@ public class ReservasManager {
         ReservaResponse response = null;
         Mesa mesa;
         if ((mesa=checkAvailability(reservaRequest))!=null) {
-            Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(), reservaRequest.getDate(), reservaRequest.getAmount(), "Pass", 0);
+            Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(), reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0);
             addReserva(reserva,mesa,reservaRequest);
             System.out.println("New Reserva Created: ");
             System.out.println("\t" + reserva.toString());
@@ -107,6 +111,32 @@ public class ReservasManager {
         }
 
         return response;
+    }
+
+    private String generateRndmPassword() {
+        char[] availableChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+        int numChar = availableChar.length;
+        StringBuilder builder = new StringBuilder();
+        int pos = 0;
+        for (int i = 0; i < PASSWORD_LENGTH; i++){
+            pos = new Random().nextInt(numChar);
+            builder.append(availableChar[pos]);
+            //System.out.println(availableChar[pos] + " que esta a la pos " + pos);
+        }
+        String randomPassword = builder.toString();
+        System.out.println("New Password: " + randomPassword);
+
+        boolean available = isPasswordAvailable(randomPassword);
+        if (available){
+            return randomPassword;
+        }else {
+            return generateRndmPassword();
+        }
+    }
+
+    public boolean isPasswordAvailable(String randomPassword) {
+        //TODO: Bernard. Comprovar si la password 'randomPassword' ya ha estado asignada
+        return false;
     }
 
     public Mesa checkAvailability(ReservaRequest request) {

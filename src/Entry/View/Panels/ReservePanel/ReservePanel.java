@@ -40,8 +40,8 @@ public class ReservePanel extends JPanel {
         now = new JButton("Reservar ahora");
         later = new JButton("Reservar futuro");
         JTextField temp = new JTextField();
-        howMany = new TextFieldPanel("Cuantas personas",100);
-        name = new TextFieldPanel("Nombre reserva" ,110);
+        howMany = new TextFieldPanel("Cuantos comensales",200);
+        name = new TextFieldPanel("Nombre reserva" ,200);
 
         JPanel center = new JPanel(new GridLayout(3,2));
         JPanel centerLeft = new JPanel();
