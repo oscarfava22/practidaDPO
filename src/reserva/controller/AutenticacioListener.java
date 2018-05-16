@@ -68,6 +68,7 @@ public class AutenticacioListener implements ActionListener{
     }
 
     public boolean isInBbdd(String nombre, String password) throws SQLException {
+        //TODO: Corregir error aqui
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         String query = new StringBuilder()
@@ -80,14 +81,13 @@ public class AutenticacioListener implements ActionListener{
 
         ResultSet rs = bbdd.readQuery(query);
 
-        if (rs.next() == false){
+        if (!rs.next()){
             bbdd.disconnect();
             JOptionPane.showMessageDialog(null, "Algún campo es incorrecto",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         else{
-
             bbdd.disconnect();
             return true;
         }
