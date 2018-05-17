@@ -1,5 +1,6 @@
 package servidor.network;
 
+import servidor.controller.GestionCartaViewListener;
 import servidor.controller.PedidosListListener;
 import servidor.model.*;
 import servidor.view.MainView;
@@ -20,12 +21,13 @@ public class ReservaServer extends Thread {
     private ReservasManager reservasManager;
     private PedidosManager pedidosManager;
     private PedidosListListener pedidosListListener;
+    private GestionCartaViewListener gestionCartaViewListener;
 
     private LinkedList<ReservaDedicatedServer> reservaDedicatedServers;
 
     public ReservaServer(MainServer mainServer, MainView mainView, PlatosManager platosManager,
                          ReservasManager reservasManager, PedidosManager pedidosManager,
-                         PedidosListListener pedidosListListener) {
+                         PedidosListListener pedidosListListener, GestionCartaViewListener gestionCartaViewListener) {
 
         this.mainServer = mainServer;
         this.mainView = mainView;
@@ -33,6 +35,7 @@ public class ReservaServer extends Thread {
         this.reservasManager = reservasManager;
         this.pedidosManager = pedidosManager;
         this.pedidosListListener = pedidosListListener;
+        this.gestionCartaViewListener = gestionCartaViewListener;
 
         reservaDedicatedServers = new LinkedList<>();
 
@@ -66,7 +69,6 @@ public class ReservaServer extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -84,9 +86,26 @@ public class ReservaServer extends Thread {
         }
     }
 
+    public void sendServirPlatoToClient(long id, String name) {
+        for(ReservaDedicatedServer rds : reservaDedicatedServers) {
+            if (rds.getClientName().equals(name)) {
+                rds.sendServirPlato(id);
+            }
+        }
+    }
+
+    public LinkedList<ReservaDedicatedServer> getReservaDedicatedServers() {
+        return reservaDedicatedServers;
+    }
+
     public void updatePedidosView() {
-        //reservasManager.addReserva();
         mainView.getGestionPedidosView().getPedidosView().initView(pedidosManager.getPedidos());
         mainView.getGestionPedidosView().getPedidosView().registerControllers(pedidosListListener);
+    }
+
+    public void updatePlatosView() {
+        mainView.getGestionCartaView().getPlatosView().initPlatosView(platosManager.getPlatos());
+        mainView.getGestionCartaView().getPlatosView().registerControllers(gestionCartaViewListener);
+        mainView.getGestionCartaView().getPlatosOptionsView().resetTextFields();
     }
 }

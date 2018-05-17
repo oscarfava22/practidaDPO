@@ -39,6 +39,13 @@ public class PedidosManager {
         return pedidos;
     }
 
-
+    public void removePedido(Pedido pedido) {
+        for(int i = 0; i < pedidos.size(); i++) {
+            if(pedidos.get(i).getReserva().getId() == pedido.getReserva().getId()) {
+                pedidos.remove(i);
+                break;
+            }
+        }
+    }
 
 }

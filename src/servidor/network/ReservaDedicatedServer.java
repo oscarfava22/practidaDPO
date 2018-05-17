@@ -7,8 +7,7 @@ import servidor.view.MainView;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.LinkedList;
 
 public class ReservaDedicatedServer extends Thread {
@@ -23,8 +22,6 @@ public class ReservaDedicatedServer extends Thread {
 
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
-    private DataInputStream dis;
-    private DataOutputStream dos;
 
     private String name = "";
     private String password = "";
@@ -46,58 +43,79 @@ public class ReservaDedicatedServer extends Thread {
         try {
             ois = new ObjectInputStream(reservaClientSocket.getInputStream());
             oos = new ObjectOutputStream(reservaClientSocket.getOutputStream());
-            dis = new DataInputStream(reservaClientSocket.getInputStream());
-            dos = new DataOutputStream(reservaClientSocket.getOutputStream());
 
             isRunning = true;
+            Reserva reserva = new Reserva();
 
             while (isRunning) {
-                //TODO Reserva Comm Protocol
-                String obj = (String) ois.readObject();
-                String[] s = obj.split("%%");
-                System.out.println(obj);
-                Reserva reserva;
 
-                if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
-                    name = s[0];
-                    password = s[1];
-                    System.out.println("OK");
-                    oos.writeObject("OK");
-                    Pedido pedido = new Pedido(reserva, new Mesa());
-                    pedidosManager.addPedido(pedido);
-                    //reservaServer.updatePedidosView();
-                    updateMessageToClient();
+                Object object = ois.readObject();
 
-                    while (isRunning) {
-                        System.out.println("Waiting Comand");
-                        ArrayList<Plat> plats =  (ArrayList<Plat>) ois.readObject();
-                        LinkedList<Plato> platos = new LinkedList<>();
-                        LinkedList<Plato> platos1 = new LinkedList<>(platosManager.getPlatos());
-                        platos = (LinkedList<Plato>) platos1.clone();
+                if (object.getClass().equals(String.class)) {
 
-                        Plato[] plato = new Plato[platos1.size()];
-                        plato = platos.toArray(plato);
+                    String string = (String) object;
 
-                        Plato[] plato2 = new Plato[plato.length];
-                        for(int i=0;i<plato.length;i++) plato2[i] = new Plato(plato[i]);
-                        platos =new LinkedList(Arrays.asList(plato2));
+                    switch(string) {
 
+                        case "PAUSA":
+                            pedidosManager.getPedidoByReservaName(name).getReserva().setState(3);
+                            reservasManager.searchReserva(name, password).setState(3);
+                            reservaServer.updatePedidosView();
+                            break;
 
-                        //Collections.copy(platos, platosManager.getPlatos());
+                        case "PAGAR":
+                            Pedido tmp = pedidosManager.getPedidoByReservaName(name);
+                            pedidosManager.removePedido(tmp);
+                            reservasManager.removeReserva(tmp.getReserva());
+                            reservaServer.updatePedidosView();
+                            name = "";
+                            password = "";
+                            break;
 
-                        //Pedido Send
-                        reserva.setState(2);
-                        //pedidosManager.getPedidoByReservaName(name).setPlatosPendientes(platos);
-                        pedidosManager.getPedidoByReservaName(name).addPlatosPendientes(platos);
-                        //pedidosManager.getPedidoByReservaName(name).setPlatosProcesados(new LinkedList<>());
-                        reservaServer.updatePedidosView();
+                        default:
 
-                        System.out.println("Comanda Received");
-                        System.out.println("Comanda Size" + plats.size());
+                            String[] s = string.split("%%");
+                            System.out.println(string);
 
+                            if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
+                                name = s[0];
+                                password = s[1];
+                                oos.writeObject("OK");
+
+                                if(reserva.getState() == 3) {
+                                    //Reactivamos el pedido
+                                    pedidosManager.getPedidoByReservaName(name).getReserva().setState(2);
+                                    reservaServer.updatePedidosView();
+                                    updateMessageToClient();
+                                } else {
+                                    Pedido pedido = new Pedido(reserva, new Mesa());
+                                    pedidosManager.addPedido(pedido);
+                                    updateMessageToClient();
+                                }
+
+                            } else {
+                                oos.writeObject("KO");
+                            }
+
+                            break;
                     }
+
                 } else {
-                    oos.writeObject("KO");
+
+                    ArrayList<Plat> plats = (ArrayList<Plat>) object;
+                    LinkedList<Plato> platos = new LinkedList<>();
+
+                    for (Plat plat : plats) {
+                        Plato plato = new Plato(plat.getId(), String.valueOf(plat.getTipus()), plat.getNom(), plat.getPrice(), plat.getUnitatsSeleccionades());
+                        platos.add(plato);
+                        platosManager.getPlato(plato.getId()).updateUnits(-plato.getUnits());
+                    }
+
+                    reservaServer.updatePlatosView();
+                    reservaServer.sendBroadcast();
+                    reserva.setState(2);
+                    pedidosManager.getPedidoByReservaName(name).addPlatosPendientes(platos);
+                    reservaServer.updatePedidosView();
                 }
             }
 
@@ -114,12 +132,6 @@ public class ReservaDedicatedServer extends Thread {
                 oos.close();
             } catch (IOException e) {}
             try {
-                dis.close();
-            } catch (IOException e) {}
-            try {
-                dos.close();
-            } catch (IOException e) {}
-            try {
                 reservaClientSocket.close();
             } catch (IOException e) {}
         }
@@ -128,10 +140,30 @@ public class ReservaDedicatedServer extends Thread {
 
     public void updateMessageToClient() {
         try {
-            oos.writeObject(platosManager.getPlatos());
+            oos.reset();
+            oos.writeObject(platosManager.getAvailablePlatos());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendServirPlato(long id) {
+
+        Long ID = id;
+        try {
+            oos.writeObject(ID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public String getClientName() {
+        return name;
+    }
+
+    public String getClientPassword() {
+        return password;
     }
 
 }
