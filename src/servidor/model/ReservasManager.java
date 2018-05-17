@@ -195,4 +195,10 @@ public class ReservasManager {
 
         return null;
     }
+
+    public void updateReserva(int id, int state){
+        BBDDManager manager = BBDDManager.getInstance(Main.BBDD);
+        manager.connect();
+        String query = new StringBuilder().append("UPDATE Reserva SET state = ").append(state).append(" WHERE id = ").append(id).append(";").toString();
+    }
 }
