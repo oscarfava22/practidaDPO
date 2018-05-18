@@ -52,7 +52,7 @@ public class Main {
                                                                   platosManager);
 
                 MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
-                GestionTop5ViewListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView,BBDDManager.getInstance(BBDD),mainView.getGestionTop5View().getView());
+                GestionTop5ViewListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView,BBDDManager.getInstance(BBDD),mainView.getGestionTop5View());
 
                 MouseInputListener settingsDialogViewListener = new SettingsDialogViewListener(mainView);
 

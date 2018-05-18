@@ -17,7 +17,7 @@ public class LandingPanel extends JPanel{
     /**
      * the password of the reservation
      */
-    private final JLabel tablePassword;
+    private final JTextField tablePassword;
 
     /**
      * Ok button
@@ -30,7 +30,9 @@ public class LandingPanel extends JPanel{
     public LandingPanel(){
         setLayout(new BorderLayout());
         tableID = new JLabel("FILLER");
-        tablePassword = new JLabel("FILLER");
+        tablePassword = new JTextField("FILLER");
+
+        tablePassword.setEditable(false);
 
         ok = new JButton("Finish Reservation");
 

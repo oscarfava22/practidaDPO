@@ -62,17 +62,4 @@ public class EntryDedicatedServer extends Thread{
             } catch (IOException e) {}
         }
     }
-
-    public void updateMessageToClient() {
-
-        /*try {
-            dos.writeBoolean(true);
-            dos.writeUTF("123");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-    }
-
-
 }

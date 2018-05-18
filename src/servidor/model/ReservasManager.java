@@ -104,8 +104,17 @@ public class ReservasManager {
         bbdd.disconnect();
     }
 
-    public void removeReserva() {
-
+    public void updateReservaState(Reserva reserva, int state) {
+        for(int i = 0; i < reservas.size(); i++) {
+            if (reservas.get(i).equals(reserva)) {
+                reservas.get(i).setState(state);
+            }
+        }
+        BBDDManager manager = BBDDManager.getInstance(Main.BBDD);
+        manager.connect();
+        String query = "UPDATE Reserva SET state = "+state+" WHERE id_reserva = "+reserva.getId()+";";
+        manager.modificationQuery(query);
+        manager.disconnect();
     }
 
     public LinkedList<Reserva> getReservas() {
@@ -117,7 +126,7 @@ public class ReservasManager {
         Mesa mesa;
         if ((mesa=checkAvailability(reservaRequest))!=null) {
             Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(),
-                    reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0);
+                    reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0,mesa);
             addReserva(reserva,mesa,reservaRequest);
             System.out.println("New Reserva Created: ");
             System.out.println("\t" + reserva.toString());
@@ -181,7 +190,7 @@ public class ReservasManager {
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL ")
-                .append("and NOT EXISTS(SELECT * FROM Reserva as r1 WHERE r1.dataConcreta BETWEEN '").append(dateTimeFormat.format(addAnHour(request.getDate(), -1)))
+                .append("OR NOT EXISTS(SELECT * FROM Reserva as r1 WHERE r1.state!=3 and r1.dataConcreta BETWEEN '").append(dateTimeFormat.format(addAnHour(request.getDate(), -1)))
                 .append("' AND '")
                 .append(dateTimeFormat.format(addAnHour(request.getDate(), 1)))
                 .append("' and r1.id_mesa = m.id_mesa);").toString();
@@ -208,7 +217,6 @@ public class ReservasManager {
 
     public Reserva searchReserva(String name, String password) {
 
-
         for(Reserva reserva : reservas) {
             if(reserva.getName().equals(name) && reserva.getPassword().equals(password)) {
                 if(reserva.getState() == 0) {
@@ -224,7 +232,6 @@ public class ReservasManager {
                 break;
             }
         }
-
         return null;
     }
 }

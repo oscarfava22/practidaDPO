@@ -20,6 +20,9 @@ public class GestionTop5View extends JPanel {
 
     }
 
+    public void showError(String error){
+        JOptionPane.showMessageDialog(this,error,"Top5Errror",JOptionPane.ERROR_MESSAGE);
+    }
 
 
     public Top5View getView() {
