@@ -66,7 +66,8 @@ public class ReservaDedicatedServer extends Thread {
                         case "PAGAR":
                             Pedido tmp = pedidosManager.getPedidoByReservaName(name);
                             pedidosManager.removePedido(tmp);
-                            reservasManager.removeReserva(tmp.getReserva());
+                            //reservasManager.removeReserva(tmp.getReserva());
+                            reservasManager.removeReserva();
                             reservaServer.updatePedidosView();
                             name = "";
                             password = "";

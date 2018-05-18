@@ -72,7 +72,7 @@ public class AutenticacioListener implements ActionListener{
             return false;
         }else{
             try {
-                return ReservasManager.isInBbdd(nombre, password);
+                return !ReservasManager.isInBbdd(nombre, password);
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos",
                         "ERROR", JOptionPane.ERROR_MESSAGE);

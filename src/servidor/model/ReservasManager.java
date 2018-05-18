@@ -31,6 +31,20 @@ public class ReservasManager {
 
     }
 
+    public static boolean isInBbdd(String nombre, String password) throws SQLException{
+        boolean esta = false;
+
+        BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
+        bbdd.connect();
+        ResultSet set = bbdd.readQuery("Select c.password, c.nombre from Cliente as c where c.password = '" + password
+                + "' and c.nombre = '" + nombre + "';");
+        if (set.next()){
+            esta = true;
+        }
+
+        return esta;
+    }
+
     public void loadReservas() {
         /*try {
         Reserva[] reservas = (Reserva[]) JsonIO.readJson(Reserva[].class, "/data/json/reservas.json");
