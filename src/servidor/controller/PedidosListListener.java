@@ -32,7 +32,7 @@ public class PedidosListListener implements ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
 
         if (last_value != (long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0) ) {
-            System.out.println("Click id:" + (long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0));
+
             last_value = (long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0);
 
             Pedido pedido =  pedidosManager.getPedidoByReservaId((long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0));
@@ -42,7 +42,6 @@ public class PedidosListListener implements ListSelectionListener {
             mainView.getGestionPedidosView().initPlatosProcesadosView(pedido.getPlatosProcesados().getPlatos());
             mainView.getGestionPedidosView().registerPlatosProcesadosController(platosProcesadosListener);
         }
-
     }
 
 }

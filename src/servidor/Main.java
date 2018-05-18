@@ -85,8 +85,9 @@ public class Main {
                                              mesasOptionsViewListener,
                                              mesasViewListener, pedidosListListener);
 
-                MainServer mainServer = new MainServer(mainView, platosManager, reservasManager, pedidosManager, pedidosListListener);
+                MainServer mainServer = new MainServer(mainView, platosManager, reservasManager, pedidosManager, pedidosListListener, gestionCartaViewListener);
                 gestionCartaViewListener.registerServer(mainServer.getReservaServer());
+                platosPendientesController.registerServer(mainServer.getReservaServer());
                 mainServer.initServers();
 
             }

@@ -2,17 +2,14 @@ package servidor.controller;
 
 import servidor.model.Pedido;
 import servidor.model.PedidosManager;
-import servidor.model.Plato;
-import servidor.model.PlatosManager;
+import servidor.network.ReservaServer;
 import servidor.view.CustomLabel;
 import servidor.view.MainView;
-import servidor.view.PlatoView;
 import servidor.view.PlatosView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
 
 public class PlatosPendientesController implements MouseInputListener {
 
@@ -20,11 +17,16 @@ public class PlatosPendientesController implements MouseInputListener {
     private PlatosView platosView;
     private PedidosManager pedidosManager;
     private String selectedItemId = "";
+    private ReservaServer reservaServer;
 
     public PlatosPendientesController(MainView mainView, PlatosView platosView, PedidosManager pedidosManager) {
         this.mainView = mainView;
         this.platosView = platosView;
         this.pedidosManager = pedidosManager;
+    }
+
+    public void registerServer(ReservaServer reservaServer) {
+        this.reservaServer = reservaServer;
     }
 
     @Override
@@ -42,7 +44,6 @@ public class PlatosPendientesController implements MouseInputListener {
             if (!selectedItemId.equals("")) {
                 JButton jb = (JButton) e.getSource();
 
-
                 System.out.println("SELECTED ITEM: " + selectedItemId);
 
                 System.out.println(jb.getText() + " " +
@@ -53,7 +54,8 @@ public class PlatosPendientesController implements MouseInputListener {
                 Pedido pedido = pedidosManager.getPedidoByReservaId((long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0));
                 pedido.servirPlato(Long.parseLong(selectedItemId));
 
-                System.out.println("Platos procesados size: " + pedido.getPlatosProcesados().getPlatos().size());
+                reservaServer.sendServirPlatoToClient(Long.parseLong(selectedItemId), (String)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(
+                        mainView.getSelectedRow(), 1));
 
                 mainView.getGestionPedidosView().initPlatosPendientesView(pedido.getPlatosPendientes().getPlatos());
                 mainView.getGestionPedidosView().registerPlatosPendientesController(this);

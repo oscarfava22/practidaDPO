@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Plat implements Serializable {
 
+    private long id;
     private String nom;
     private float price;
     private int unitats;
@@ -18,8 +19,9 @@ public class Plat implements Serializable {
      * @param unitats unidades de ese plato disponibles
      * @param tipus tipos que indentifica si es postre, principal, entrante y bebida
      */
-    public Plat(String nom, float price, int unitats, int tipus) {
+    public Plat (long id, String nom, float price, int unitats, int tipus) {
 
+        this.id = id;
         this.nom = nom;
         this.price = price;
         this.unitats = unitats;
@@ -34,13 +36,22 @@ public class Plat implements Serializable {
      * @param tipus tipos que indentifica si es postre, principal, entrante y bebida
      * @param unitatsSeleccionades unidades que se piden en el momento actual
      */
-    public Plat(String nom, float price, int unitats, int tipus, int unitatsSeleccionades) {
+    public Plat (long id, String nom, float price, int unitats, int tipus, int unitatsSeleccionades) {
 
+        this.id = id;
         this.nom = nom;
         this.price = price;
         this.unitats = unitats;
         this.tipus = tipus;
         this.unitatsSeleccionades = unitatsSeleccionades;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**

@@ -28,7 +28,7 @@ public class PlatosManager {
 
     public void loadPlatos() {
         //platos = new LinkedList<>();
-        manager = BBDDManager.getInstance(Main.BBDD);
+        /*manager = BBDDManager.getInstance(Main.BBDD);
         manager.connect();
         ResultSet set = manager.readQuery("SELECT * FROM Plato;");
         if(set!=null){
@@ -47,8 +47,8 @@ public class PlatosManager {
                 e.printStackTrace();
             }
         }
-        manager.disconnect();
-        /*
+        manager.disconnect();*/
+
         try {
 
             Plato[] pls = (Plato[]) JsonIO.readJson(Plato[].class, "/data/json/platos.json");
@@ -62,16 +62,16 @@ public class PlatosManager {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public void addPlato(Plato plato) {
-        manager.connect();
+        /*manager.connect();
         String query = new StringBuilder().append("INSERT INTO Plato VALUES(").append(plato.getId()).append(",'")
                 .append(plato.getTitle()).append("',").append(plato.getUnits()).append(",").append(plato.getType())
                 .append(",").append(plato.getPrice()).append(",").append(1).append(");").toString();
         manager.modificationQuery(query);
-        manager.disconnect();
+        manager.disconnect();*/
 
         platos.add(plato);
     }
@@ -140,4 +140,15 @@ public class PlatosManager {
         return platos;
     }
 
+    public LinkedList<Plato> getAvailablePlatos() {
+
+        LinkedList<Plato> pls = new LinkedList<>();
+
+        for(Plato p : platos) {
+            if(p.getUnits() > 0) {
+                pls.add(p);
+            }
+        }
+        return pls;
+    }
 }
