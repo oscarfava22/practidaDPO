@@ -38,11 +38,24 @@ public class ReservePanel extends JPanel {
         //TODO Make pretty
         setLayout(new BorderLayout());
         now = new JButton("Reservar ahora");
+        now.setBackground(Color.ORANGE);
         later = new JButton("Reservar futuro");
+        later.setBackground(Color.ORANGE);
         JTextField temp = new JTextField();
         howMany = new TextFieldPanel("Cuantos comensales",200);
         name = new TextFieldPanel("Nombre reserva" ,200);
+/*
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        JPanel bottomPanel = new JPanel(new BorderLayout());
 
+        centerPanel.add(name, BorderLayout.PAGE_START);
+        centerPanel.add(howMany, BorderLayout.PAGE_END);
+        bottomPanel.add(now, BorderLayout.LINE_START);
+        bottomPanel.add(later, BorderLayout.LINE_END);
+
+        add(centerPanel,BorderLayout.CENTER);
+        add(bottomPanel,BorderLayout.PAGE_END);
+*/
         JPanel center = new JPanel(new GridLayout(3,2));
         JPanel centerLeft = new JPanel();
         centerLeft.add(now);
