@@ -49,11 +49,14 @@ public class ReservasView extends JPanel {
         reservasView.clear();
         jpReservas.removeAll();
 
-        for(InfoResultSetReserva reserva : reservas) {
-            ReservaView reservaView = new ReservaView(reserva);
-            reservasView.add(reservaView);
-            jpReservas.add(reservaView);
+        if (reservas!= null) {
+            for(InfoResultSetReserva reserva : reservas) {
+                ReservaView reservaView = new ReservaView(reserva);
+                reservasView.add(reservaView);
+                jpReservas.add(reservaView);
+            }
         }
+
         jspReservas = new JScrollPane(jpReservas);
         jpMain.add(jspReservas, BorderLayout.CENTER);
     }

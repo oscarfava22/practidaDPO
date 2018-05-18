@@ -83,6 +83,7 @@ public class MesasOptionsViewListener implements ActionListener{
                         mainView.refreshMesas(mesasViewListener);
                         mainView.getGestionMesasView().getJlIdSelected().setText(GestionMesasView.NINGUNA_MESA_SELECCIONADA_TAG);
                         mainView.getGestionMesasView().ponColorIdSelected();
+                        mainView.refreshReservas(null);
 
                     } else if(delete == JOptionPane.NO_OPTION) {
                         System.out.println("No eliminar mesa");
