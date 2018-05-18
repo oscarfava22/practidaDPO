@@ -8,34 +8,28 @@ import java.util.LinkedList;
 public class Pedido {
 
     private Reserva reserva;
-    private Mesa mesa;
     private PlatosManager platosPendientes;
     private PlatosManager platosProcesados;
 
     public Pedido() {
         reserva = new Reserva();
-        mesa = new Mesa();
         platosPendientes = new PlatosManager();
         platosProcesados = new PlatosManager();
     }
 
-    public Pedido(Reserva reserva, Mesa mesa) {
+    public Pedido(Reserva reserva) {
         this();
-        setPedido(reserva, mesa);
+        setPedido(reserva);
     }
 
-    public void setPedido(Reserva reserva, Mesa mesa) {
+    public void setPedido(Reserva reserva) {
         setReserva(reserva);
-        setMesa(mesa);
     }
 
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
 
-    public void setMesa(Mesa mesa) {
-        this.mesa = mesa;
-    }
 
     public void setPlatosPendientes(LinkedList<Plato> platosPendientes) {
         this.platosPendientes.setPlatos(platosPendientes);
@@ -82,10 +76,6 @@ public class Pedido {
 
     public Reserva getReserva() {
         return reserva;
-    }
-
-    public Mesa getMesa() {
-        return mesa;
     }
 
     public void setPlatosProcesados(LinkedList<Plato> platosProcesados) {

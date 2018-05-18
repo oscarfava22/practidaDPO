@@ -57,18 +57,11 @@ public class ReservaDedicatedServer extends Thread {
 
                     switch(string) {
 
-                        case "PAUSA":
-                            pedidosManager.getPedidoByReservaName(name).getReserva().setState(3);
-                            reservasManager.searchReserva(name, password).setState(3);
-                            reservaServer.updatePedidosView();
-                            break;
-
                         case "PAGAR":
                             Pedido tmp = pedidosManager.getPedidoByReservaName(name);
-                            pedidosManager.removePedido(tmp);
-                            //reservasManager.removeReserva(tmp.getReserva());
-                            reservasManager.removeReserva();
+                            reservasManager.updateReservaState(reserva, 3);
                             reservaServer.updatePedidosView();
+
                             name = "";
                             password = "";
                             break;
@@ -82,17 +75,8 @@ public class ReservaDedicatedServer extends Thread {
                                 name = s[0];
                                 password = s[1];
                                 oos.writeObject("OK");
-
-                                if(reserva.getState() == 3) {
-                                    //Reactivamos el pedido
-                                    pedidosManager.getPedidoByReservaName(name).getReserva().setState(2);
-                                    reservaServer.updatePedidosView();
-                                    updateMessageToClient();
-                                } else {
-                                    Pedido pedido = new Pedido(reserva, new Mesa());
-                                    pedidosManager.addPedido(pedido);
-                                    updateMessageToClient();
-                                }
+                                pedidosManager.addPedido(new Pedido(reserva));
+                                updateMessageToClient();
 
                             } else {
                                 oos.writeObject("KO");
@@ -114,7 +98,9 @@ public class ReservaDedicatedServer extends Thread {
 
                     reservaServer.updatePlatosView();
                     reservaServer.sendBroadcast();
-                    reserva.setState(2);
+
+                    reservasManager.updateReservaState(reserva, 2);
+
                     pedidosManager.getPedidoByReservaName(name).addPlatosPendientes(platos);
                     reservaServer.updatePedidosView();
                 }

@@ -13,7 +13,7 @@ public class Reserva implements Serializable {
     private int state = 0;
     private Mesa mesa;
 
-    public Reserva() {
+    public Reserva () {
 
     }
 

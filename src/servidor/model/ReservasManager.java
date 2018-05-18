@@ -104,8 +104,12 @@ public class ReservasManager {
         bbdd.disconnect();
     }
 
-    public void removeReserva() {
-
+    public void updateReservaState(Reserva reserva, int state) {
+        for(int i = 0; i < reservas.size(); i++) {
+            if (reservas.get(i).equals(reserva)) {
+                reservas.get(i).setState(state);
+            }
+        }
     }
 
     public LinkedList<Reserva> getReservas() {
@@ -208,7 +212,6 @@ public class ReservasManager {
 
     public Reserva searchReserva(String name, String password) {
 
-
         for(Reserva reserva : reservas) {
             if(reserva.getName().equals(name) && reserva.getPassword().equals(password)) {
                 if(reserva.getState() == 0) {
@@ -224,7 +227,6 @@ public class ReservasManager {
                 break;
             }
         }
-
         return null;
     }
 }
