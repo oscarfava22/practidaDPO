@@ -11,22 +11,32 @@ public class Reserva implements Serializable {
     private int amount;
     private String password;
     private int state = 0;
+    private Mesa mesa;
 
     public Reserva() {
 
     }
 
-    public Reserva(long id, String name, Date date, int amount, String password, int state) {
-        setReserva(id, name, date, amount, password, state);
+    public Reserva(long id, String name, Date date, int amount, String password, int state,Mesa mesa) {
+        setReserva(id, name, date, amount, password, state,mesa);
     }
 
-    public void setReserva(long id, String name, Date date, int amount, String password, int state) {
+    public void setReserva(long id, String name, Date date, int amount, String password, int state,Mesa mesa) {
         setId(id);
         setName(name);
         setDate(date);
         setAmount(amount);
         setPassword(password);
         setState(state);
+        setMesa(mesa);
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
 
     public long getId() {

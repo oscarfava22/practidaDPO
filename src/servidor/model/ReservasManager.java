@@ -117,7 +117,7 @@ public class ReservasManager {
         Mesa mesa;
         if ((mesa=checkAvailability(reservaRequest))!=null) {
             Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(),
-                    reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0);
+                    reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0,mesa);
             addReserva(reserva,mesa,reservaRequest);
             System.out.println("New Reserva Created: ");
             System.out.println("\t" + reserva.toString());
