@@ -61,7 +61,6 @@ public class ReservaDedicatedServer extends Thread {
                             Pedido tmp = pedidosManager.getPedidoByReservaName(name);
                             reservasManager.updateReservaState(reserva, 3);
                             reservaServer.updatePedidosView();
-
                             name = "";
                             password = "";
                             break;
