@@ -110,6 +110,11 @@ public class ReservasManager {
                 reservas.get(i).setState(state);
             }
         }
+        BBDDManager manager = BBDDManager.getInstance(Main.BBDD);
+        manager.connect();
+        String query = "UPDATE Reserva SET state = "+state+" WHERE id_reserva = "+reserva.getId()+";";
+        manager.modificationQuery(query);
+        manager.disconnect();
     }
 
     public LinkedList<Reserva> getReservas() {
@@ -185,7 +190,7 @@ public class ReservasManager {
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL ")
-                .append("and NOT EXISTS(SELECT * FROM Reserva as r1 WHERE r1.dataConcreta BETWEEN '").append(dateTimeFormat.format(addAnHour(request.getDate(), -1)))
+                .append("OR NOT EXISTS(SELECT * FROM Reserva as r1 WHERE r1.sate!=3 and r1.dataConcreta BETWEEN '").append(dateTimeFormat.format(addAnHour(request.getDate(), -1)))
                 .append("' AND '")
                 .append(dateTimeFormat.format(addAnHour(request.getDate(), 1)))
                 .append("' and r1.id_mesa = m.id_mesa);").toString();
