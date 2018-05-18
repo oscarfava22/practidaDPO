@@ -70,10 +70,11 @@ public class EntryServer extends Thread {
     }
 
     public void sendBroadcast() {
-
+        /*
         for(EntryDedicatedServer eds : entryDedicatedServers) {
             eds.updateMessageToClient();
         }
+        */
     }
 
 
