@@ -32,7 +32,7 @@ public class LandingPanel extends JPanel{
         tableID = new JLabel("FILLER");
         tablePassword = new JTextField("FILLER");
 
-        tablePassword.setEnabled(false);
+        tablePassword.setEditable(false);
 
         ok = new JButton("Finish Reservation");
 
