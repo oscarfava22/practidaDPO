@@ -5,6 +5,7 @@ import Network.Reserva.ReservaResponse;
 import servidor.Main;
 import servidor.model.Database.BBDDManager;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -102,8 +103,10 @@ public class ReservasManager {
         ReservaResponse response = null;
         Mesa mesa;
         if ((mesa=checkAvailability(reservaRequest))!=null) {
-            Reserva reserva = new Reserva(SerialGenerator.getReservaId() ,reservaRequest.getName(),
-                    reservaRequest.getDate(), reservaRequest.getAmount(), generateRndmPassword(), 0);
+            Reserva reserva = new Reserva(SerialGenerator.getMaxIdReserva() ,reservaRequest.getName(),
+                    reservaRequest.getDate(), reservaRequest.getAmount(),
+                    generateRndmPassword(), 0);
+
             addReserva(reserva,mesa,reservaRequest);
             System.out.println("New Reserva Created: ");
             System.out.println("\t" + reserva.toString());
@@ -212,5 +215,38 @@ public class ReservasManager {
         }
 
         return null;
+    }
+
+    /**
+     * Comprueba si el nombre + password están en la bbdd
+     * @param nombre
+     * @param password
+     * @return true si se encuentra en la bbdd
+     * @throws SQLException
+     */
+    public static boolean isInBbdd(String nombre, String password) throws SQLException {
+        //TODO: Corregir error aqui
+        BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
+        bbdd.connect();
+        String query = new StringBuilder()
+                .append("SELECT * FROM Cliente AS c WHERE c.password LIKE '")
+                .append(password)
+                .append("' AND c.nombre LIKE '")
+                .append(nombre)
+                .append("';")
+                .toString();
+        System.out.println("Query = " + query);
+        ResultSet rs = bbdd.readQuery(query);
+
+        if (!rs.next()){
+            bbdd.disconnect();
+            JOptionPane.showMessageDialog(null, "Algún campo es incorrecto",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else{
+            bbdd.disconnect();
+            return true;
+        }
     }
 }
