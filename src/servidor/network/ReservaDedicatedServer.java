@@ -88,22 +88,27 @@ public class ReservaDedicatedServer extends Thread {
                     switch(string) {
 
                         case "PAGAR":
-
+                            //Se actualiza el estado de la reserva marcandola con un 3 como finalizada
                             reservasManager.updateReservaState(reserva, 3);
+                            //Se actualiza la vista de los pedidos
                             reservaServer.updatePedidosView();
+                            //Se reinician los campos para identificar al siguiente usuario que se conecte
                             name = "";
                             password = "";
                             break;
 
                         default:
-
+                            //El formato de string recibido es (user%%pass)
                             String[] s = string.split("%%");
 
                             if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
+                                //Si el usuario tiene una reserva se asigna su nombre y contraseña
                                 name = s[0];
                                 password = s[1];
-                                oos.writeObject("OK");
+                                //Se añade un pedido nuevo en el gestor de pedidos preparado para recibir platos
                                 pedidosManager.addPedido(new Pedido(reserva));
+                                //Se envia un mensaje de confirmacion y posteriormente la lista de platos disponibles
+                                oos.writeObject("OK");
                                 updateMessageToClient();
 
                             } else {
@@ -114,18 +119,24 @@ public class ReservaDedicatedServer extends Thread {
                     }
 
                 } else {
-
+                    //En espera de recibir los platos que vaya solicitando el cliente
                     ArrayList<Plat> plats = (ArrayList<Plat>) object;
                     LinkedList<Plato> platos = new LinkedList<>();
-                    System.out.println("Platos size: " + plats.size());
+
+                    //Conversion de los datos enviados por el cliente al modelo interno utilizado por el servidor
                     for (Plat plat : plats) {
-                        Plato plato = new Plato(plat.getId(), String.valueOf(plat.getTipus()), plat.getNom(), plat.getPrice(), plat.getUnitatsSeleccionades());
+                        Plato plato = new Plato(plat.getId(), String.valueOf(plat.getTipus()), plat.getNom(),
+                                                plat.getPrice(), plat.getUnitatsSeleccionades());
                         platos.add(plato);
+                        //Se actualizan las unidades de los platos de la carta restando los pedidos por el cliente
                         platosManager.getPlato(plato.getId()).updateUnits(-plato.getUnits());
                     }
 
+                    //Se aprovecha el metodo del Reserva Server para actualizar la vista de los platos de la carta
                     reservaServer.updatePlatosView();
+                    //Se realiza un Broadcast a todos los clientes para que actualizen su carta de platos
                     reservaServer.sendBroadcast();
+                    //Se actualiza el estado de la reserva a 2 significando que el usuario ha realizado un pedido
                     reservasManager.updateReservaState(reserva, 2);
 
                     pedidosManager.getPedidoByReservaName(name).addPlatosPendientes(platos);

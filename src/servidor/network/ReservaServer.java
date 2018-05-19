@@ -79,6 +79,7 @@ public class ReservaServer extends Thread {
                 reservaDedicatedServers.add(rds);
                 rds.start();
 
+                //Se actualiza el numero de clientes Reserva conectados al servidor en el "Status Bar"
                 mainView.setConnectedDevices(reservaDedicatedServers.size());
 
             } catch (IOException e) {

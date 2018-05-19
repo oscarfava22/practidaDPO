@@ -13,6 +13,8 @@ import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
 /**
+ * Controlador para gestionar la vista de la carta y la vista de las opciones de edicion para cada plato, mediante la
+ * interraccion con el gestor de platos.
  *
  */
 public class GestionCartaViewListener implements MouseInputListener {
@@ -26,10 +28,10 @@ public class GestionCartaViewListener implements MouseInputListener {
     private ReservaServer reservaServer;
 
     /**
-     * Construcotr de la clase
-     * @param platosOptionsView
-     * @param platosView
-     * @param platosManager
+     * Construcotr de la que inicializa todas las variables.
+     * @param platosOptionsView vista de las opciones de edición de un plato.
+     * @param platosView vista de los platos de la carta.
+     * @param platosManager gestor de platos.
      */
     public GestionCartaViewListener(PlatosOptionsView platosOptionsView, PlatosView platosView, PlatosManager platosManager) {
         this.platosOptionsView = platosOptionsView;
@@ -38,8 +40,8 @@ public class GestionCartaViewListener implements MouseInputListener {
     }
 
     /**
-     *
-     * @param e
+     * Permite realizar diferentes acciones segun el tipo de clase detectada en el mouse event.
+     * @param e el evento de "Mouse" detectado.
      */
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -50,6 +52,7 @@ public class GestionCartaViewListener implements MouseInputListener {
             switch(jb.getText()) {
                 case "Edit":
                     if (jb.isEnabled()) {
+                        //Se activa el estado de edicion del panel de opciones de la vista de la carta
                         platosOptionsView.setEditState(true);
                     }
                     break;
@@ -63,7 +66,7 @@ public class GestionCartaViewListener implements MouseInputListener {
                                     "Update Product Info", JOptionPane.YES_NO_OPTION);
 
                             if (option == JOptionPane.YES_OPTION) {
-
+                                //Se actualiza el plato modificado en el gestor de platos del sistema
                                 platosManager.updatePlato(
                                                           Long.parseLong(platosOptionsView.getIdText()),
                                                           platosOptionsView.getType(),
@@ -71,6 +74,7 @@ public class GestionCartaViewListener implements MouseInputListener {
                                                           Float.parseFloat(platosOptionsView.getPriceText()),
                                                           Integer.parseInt(platosOptionsView.getUnitsText()));
 
+                                //Se actualiza la vista del plato modificado
                                 platosView.updatePlato(
                                                        platosOptionsView.getIdText(),
                                                        platosOptionsView.getType(),
@@ -79,6 +83,8 @@ public class GestionCartaViewListener implements MouseInputListener {
                                                        platosOptionsView.getUnitsText());
 
                                 platosOptionsView.setEditState(false);
+
+                                //Se realiza un broadcast a todos los clientes conectados para que actualicen sus cartas
                                 reservaServer.sendBroadcast();
 
                             } else if(option == JOptionPane.NO_OPTION) {
@@ -90,7 +96,9 @@ public class GestionCartaViewListener implements MouseInputListener {
 
                 case"Add Product":
                     if(jb.isEnabled()) {
+                        //Se activa el modo de creacion de un plato permitiendo introducir los datos necesarios
                         platosOptionsView.setAddProductState(true);
+                        //Se deseleccionan el plato previamente seleccionado en la vista
                         platosView.setSelectedPlatosState(false);
                     }
                     break;
@@ -112,9 +120,14 @@ public class GestionCartaViewListener implements MouseInputListener {
                                         Float.parseFloat(platosOptionsView.getPriceText()),
                                         Integer.parseInt(platosOptionsView.getUnitsText())));
 
+                                //Se reinicia al estado inicial de los botones
                                 platosOptionsView.setEditState(false);
                                 platosOptionsView.setAddProductState(false);
+
+                                //Se añade el plato creado al gestor de platos del sistema
                                 platosView.addPlato(platosManager.getPlatos().getLast(), this);
+
+                                //Se realiza un broadcast a todos los clientes conectados para que actualicen sus cartas
                                 reservaServer.sendBroadcast();
 
                             } else if(option2 == JOptionPane.NO_OPTION) {
@@ -145,12 +158,16 @@ public class GestionCartaViewListener implements MouseInputListener {
                                 "Edit Product Info", JOptionPane.YES_NO_OPTION);
 
                         if (option == JOptionPane.YES_OPTION) {
+                            //Se elimina el plato del modelo interno y de la vista de platos
                             platosManager.removePlato(Long.parseLong(platosOptionsView.getIdText()));
                             platosView.deletePlato(platosOptionsView.getIdText());
 
+                            //Se reinician los campos del panel de opciones y se vuelve al estado inicial de los botones
                             platosOptionsView.resetTextFields();
                             platosOptionsView.setEditState(false);
                             platosOptionsView.setAddProductState(false);
+
+                            //Se realiza un broadcast a todos los clientes conectados para que actualicen sus cartas
                             reservaServer.sendBroadcast();
 
                         } else if(option == JOptionPane.NO_OPTION) {
@@ -166,6 +183,8 @@ public class GestionCartaViewListener implements MouseInputListener {
         if (e.getSource().getClass().equals(CustomLabel.class)) {
             CustomLabel cl = (CustomLabel) e.getSource();
 
+            //Condicion para solicitar al usuari si desea cancelar la edicion o creacion de un producto si apreta
+            //en la lista de platos de la carta estando activado el modo de edicio o añadir nuevo plato
             if (platosOptionsView.getEditState() || platosOptionsView.getAddState()){
 
                 if (platosOptionsView.getEditState()) {
@@ -193,25 +212,28 @@ public class GestionCartaViewListener implements MouseInputListener {
 
             } else {
 
+                //Se selecciona el plato detectado mediante el mouse event y se le cambia el color para diferenciarlo
                 platosView.setSelectedPlatoState(cl.getId(), true);
                 //Default State
                 platosOptionsView.setEditState(false);
+                //Se rellenan los campos de las opciones de cada plato para mostar informacion mas detallada
                 platosOptionsView.setTextFields(platosManager.getPlato(Long.parseLong(cl.getId())));
             }
         }
     }
 
     /**
-     *
-     * @param reservaServer
+     * Permite registar el servidor Reserva para poder realizar Broadcast a todos los clientes conectados cuando se
+     * realice una modificacion, creacion o eliminacion de un plato.
+     * @param reservaServer servidor de Reserva que se recibe para registrar
      */
     public void registerServer(ReservaServer reservaServer) {
         this.reservaServer = reservaServer;
     }
 
     /**
-     *
-     * @return
+     * Permite verificar la validez de los datos introducidos referentes a las caracteristicas de un plato.
+     * @return el estado de la verificacion.
      */
     public boolean verifyProductForm() {
 

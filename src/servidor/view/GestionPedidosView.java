@@ -1,7 +1,6 @@
 package servidor.view;
 
 import servidor.controller.PlatosPendientesController;
-import servidor.controller.PlatosProcesadosListener;
 import servidor.model.*;
 
 import javax.swing.*;
@@ -123,14 +122,6 @@ public class GestionPedidosView extends JPanel {
         platosPendientes.registerControllers(controller);
         jbServe.removeMouseListener(controller);
         jbServe.addMouseListener(controller);
-    }
-
-    /**
-     *
-     * @param controller
-     */
-    public void registerPlatosProcesadosController(PlatosProcesadosListener controller) {
-        platosProcesados.registerControllers(controller);
     }
 
     /**

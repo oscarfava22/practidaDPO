@@ -59,6 +59,8 @@ public class EntryServer extends Thread {
                                                                                      mainView, reservasManager);
                 entryDedicatedServers.add(entryDedicatedServer);
                 entryDedicatedServer.start();
+
+                //Se actualiza el valor de entry clientes conectados en el "Status Bar" de la vista principal
                 mainView.setEntryServerStatus(getDedicatedServersCount());
 
             } catch (IOException e) {

@@ -54,12 +54,16 @@ public class EntryDedicatedServer extends Thread{
             isRunning = true;
 
             while (isRunning) {
+                //En espera de recibir una solicitud de reserva
                 ReservaRequest reservaRequest = (ReservaRequest) ois.readObject();
+                //Envio de la respuesta a la solicitud
                 oos.writeObject(reservasManager.verifyRequest(reservaRequest));
             }
 
         } catch (IOException | ClassNotFoundException e) {
+            //Se elimina este servidor dedicado de la lista de servidores del servidor Entry
             entryServer.removeDedicatedServer(this);
+            //Se actualiza el valor de entry clientes conectados en el "Status Bar" de la vista principal
             mainView.setEntryServerStatus(entryServer.getDedicatedServersCount());
         }
         finally {

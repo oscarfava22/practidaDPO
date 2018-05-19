@@ -53,13 +53,8 @@ public class Main {
                 PlatosPendientesController platosPendientesController = new PlatosPendientesController(mainView,
                         mainView.getGestionPedidosView().getPlatosPendientes(),pedidosManager);
 
-                PlatosProcesadosListener platosProcesadosListener = new PlatosProcesadosListener(
-                                                                    mainView.getGestionPedidosView().
-                                                                    getPlatosProcesados());
-
                 PedidosListListener pedidosListListener = new PedidosListListener(mainView, pedidosManager,
-                                                                                  platosPendientesController,
-                                                                                  platosProcesadosListener);
+                                                                                  platosPendientesController);
 
                 mainView.registerControllers(selectorViewListener, gestionCartaViewListener, gestionTop5ViewListener,
                                              mesasOptionsViewListener, mesasViewListener);
