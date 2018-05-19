@@ -8,7 +8,9 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
- *
+ * Panel que gestiona la vista de los pedidos.
+ * Tiene asociado el panel de Pedidos y dos paneles PlatosView necesarios para representar las listas de los platos
+ * pendientes y procesados.
  */
 public class GestionPedidosView extends JPanel {
 
@@ -24,7 +26,7 @@ public class GestionPedidosView extends JPanel {
     private JPanel jpPlatosPendientes;
 
     /**
-     *
+     * Constructor que inicializa todos los componentes necesarios que utiliza el panel.
      */
     public GestionPedidosView() {
 
@@ -66,32 +68,32 @@ public class GestionPedidosView extends JPanel {
     }
 
     /**
-     *
-     * @param pedidos
+     * Permite inicializar la vista de los pedidos en cualquier momento.
+     * @param pedidos lista de pedidos que se reciben para inicializar la vista de los pedidos.
      */
     public void initView(LinkedList<Pedido> pedidos) {
         pedidosView.initView(pedidos);
     }
 
     /**
-     *
-     * @param state
+     * Permite establecer el estado del boton de servir.
+     * @param state determina el estado del boton de servir.
      */
     public void setJbServeState(boolean state) {
         jbServe.setEnabled(state);
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el panel referente a la vista de los pedidos.
+     * @return el panel de la vista de los pedidos.
      */
     public PedidosView getPedidosView() {
         return pedidosView;
     }
 
     /**
-     *
-     * @param platos
+     * Permite inicializar la vista de los platos pendientes.
+     * @param platos lista de platos que se recibe para inicializar la vista de los platos pendientes.
      */
     public void initPlatosPendientesView(LinkedList<Plato> platos) {
         platosPendientes.initPlatosView(platos);
@@ -99,24 +101,16 @@ public class GestionPedidosView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el panel referente a los platos pendientes.
+     * @return el panel de los platos pendientes.
      */
     public PlatosView getPlatosPendientes() {
         return platosPendientes;
     }
 
     /**
-     *
-     * @return
-     */
-    public PlatosView getPlatosProcesados() {
-        return platosProcesados;
-    }
-
-    /**
-     *
-     * @param controller
+     * Permite registrar los componentes al controlador que se recibe como parametro.
+     * @param controller controlador que se recibe para registrar a los componnetes.
      */
     public void registerPlatosPendientesController(PlatosPendientesController controller) {
         platosPendientes.registerControllers(controller);
@@ -125,8 +119,8 @@ public class GestionPedidosView extends JPanel {
     }
 
     /**
-     *
-     * @param platos
+     * Permite inicializar la vista de los platos procesados.
+     * @param platos lista de platos procesados.
      */
     public void initPlatosProcesadosView(LinkedList<Plato> platos) {
         platosProcesados.initPlatosView(platos);
@@ -134,16 +128,16 @@ public class GestionPedidosView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el JTable de los pedidos.
+     * @return el JTable de los pedidos.
      */
     public JTable getJtPedidos() {
         return pedidosView.getJtPedidos();
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el indice de la fila seleccionada del JTable de pedidos.
+     * @return el incide de la fila seleccionada.
      */
     public int getSelectedRow() {
         return pedidosView.getSelectedRow();
