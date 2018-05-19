@@ -1,11 +1,14 @@
 package servidor.view;
 
 import servidor.controller.SelectorViewListener;
-import servidor.model.MainViewModel;
+import servidor.model.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *
+ */
 public class SelectorView extends JPanel {
 
     private JButton jbGestionMesas;
@@ -13,27 +16,34 @@ public class SelectorView extends JPanel {
     private JButton jbGestionPedidos;
     private JButton jbTop5;
 
+    /**
+     *
+     */
     public SelectorView() {
 
         setLayout(new GridLayout(1,4));
 
         jbGestionMesas = new JButton();
         jbGestionMesas.setFocusPainted(false);
+        jbGestionMesas.setForeground(Color.BLACK);
         jbGestionMesas.setBackground(Color.GRAY);
         jbGestionMesas.setBorderPainted(false);
 
         jbGestionCarta = new JButton();
         jbGestionCarta.setFocusPainted(false);
+        jbGestionCarta.setForeground(Color.BLACK);
         jbGestionCarta.setBackground(Color.GRAY);
         jbGestionCarta.setBorderPainted(false);
 
         jbGestionPedidos = new JButton();
         jbGestionPedidos.setFocusPainted(false);
+        jbGestionPedidos.setForeground(Color.BLACK);
         jbGestionPedidos.setBackground(Color.GRAY);
         jbGestionPedidos.setBorderPainted(false);
 
         jbTop5 = new JButton();
         jbTop5.setFocusPainted(false);
+        jbTop5.setForeground(Color.BLACK);
         jbTop5.setBackground(Color.GRAY);
         jbTop5.setBorderPainted(false);
 
@@ -43,13 +53,20 @@ public class SelectorView extends JPanel {
         add(jbTop5);
     }
 
-    public void initView(MainViewModel mvm) {
-        jbGestionMesas.setText(mvm.getGestionMesas());
-        jbGestionCarta.setText(mvm.getGestionCarta());
-        jbGestionPedidos.setText(mvm.getGestionPedidos());
-        jbTop5.setText(mvm.getTop5());
+    /**
+     *
+     */
+    public void initView() {
+        jbGestionMesas.setText(Constants.gestionMesas);
+        jbGestionCarta.setText(Constants.gestionCarta);
+        jbGestionPedidos.setText(Constants.gestionPedidos);
+        jbTop5.setText(Constants.top5);
     }
 
+    /**
+     *
+     * @param selectorViewListener
+     */
     public void registerControllers(SelectorViewListener selectorViewListener) {
         jbGestionMesas.addMouseListener(selectorViewListener);
         jbGestionMesas.addMouseMotionListener(selectorViewListener);
@@ -61,11 +78,15 @@ public class SelectorView extends JPanel {
         jbTop5.addMouseMotionListener(selectorViewListener);
     }
 
+    /**
+     *
+     * @param buttonId
+     */
     public void setSelectedButton(String buttonId) {
 
         if (jbGestionMesas.getText().equals(buttonId)) {
             jbGestionMesas.setForeground(Color.BLACK);
-            jbGestionMesas.setBackground(Color.MAGENTA);
+            jbGestionMesas.setBackground(Color.PINK);
             jbGestionMesas.setSelected(true);
         } else {
             jbGestionMesas.setBackground(Color.GRAY);
@@ -102,12 +123,17 @@ public class SelectorView extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param buttonId
+     * @param state
+     */
     public void setFocusedButton(String buttonId, boolean state) {
 
         if (jbGestionMesas.getText().equals(buttonId)) {
             if(state) {
                 if (!jbGestionMesas.isSelected()) {
-                    jbGestionMesas.setForeground(Color.MAGENTA);
+                    jbGestionMesas.setForeground(Color.PINK);
                 } else {
                     jbGestionMesas.setForeground(Color.BLACK);
                 }

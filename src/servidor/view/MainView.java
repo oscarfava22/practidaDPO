@@ -8,101 +8,108 @@ import servidor.model.Database.InfoResultSetReserva;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class MainView extends JFrame implements WindowListener {
 
-    private MenuBarView menuBarView;
     private SelectorView selectorView;
-
     private JPanel jpGestionView;
-
     private GestionMesasView gestionMesasView;
     private GestionCartaView gestionCartaView;
     private GestionPedidosView gestionPedidosView;
     private GestionTop5View gestionTop5View;
-
-    private SettingsDialogView settingsDialogView;
-
     private StatusBarView statusBarView;
-
     private GestionTop5ViewListener gestorTop5View;
 
+    /**
+     *
+     */
     public MainView() {
 
-        menuBarView = new MenuBarView();
         selectorView = new SelectorView();
-
         jpGestionView = new JPanel(new BorderLayout());
-
         gestionMesasView = new GestionMesasView();
         gestionCartaView = new GestionCartaView();
         gestionPedidosView = new GestionPedidosView();
         gestionTop5View = new GestionTop5View();
-
-        settingsDialogView = new SettingsDialogView();
-
         statusBarView = new StatusBarView();
-
-        setJMenuBar(menuBarView);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void initMainView(MainViewModel mainViewModel, LoginModel loginModel, LinkedList<Plato> platos, LinkedList<Mesa> mesas,
-                         LinkedList<Pedido> pedidos) {
+    /**
+     *
+     * @param platos
+     * @param mesas
+     * @param pedidos
+     */
+    public void initMainView(LinkedList<Plato> platos, LinkedList<Mesa> mesas, LinkedList<Pedido> pedidos) {
 
-        selectorView.initView(mainViewModel);
+        selectorView.initView();
         gestionMesasView.initView(new ArrayList<InfoResultSetReserva>());
-        gestionCartaView.initView(mainViewModel, platos);
-        gestionPedidosView.initView(mainViewModel, pedidos);
-        statusBarView.initView(loginModel);
-        settingsDialogView.initView(mainViewModel);
+        gestionCartaView.initView(platos);
+        gestionPedidosView.initView(pedidos);
 
-        jpGestionView.add(new JLabel(mainViewModel.getMainLogo()) , BorderLayout.CENTER);
+        jpGestionView.add(new JLabel(Constants.mainLogo) , BorderLayout.CENTER);
 
         getContentPane().add(selectorView, BorderLayout.NORTH);
         getContentPane().add(jpGestionView, BorderLayout.CENTER);
         getContentPane().add(statusBarView, BorderLayout.SOUTH);
 
-        setTitle(mainViewModel.getTitleBarTitle());
-        setIconImage(mainViewModel.getTitleBarLogo().getImage());
-        setSize(mainViewModel.getDefaultSize());
+        setTitle(Constants.titleBarTitle);
+        setIconImage(Constants.titleBarLogo.getImage());
+        setSize(Constants.defaultSize);
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 
-    public void registerControllers(SelectorViewListener selectorViewListener, ActionListener menuBarViewListener,
-                                    MouseInputListener gestionMesasViewListener,
+    /**
+     *
+     * @param selectorViewListener
+     * @param gestionCartaViewListener
+     * @param gestionTop5ViewListener
+     * @param mesasOptionsViewListener
+     * @param mesasViewListener
+     */
+    public void registerControllers(SelectorViewListener selectorViewListener,
                                     MouseInputListener gestionCartaViewListener,
-                                    MouseInputListener gestionPedidosViewListener,
-                                    GestionTop5ViewListener gestionTop5ViewListener, MouseInputListener settingsDialogViewListener,
+                                    GestionTop5ViewListener gestionTop5ViewListener,
                                     MesasOptionsViewListener mesasOptionsViewListener,
-                                    MesasViewListener mesasViewListener,
-                                    PedidosListListener pedidosListListener) {
+                                    MesasViewListener mesasViewListener) {
 
         selectorView.registerControllers(selectorViewListener);
-        menuBarView.registerControllers(menuBarViewListener);
         gestionMesasView.registerControllers(mesasOptionsViewListener, mesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener);
-        gestionPedidosView.registerControllers(gestionPedidosViewListener, pedidosListListener);
-        settingsDialogView.registerControllers(settingsDialogViewListener);
         gestorTop5View = gestionTop5ViewListener;
     }
 
+    /**
+     *
+     * @param button
+     */
     public void setSVSelectedButton(String button) {
         selectorView.setSelectedButton(button);
     }
 
+    /**
+     *
+     * @param button
+     * @param state
+     */
     public void setSVFocusedButton(String button, boolean state) {
         selectorView.setFocusedButton(button, state);
     }
 
+    /**
+     *
+     * @param option
+     */
     public void setGestionView(String option) {
 
         switch (option) {
@@ -132,51 +139,75 @@ public class MainView extends JFrame implements WindowListener {
         }
     }
 
-
-    public void showSettingsDialog() {
-        settingsDialogView.setVisible(true);
-    }
-
-    public void setConnectedState(boolean state) {
-        statusBarView.setConnectedState(state);
-    }
-
+    /**
+     *
+     * @param state
+     */
     public void setEntryServerStatus(boolean state) {
         statusBarView.setEntryServerStatus(state);
     }
 
+    /**
+     *
+     * @param mesasViewListener
+     */
     public void refreshMesas(MesasViewListener mesasViewListener){
         gestionMesasView.refreshMesas(mesasViewListener);
     }
 
+    /**
+     *
+     * @param count
+     */
     public void setConnectedDevices(Integer count) {
         statusBarView.setConnectedDevices(count);
         statusBarView.updateUI();
     }
 
-    public JTable getJtPedidos() {
-        return gestionPedidosView.getJtPedidos();
-    }
-
+    /**
+     *
+     * @return
+     */
     public int getSelectedRow() {
         return gestionPedidosView.getSelectedRow();
     }
 
+    /**
+     *
+     * @return
+     */
     public GestionCartaView getGestionCartaView() {
         return gestionCartaView;
     }
 
+    /**
+     *
+     * @return
+     */
     public GestionMesasView getGestionMesasView(){
         return gestionMesasView;
     }
 
+    /**
+     *
+     * @return
+     */
     public GestionTop5View getGestionTop5View(){
         return gestionTop5View;
     }
 
+    /**
+     *
+     * @param reservas
+     */
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         gestionMesasView.refreshReservas(reservas);
     }
+
+    /**
+     *
+     * @return
+     */
     public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
 
     @Override

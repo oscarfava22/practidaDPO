@@ -6,11 +6,18 @@ import servidor.model.Database.BBDDManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *
+ */
 public class SerialGenerator {
 
     private static long productId = getMaxIdProduct();
     private static long reservaId = getMaxIdReserva();
 
+    /**
+     *
+     * @return
+     */
     public static long getMaxIdReserva() {
         try {
             reservaId = getIdReserva();
@@ -23,11 +30,15 @@ public class SerialGenerator {
 
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public static long getIdReserva() throws SQLException {
         BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
         // Del objeto getInstance hacer un connect
         bbddManager.connect();
-
 
         //Querie --> eliminar la taula amb id de taula idMesaSeleccionada
         String query = "SELECT r.id_reserva AS maxId FROM Reserva AS r ORDER BY maxId DESC LIMIT 1;";
@@ -43,6 +54,10 @@ public class SerialGenerator {
         return maxId;
     }
 
+    /**
+     *
+     * @return
+     */
     public static long getMaxIdProduct() {
         try {
             productId = getIdProduct();
@@ -55,6 +70,11 @@ public class SerialGenerator {
 
     }
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
     public static long getIdProduct() throws SQLException {
         BBDDManager bbddManager = BBDDManager.getInstance(Main.BBDD);
         // Del objeto getInstance hacer un connect
@@ -75,10 +95,18 @@ public class SerialGenerator {
         return maxId;
     }
 
+    /**
+     *
+     * @return
+     */
     public static long getProductId() {
         return productId++;
     }
 
+    /**
+     *
+     * @return
+     */
     public static long getReservaId() {
         return reservaId++;
     }

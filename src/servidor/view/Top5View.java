@@ -11,29 +11,14 @@ public class Top5View extends JPanel{
     private int [] values =  new int[5];
     private  String[] labels = new String[5];
     private BarChartPanel bc;
-    private Color[] colors = new Color[]{
-            Color.red,
-            Color.orange,
-            Color.yellow,
-            Color.green,
-            Color.blue
-    };
+    private Color[] colors = new Color[]{Color.red, Color.orange, Color.yellow, Color.green, Color.blue};
     private String title = "Top 5";
-    //private JFrame frame;
 
     /**
      * Crea la grafica inicial i establece los parametros de configuracion.
      */
     public Top5View () {
-
-        //frame = new JFrame("Bar Chart Example");
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setSize(400, 250);
-
         this.setLayout(new BorderLayout());
-
-        //frame.add(bc);
-        //frame.setVisible(true);
     }
 
     /**

@@ -1,13 +1,5 @@
 package servidor.model;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import servidor.view.GestionMesasView;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Comparator;
 import java.util.LinkedList;
 

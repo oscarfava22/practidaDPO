@@ -3,7 +3,6 @@ package servidor.controller;
 import servidor.model.Plato;
 import servidor.model.PlatosManager;
 import servidor.model.SerialGenerator;
-import servidor.network.MainServer;
 import servidor.network.ReservaServer;
 import servidor.view.CustomLabel;
 import servidor.view.PlatosOptionsView;
@@ -13,6 +12,9 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
+/**
+ *
+ */
 public class GestionCartaViewListener implements MouseInputListener {
 
     /**
@@ -35,7 +37,10 @@ public class GestionCartaViewListener implements MouseInputListener {
         this.platosManager = platosManager;
     }
 
-
+    /**
+     *
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -196,8 +201,62 @@ public class GestionCartaViewListener implements MouseInputListener {
         }
     }
 
+    /**
+     *
+     * @param reservaServer
+     */
     public void registerServer(ReservaServer reservaServer) {
         this.reservaServer = reservaServer;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean verifyProductForm() {
+
+        int error_type = 0;
+
+        if (!platosOptionsView.getTitleText().equals("")) {
+            if(!platosOptionsView.getPriceText().equals("")){
+                try {
+                    Float.parseFloat(platosOptionsView.getPriceText());
+                    if(!platosOptionsView.getUnitsText().equals("")) {
+                        try {
+                            Integer.parseInt(platosOptionsView.getUnitsText());
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(platosOptionsView,
+                                    "Incorrect Info - Incorrect Units Format",
+                                    "New Product Error", JOptionPane.ERROR_MESSAGE);
+                            error_type = 4;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(platosOptionsView,
+                                "Incorrect Info - Empty Units",
+                                "New Product Error", JOptionPane.ERROR_MESSAGE);
+                        error_type = 1;
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(platosOptionsView,
+                            "Incorrect Info - Incorrect Price Format",
+                            "New Product Error", JOptionPane.ERROR_MESSAGE);
+                    error_type = 5;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(platosOptionsView,
+                        "Incorrect Info - Empty Price",
+                        "New Product Error", JOptionPane.ERROR_MESSAGE);
+                error_type = 2;
+            }
+        } else {
+            JOptionPane.showMessageDialog(platosOptionsView,
+                    "Incorrect Info - Empty Title", "New Product Error",
+                    JOptionPane.ERROR_MESSAGE);
+            error_type = 3;
+        }
+
+        return error_type == 0;
     }
 
     @Override
@@ -230,49 +289,4 @@ public class GestionCartaViewListener implements MouseInputListener {
 
     }
 
-    public boolean verifyProductForm() {
-
-        int error_type = 0;
-
-        if (!platosOptionsView.getTitleText().equals("")) {
-            if(!platosOptionsView.getPriceText().equals("")){
-                try {
-                    Float.parseFloat(platosOptionsView.getPriceText());
-                    if(!platosOptionsView.getUnitsText().equals("")) {
-                        try {
-                            Integer.parseInt(platosOptionsView.getUnitsText());
-                        } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(platosOptionsView, 
-                                    "Incorrect Info - Incorrect Units Format",
-                                    "New Product Error", JOptionPane.ERROR_MESSAGE);
-                            error_type = 4;
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(platosOptionsView, 
-                                "Incorrect Info - Empty Units",
-                                "New Product Error", JOptionPane.ERROR_MESSAGE);
-                        error_type = 1;
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(platosOptionsView, 
-                            "Incorrect Info - Incorrect Price Format",
-                            "New Product Error", JOptionPane.ERROR_MESSAGE);
-                    error_type = 5;
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(platosOptionsView, 
-                        "Incorrect Info - Empty Price",
-                        "New Product Error", JOptionPane.ERROR_MESSAGE);
-                error_type = 2;
-            }
-        } else {
-            JOptionPane.showMessageDialog(platosOptionsView, 
-                    "Incorrect Info - Empty Title", "New Product Error",
-                    JOptionPane.ERROR_MESSAGE);
-            error_type = 3;
-        }
-
-        return error_type == 0;
-    }
 }

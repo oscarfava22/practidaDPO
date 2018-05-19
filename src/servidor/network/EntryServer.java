@@ -1,6 +1,5 @@
 package servidor.network;
 
-import servidor.model.PlatosManager;
 import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
@@ -9,37 +8,39 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class EntryServer extends Thread {
 
-    private MainServer mainServer;
     private ServerSocket entryServerSocket;
     private boolean isRunning;
-
     private MainView mainView;
-    private PlatosManager platosManager;
     private ReservasManager reservasManager;
-
     private LinkedList<EntryDedicatedServer> entryDedicatedServers;
 
-    public EntryServer(MainServer mainServer, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
+    /**
+     *
+     * @param mainView
+     * @param reservasManager
+     */
+    public EntryServer(MainView mainView, ReservasManager reservasManager) {
 
         try{
             entryServerSocket = new ServerSocket(Network.ENTRY_SERVER_PORT);
-
-            this.mainServer = mainServer;
+            entryDedicatedServers = new LinkedList<>();
             this.mainView = mainView;
-            this.platosManager = platosManager;
             this.reservasManager = reservasManager;
             isRunning = false;
-
-            entryDedicatedServers = new LinkedList<>();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
+    /**
+     *
+     */
     @Override
     public void run() {
 
@@ -48,35 +49,27 @@ public class EntryServer extends Thread {
         while(isRunning) {
 
             try {
-                System.out.println("Waiting for an Entry Client...");
                 Socket entryClientSocket = entryServerSocket.accept();
-                System.out.println("Entry Client connected");
 
-                EntryDedicatedServer entryDedicatedServer = new EntryDedicatedServer(this, entryClientSocket, mainView, platosManager, reservasManager);
-
+                EntryDedicatedServer entryDedicatedServer = new EntryDedicatedServer(this, entryClientSocket,
+                                                                                     mainView, reservasManager);
                 entryDedicatedServers.add(entryDedicatedServer);
                 entryDedicatedServer.start();
-
                 mainView.setEntryServerStatus(true);
 
             } catch (IOException e) {
                 e.printStackTrace();
+                isRunning = false;
             }
         }
     }
 
+    /**
+     *
+     * @param entryDedicatedServer
+     */
     public void removeDedicatedServer(EntryDedicatedServer entryDedicatedServer) {
         entryDedicatedServers.remove(entryDedicatedServer);
     }
-
-    public void sendBroadcast() {
-        /*
-        for(EntryDedicatedServer eds : entryDedicatedServers) {
-            eds.updateMessageToClient();
-        }
-        */
-    }
-
-
 
 }

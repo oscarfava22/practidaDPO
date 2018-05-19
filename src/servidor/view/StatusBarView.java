@@ -1,10 +1,11 @@
 package servidor.view;
 
-import servidor.model.LoginModel;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *
+ */
 public class StatusBarView extends JPanel {
 
     private JLabel statusLabel;
@@ -19,6 +20,9 @@ public class StatusBarView extends JPanel {
     private JPanel jpStatus;
     private JPanel jpDevices;
 
+    /**
+     *
+     */
     public StatusBarView() {
 
         setLayout(new BorderLayout());
@@ -27,6 +31,7 @@ public class StatusBarView extends JPanel {
         statusLabel.setForeground(Color.GRAY);
         status = new JLabel("Connected");
         status.setForeground(Color.GREEN);
+        setConnectedState(true);
         jpStatus = new JPanel(new FlowLayout());
         jpStatus.setOpaque(false);
         jpStatus.add(statusLabel);
@@ -41,7 +46,6 @@ public class StatusBarView extends JPanel {
         jpEntry.add(entryServerLabel);
         jpEntry.add(entryServerStatus);
 
-
         connectedDevicesLabel = new JLabel("Connected Devices: ");
         connectedDevicesLabel.setForeground(Color.GRAY);
         connectedDevices = new JLabel("0");
@@ -54,17 +58,7 @@ public class StatusBarView extends JPanel {
         add(jpStatus, BorderLayout.LINE_START);
         add(jpEntry, BorderLayout.CENTER);
         add(jpDevices, BorderLayout.LINE_END);
-
-
         setBackground(Color.DARK_GRAY);
-    }
-
-    public void initView(LoginModel loginModel) {
-
-    }
-
-    public void registerControllers() {
-
     }
 
     public void setConnectedState (boolean state) {
@@ -78,10 +72,18 @@ public class StatusBarView extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param count
+     */
     public void setConnectedDevices(Integer count) {
         connectedDevices.setText(count.toString());
     }
 
+    /**
+     *
+     * @param state
+     */
     public void setEntryServerStatus(boolean state) {
         if(state) {
             entryServerStatus.setText("Connected");

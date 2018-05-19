@@ -1,33 +1,32 @@
 package servidor.model;
 
-import json.io.JsonIO;
 import servidor.Main;
 import servidor.model.Database.BBDDManager;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class PlatosManager {
 
     private LinkedList<Plato> platos;
-    private String[] productsTypes = { "Entrante", "Plato Principal", "Postre", "Bebidas" };
     private BBDDManager manager;
 
+    /**
+     *
+     */
     public PlatosManager() {
         platos = new LinkedList<>();
-
-
     }
 
-    public void setPlatos(LinkedList<Plato> platos) {
-        this.platos = platos;
-    }
-
+    /**
+     *
+     */
     public void loadPlatos() {
-        //platos = new LinkedList<>();
+
         manager = BBDDManager.getInstance(Main.BBDD);
         manager.connect();
         ResultSet set = manager.readQuery("SELECT * FROM Plato;");
@@ -66,6 +65,10 @@ public class PlatosManager {
         */
     }
 
+    /**
+     *
+     * @param plato
+     */
     public void addPlato(Plato plato) {
         manager.connect();
         String query = new StringBuilder().append("INSERT INTO Plato VALUES(").append(plato.getId()).append(",'")
@@ -77,17 +80,24 @@ public class PlatosManager {
         platos.add(plato);
     }
 
+    /**
+     *
+     * @param platos
+     */
     public void addPlatos(LinkedList<Plato> platos) {
         for(Plato plato:platos){
             addPlato(plato);
         }
     }
 
-    public void addPlato(long id, String type, String title, float price, int units) {
-        Plato plato = new Plato(id, type, title, price, units);
-        addPlato(plato);
-    }
-
+    /**
+     *
+     * @param id
+     * @param type
+     * @param title
+     * @param price
+     * @param units
+     */
     public void updatePlato(long id, String type, String title, float price, int units) {
         manager.connect();
         String query = new StringBuilder().append("UPDATE Plato SET nombre='").append(title).append("', unidades=").append(units)
@@ -102,10 +112,10 @@ public class PlatosManager {
         }
     }
 
-    public void updatePlato(Plato plato) {
-        updatePlato(plato.getId(), plato.getType(), plato.getTitle(), plato.getPrice(), plato.getUnits());
-    }
-
+    /**
+     *
+     * @param id
+     */
     public void removePlato(long id) {
         manager.connect();
         String query = new StringBuilder().append("DELETE FROM Plato WHERE id_plato=").append(id).append(";").toString();
@@ -119,10 +129,11 @@ public class PlatosManager {
         }
     }
 
-    public String[] getProductTypes() {
-        return productsTypes;
-    }
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Plato getPlato(long id) {
         if (platos.isEmpty()) {
             System.out.println("No hay platos en el sistema");
@@ -137,10 +148,18 @@ public class PlatosManager {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Plato> getPlatos() {
         return platos;
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<Plato> getAvailablePlatos() {
 
         LinkedList<Plato> pls = new LinkedList<>();

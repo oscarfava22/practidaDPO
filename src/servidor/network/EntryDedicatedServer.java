@@ -1,35 +1,44 @@
 package servidor.network;
 
 import Network.Reserva.ReservaRequest;
-import servidor.model.PlatosManager;
 import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
 import java.io.*;
 import java.net.Socket;
 
+/**
+ *
+ */
 public class EntryDedicatedServer extends Thread{
 
     private EntryServer entryServer;
     private Socket entryClientSocket;
     private MainView mainView;
-    private PlatosManager platosManager;
     private ReservasManager reservasManager;
     private boolean isRunning;
 
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
 
-
-    public EntryDedicatedServer(EntryServer entryServer, Socket entryClientSocket, MainView mainView, PlatosManager platosManager, ReservasManager reservasManager) {
+    /**
+     *
+     * @param entryServer
+     * @param entryClientSocket
+     * @param mainView
+     * @param reservasManager
+     */
+    public EntryDedicatedServer(EntryServer entryServer, Socket entryClientSocket, MainView mainView, ReservasManager reservasManager) {
         this.entryServer = entryServer;
         this.entryClientSocket = entryClientSocket;
         this.mainView = mainView;
-        this.platosManager = platosManager;
         this.reservasManager = reservasManager;
         isRunning = false;
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
 
@@ -44,11 +53,8 @@ public class EntryDedicatedServer extends Thread{
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            //e.printStackTrace();
-            System.out.println("An Entry Client Disconnected from Server");
             entryServer.removeDedicatedServer(this);
             mainView.setEntryServerStatus(false);
-
         }
         finally {
             try {

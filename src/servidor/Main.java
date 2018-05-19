@@ -7,8 +7,6 @@ import servidor.network.MainServer;
 import servidor.view.MainView;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
-import java.awt.event.ActionListener;
 
 public class Main {
 
@@ -26,37 +24,28 @@ public class Main {
                 BBDDManager.setPassword(PASSWORD);
                 BBDDManager.getInstance(BBDD);
 
-                MainViewModel mainViewModel = new MainViewModel();
-                LoginModel loginModel = new LoginModel();
                 PlatosManager platosManager = new PlatosManager();
                 platosManager.loadPlatos();
                 ReservasManager reservasManager = new ReservasManager();
                 PedidosManager pedidosManager = new PedidosManager();
                 MesasManager mesasManager = new MesasManager();
 
-
                 MainView mainView = new MainView();
-                mainView.initMainView(mainViewModel,
-                                      loginModel,
-                                      platosManager.getPlatos(),
-                                      mesasManager.getMesas(),
-                                      pedidosManager.getPedidos());
+                mainView.initMainView(platosManager.getPlatos(), mesasManager.getMesas(), pedidosManager.getPedidos());
 
-                SelectorViewListener selectorViewListener = new SelectorViewListener(mainView, loginModel);
-                ActionListener menuBarViewListener = new MenuBarViewListener(mainView);
+                SelectorViewListener selectorViewListener = new SelectorViewListener(mainView);
 
-                MouseInputListener gestionMesasViewListener = new GestionMesasViewListener(mainView);
                 GestionCartaViewListener gestionCartaViewListener = new GestionCartaViewListener(
                                                                   mainView.getGestionCartaView().getPlatosOptionsView(),
                                                                   mainView.getGestionCartaView().getPlatosView(),
                                                                   platosManager);
 
-                MouseInputListener gestionPedidosViewListener = new GestionPedidosViewListener(mainView);
-                GestionTop5ViewListener gestionTop5ViewListener = new GestionTop5ViewListener(mainView,BBDDManager.getInstance(BBDD),mainView.getGestionTop5View());
-
-                MouseInputListener settingsDialogViewListener = new SettingsDialogViewListener(mainView);
+                GestionTop5ViewListener gestionTop5ViewListener = new GestionTop5ViewListener(
+                                                                      mainView, BBDDManager.getInstance(BBDD),
+                                                                      mainView.getGestionTop5View());
 
                 MesasViewListener mesasViewListener = new MesasViewListener(mainView, mesasManager);
+
                 MesasOptionsViewListener mesasOptionsViewListener = new MesasOptionsViewListener(mainView,
                                                                                                  mesasManager,
                                                                                                  mesasViewListener);
@@ -68,24 +57,16 @@ public class Main {
                                                                     mainView.getGestionPedidosView().
                                                                     getPlatosProcesados());
 
-                PedidosListListener pedidosListListener = new PedidosListListener(mainView,
-                                                                                  pedidosManager,
-                                                                                  platosManager,
+                PedidosListListener pedidosListListener = new PedidosListListener(mainView, pedidosManager,
                                                                                   platosPendientesController,
                                                                                   platosProcesadosListener);
 
-                mainView.registerControllers(selectorViewListener,
-                                             menuBarViewListener,
-                                             gestionMesasViewListener,
-                                             gestionCartaViewListener,
-                                             gestionPedidosViewListener,
-                                             gestionTop5ViewListener,
-                                             settingsDialogViewListener,
+                mainView.registerControllers(selectorViewListener, gestionCartaViewListener, gestionTop5ViewListener,
+                                             mesasOptionsViewListener, mesasViewListener);
 
-                                             mesasOptionsViewListener,
-                                             mesasViewListener, pedidosListListener);
+                MainServer mainServer = new MainServer(mainView, platosManager, reservasManager, pedidosManager,
+                                                       pedidosListListener, gestionCartaViewListener);
 
-                MainServer mainServer = new MainServer(mainView, platosManager, reservasManager, pedidosManager, pedidosListListener, gestionCartaViewListener);
                 gestionCartaViewListener.registerServer(mainServer.getReservaServer());
                 platosPendientesController.registerServer(mainServer.getReservaServer());
                 mainServer.initServers();

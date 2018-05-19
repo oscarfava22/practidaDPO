@@ -8,6 +8,9 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class PlatosView extends JPanel {
 
     private LinkedList<PlatoView> platosView;
@@ -15,6 +18,9 @@ public class PlatosView extends JPanel {
     private JPanel jpPlatos;
     private JScrollPane jspPlatos;
 
+    /**
+     *
+     */
     public PlatosView() {
 
         setLayout(new BorderLayout());
@@ -35,9 +41,15 @@ public class PlatosView extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
     }
 
+    /**
+     *
+     * @param platos
+     */
     public synchronized void initPlatosView(LinkedList<Plato> platos) {
+
         platosView.clear();
         jpPlatos.removeAll();
+
         for(Plato pl : platos) {
             platosView.add(new PlatoView(pl));
             jpPlatos.add(platosView.getLast());
@@ -46,12 +58,21 @@ public class PlatosView extends JPanel {
         jpPlatos.updateUI();
     }
 
+    /**
+     *
+     * @param gestionCartaViewListener
+     */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
         for (PlatoView pv : platosView) {
             pv.registerControllers(gestionCartaViewListener);
         }
     }
 
+    /**
+     *
+     * @param plato
+     * @param gestionCartaViewListener
+     */
     public synchronized void addPlato(Plato plato, MouseInputListener gestionCartaViewListener) {
         platosView.add(new PlatoView(plato));
         platosView.getLast().registerControllers(gestionCartaViewListener);
@@ -60,6 +81,14 @@ public class PlatosView extends JPanel {
         jpPlatos.updateUI();
     }
 
+    /**
+     *
+     * @param id
+     * @param type
+     * @param title
+     * @param price
+     * @param units
+     */
     public synchronized void updatePlato(String id, String type, String title, String price, String units) {
         for(PlatoView pv : platosView) {
             if(pv.getJlProductId().equals(id)) {
@@ -72,6 +101,10 @@ public class PlatosView extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param productId
+     */
     public synchronized void deletePlato(String productId) {
         for(int i = 0; i < platosView.size(); i++) {
             if (platosView.get(i).getJlProductId().equals(productId)){
@@ -84,6 +117,11 @@ public class PlatosView extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @param state
+     */
     public synchronized void setSelectedPlatoState(String id, boolean state) {
         for(PlatoView pv : platosView) {
             if (pv.getJlProductId().equals(id)) {
@@ -94,6 +132,10 @@ public class PlatosView extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param state
+     */
     public synchronized void setSelectedPlatosState(boolean state) {
         for(PlatoView pv : platosView) {
             pv.setSelectedState(state);

@@ -7,6 +7,9 @@ import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 
+/**
+ *
+ */
 public class PlatoView extends JPanel {
 
     private Border compounBorder =  BorderFactory.createCompoundBorder(
@@ -18,15 +21,26 @@ public class PlatoView extends JPanel {
     private CustomLabel jlPrice;
     private CustomLabel jlUnits;
 
+    /**
+     *
+     */
     public PlatoView() {
         setLayout(new GridLayout(1,5));
     }
 
+    /**
+     *
+     * @param plato
+     */
     public PlatoView(Plato plato) {
         this();
         initPlatoView(plato);
     }
 
+    /**
+     *
+     * @param plato
+     */
     public void initPlatoView(Plato plato) {
         initLabels(plato);
         add(jlProductId);
@@ -35,6 +49,10 @@ public class PlatoView extends JPanel {
         add(jlUnits);
     }
 
+    /**
+     *
+     * @param plato
+     */
     public void initLabels(Plato plato) {
 
         jlProductId = new CustomLabel(String.valueOf(plato.getId()));
@@ -64,6 +82,10 @@ public class PlatoView extends JPanel {
         setJlUnits(String.valueOf(plato.getUnits()));
     }
 
+    /**
+     *
+     * @param gestionCartaViewListener
+     */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
 
         jlProductId.addMouseListener(gestionCartaViewListener);
@@ -76,44 +98,50 @@ public class PlatoView extends JPanel {
         jlUnits.addMouseMotionListener(gestionCartaViewListener);
     }
 
-    public void updatePlatoView(Plato plato) {
-        setJlTitle(plato.getTitle());
-        setJlPrice(String.valueOf(plato.getPrice()));
-        setJlUnits(String.valueOf(plato.getUnits()));
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getJlProductId() {
         return jlProductId.getText();
     }
 
+    /**
+     *
+     * @param productId
+     */
     public void setJlProductId(String productId) {
         jlProductId.setText(productId);
     }
 
-    public String getJlTitle() {
-        return jlTitle.getText();
-    }
-
+    /**
+     *
+     * @param title
+     */
     public void setJlTitle(String title) {
         jlTitle.setText(title);
     }
 
-    public String getJlPrice() {
-        return jlPrice.getText();
-    }
-
+    /**
+     *
+     * @param price
+     */
     public void setJlPrice(String price) {
         jlPrice.setText(price);
     }
 
-    public String getJlUnits() {
-        return jlUnits.getText();
-    }
-
+    /**
+     *
+     * @param units
+     */
     public void setJlUnits(String units) {
         jlUnits.setText(units);
     }
 
+    /**
+     *
+     * @param state
+     */
     public void setSelectedState(boolean state) {
 
         if (state) {

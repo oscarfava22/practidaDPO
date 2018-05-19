@@ -7,6 +7,9 @@ import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 
+/**
+ *
+ */
 public class PlatosOptionsView extends JPanel {
 
     private JScrollPane jspMain;
@@ -47,6 +50,9 @@ public class PlatosOptionsView extends JPanel {
             BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
             BorderFactory.createEmptyBorder(10,10,10,10));
 
+    /**
+     *
+     */
     public PlatosOptionsView() {
 
         setLayout(new BorderLayout());
@@ -141,6 +147,10 @@ public class PlatosOptionsView extends JPanel {
         add(jspMain, BorderLayout.CENTER);
     }
 
+    /**
+     *
+     * @param gestionCartaViewListener
+     */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
         jbEdit.addMouseListener(gestionCartaViewListener);
         jbUpdate.addMouseListener(gestionCartaViewListener);
@@ -149,24 +159,48 @@ public class PlatosOptionsView extends JPanel {
         jbAddPlato.addMouseListener(gestionCartaViewListener);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIdText() { return jtfId.getText(); }
 
+    /**
+     *
+     * @return
+     */
     public String getType() {
         return String.valueOf(jcbType.getSelectedIndex());
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitleText() {
         return jtfTitle.getText();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPriceText() {
         return jtfPrice.getText();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUnitsText() {
         return jtfUnits.getText();
     }
 
+    /**
+     *
+     * @param plato
+     */
     public void setTextFields(Plato plato) {
         jtfId.setText(String.valueOf(plato.getId()));
         jcbType.setSelectedIndex(Integer.parseInt(plato.getType()));
@@ -175,6 +209,9 @@ public class PlatosOptionsView extends JPanel {
         jtfUnits.setText(String.valueOf(plato.getUnits()));
     }
 
+    /**
+     *
+     */
     public void resetTextFields() {
         jtfId.setText(null);
         jcbType.setSelectedItem(null);
@@ -183,10 +220,18 @@ public class PlatosOptionsView extends JPanel {
         jtfUnits.setText(null);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean getEditState() {
         return editState;
     }
 
+    /**
+     *
+     * @param state
+     */
     public void setEditState(boolean state) {
 
         editState = state;
@@ -203,16 +248,26 @@ public class PlatosOptionsView extends JPanel {
         jbAddPlato.setEnabled(!editState);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean getAddState() {
         return addState;
     }
 
+    /**
+     * 
+     * @param state
+     */
     public void setAddProductState(boolean state) {
 
         addState = state;
         resetTextFields();
+
         jtfId.setEditable(false);
         jcbType.setEnabled(addState);
+
         if(addState) {
             jcbType.setSelectedIndex(0);
         } else {

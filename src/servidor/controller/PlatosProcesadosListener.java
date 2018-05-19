@@ -6,13 +6,24 @@ import servidor.view.PlatosView;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
+/**
+ *
+ */
 public class PlatosProcesadosListener implements MouseInputListener {
     private PlatosView platosView;
 
+    /**
+     *
+     * @param platosView
+     */
     public PlatosProcesadosListener(PlatosView platosView) {
         this.platosView = platosView;
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().getClass().equals(CustomLabel.class)) {

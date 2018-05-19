@@ -3,14 +3,11 @@ package servidor.view;
 import servidor.controller.MesasOptionsViewListener;
 import servidor.controller.MesasViewListener;
 import servidor.model.Database.InfoResultSetReserva;
-import servidor.model.MainViewModel;
-import servidor.model.Mesa;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class GestionMesasView extends JPanel {
 

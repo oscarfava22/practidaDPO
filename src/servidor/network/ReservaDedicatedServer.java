@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class ReservaDedicatedServer extends Thread {
 
     private ReservaServer reservaServer;
@@ -26,8 +29,19 @@ public class ReservaDedicatedServer extends Thread {
     private String name = "";
     private String password = "";
 
+    /**
+     *
+     * @param reservaServer
+     * @param reservaClientSocket
+     * @param mainView
+     * @param platosManager
+     * @param reservasManager
+     * @param pedidosManager
+     */
     public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView,
-                                  PlatosManager platosManager, ReservasManager reservasManager, PedidosManager pedidosManager) {
+                                  PlatosManager platosManager, ReservasManager reservasManager,
+                                  PedidosManager pedidosManager) {
+
         this.reservaServer = reservaServer;
         this.reservaClientSocket = reservaClientSocket;
         this.mainView = mainView;
@@ -37,6 +51,9 @@ public class ReservaDedicatedServer extends Thread {
         isRunning = false;
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
 
@@ -58,7 +75,7 @@ public class ReservaDedicatedServer extends Thread {
                     switch(string) {
 
                         case "PAGAR":
-                            Pedido tmp = pedidosManager.getPedidoByReservaName(name);
+
                             reservasManager.updateReservaState(reserva, 3);
                             reservaServer.updatePedidosView();
                             name = "";
@@ -68,7 +85,6 @@ public class ReservaDedicatedServer extends Thread {
                         default:
 
                             String[] s = string.split("%%");
-                            System.out.println(string);
 
                             if ((reserva = reservasManager.searchReserva(s[0], s[1])) != null) {
                                 name = s[0];
@@ -97,7 +113,6 @@ public class ReservaDedicatedServer extends Thread {
 
                     reservaServer.updatePlatosView();
                     reservaServer.sendBroadcast();
-
                     reservasManager.updateReservaState(reserva, 2);
 
                     pedidosManager.getPedidoByReservaName(name).addPlatosPendientes(platos);
@@ -106,7 +121,6 @@ public class ReservaDedicatedServer extends Thread {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            //e.printStackTrace();
             reservaServer.removeDedicatedServer(this);
             mainView.setConnectedDevices(reservaServer.getDedicatedServersCount());
         }
@@ -123,7 +137,9 @@ public class ReservaDedicatedServer extends Thread {
         }
     }
 
-
+    /**
+     *
+     */
     public void updateMessageToClient() {
         try {
             oos.reset();
@@ -133,6 +149,10 @@ public class ReservaDedicatedServer extends Thread {
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     public void sendServirPlato(long id) {
 
         Long ID = id;
@@ -143,13 +163,12 @@ public class ReservaDedicatedServer extends Thread {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String getClientName() {
         return name;
-    }
-
-    public String getClientPassword() {
-        return password;
     }
 
 }

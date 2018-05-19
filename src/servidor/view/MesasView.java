@@ -1,7 +1,6 @@
 package servidor.view;
 
 import servidor.Main;
-import servidor.controller.GestionMesasViewListener;
 import servidor.controller.MesasViewListener;
 import servidor.model.Database.BBDDManager;
 import servidor.model.Mesa;

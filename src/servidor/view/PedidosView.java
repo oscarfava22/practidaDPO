@@ -8,6 +8,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class PedidosView extends JPanel {
 
     private JPanel jpPedidos;
@@ -20,6 +23,9 @@ public class PedidosView extends JPanel {
 
     private JTable jtPedidos;
 
+    /**
+     *
+     */
     public PedidosView() {
 
         setLayout(new BorderLayout());
@@ -49,6 +55,10 @@ public class PedidosView extends JPanel {
         add(jpMain, BorderLayout.CENTER);
     }
 
+    /**
+     *
+     * @param pedidosList
+     */
     public void initView(LinkedList<Pedido> pedidosList) {
 
         LinkedList<Pedido> temp = new LinkedList<>();
@@ -87,16 +97,18 @@ public class PedidosView extends JPanel {
         jtPedidos.setModel(model);
 
         jpPedidos.removeAll();
-
         jpPedidos.add(jtPedidos, BorderLayout.CENTER);
         jpPedidos.updateUI();
 
         remove(jtPedidos.getTableHeader());
-
         add(jtPedidos.getTableHeader(), BorderLayout.NORTH);
         updateUI();
     }
 
+    /**
+     *
+     * @param pedidosListListener
+     */
     public void registerControllers (PedidosListListener pedidosListListener) {
         jtPedidos.getSelectionModel().removeListSelectionListener(pedidosListListener);
         jtPedidos.getSelectionModel().addListSelectionListener(pedidosListListener);
@@ -104,15 +116,19 @@ public class PedidosView extends JPanel {
         jpPedidos.updateUI();
     }
 
+    /**
+     *
+     * @return
+     */
     public JTable getJtPedidos () {
         return jtPedidos;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSelectedRow() {
         return jtPedidos.getSelectedRow();
-    }
-
-    public int getSelectedColumn() {
-        return jtPedidos.getEditingColumn();
     }
 }

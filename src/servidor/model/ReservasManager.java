@@ -12,8 +12,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ *
+ */
 public class ReservasManager {
 
     public static final int PASSWORD_LENGTH = 8;
@@ -22,7 +24,9 @@ public class ReservasManager {
     private SimpleDateFormat dateFormat;
     private SimpleDateFormat dateTimeFormat;
 
-
+    /**
+     *
+     */
     public ReservasManager() {
         reservas = new LinkedList<>();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -31,6 +35,13 @@ public class ReservasManager {
 
     }
 
+    /**
+     *
+     * @param nombre
+     * @param password
+     * @return
+     * @throws SQLException
+     */
     public static boolean isInBbdd(String nombre, String password) throws SQLException{
         boolean esta = false;
 
@@ -45,6 +56,9 @@ public class ReservasManager {
         return esta;
     }
 
+    /**
+     *
+     */
     public void loadReservas() {
         /*try {
         Reserva[] reservas = (Reserva[]) JsonIO.readJson(Reserva[].class, "/data/json/reservas.json");
@@ -81,11 +95,12 @@ public class ReservasManager {
 
     }
 
-    public void addReservas(LinkedList<Reserva> reservas) {
-        //TODO Aca tambien add Reservas to BBDD
-        this.reservas.addAll(reservas);
-    }
-
+    /**
+     *
+     * @param reserva
+     * @param mesa
+     * @param request
+     */
     public void addReserva(Reserva reserva,Mesa mesa,ReservaRequest request) {
         reservas.add(reserva);
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
@@ -104,6 +119,11 @@ public class ReservasManager {
         bbdd.disconnect();
     }
 
+    /**
+     *
+     * @param reserva
+     * @param state
+     */
     public void updateReservaState(Reserva reserva, int state) {
         for(int i = 0; i < reservas.size(); i++) {
             if (reservas.get(i).equals(reserva)) {
@@ -117,10 +137,11 @@ public class ReservasManager {
         manager.disconnect();
     }
 
-    public LinkedList<Reserva> getReservas() {
-        return reservas;
-    }
-
+    /**
+     *
+     * @param reservaRequest
+     * @return
+     */
     public ReservaResponse verifyRequest(ReservaRequest reservaRequest) {
         ReservaResponse response = null;
         Mesa mesa;
@@ -139,6 +160,10 @@ public class ReservasManager {
         return response;
     }
 
+    /**
+     *
+     * @return
+     */
     private String generateRndmPassword() {
         char[] availableChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
         int numChar = availableChar.length;
@@ -165,6 +190,12 @@ public class ReservasManager {
 
     }
 
+    /**
+     *
+     * @param randomPassword
+     * @return
+     * @throws SQLException
+     */
     public boolean isPasswordAvailable(String randomPassword) throws SQLException {
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
@@ -184,6 +215,11 @@ public class ReservasManager {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     public Mesa checkAvailability(ReservaRequest request) {
         Mesa mesa=null;
         System.out.println("Hola");
@@ -208,6 +244,12 @@ public class ReservasManager {
         return mesa;
     }
 
+    /**
+     *
+     * @param date
+     * @param direction
+     * @return
+     */
     private Date addAnHour(Date date, int direction){
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -215,6 +257,12 @@ public class ReservasManager {
         return cal.getTime();
     }
 
+    /**
+     *
+     * @param name
+     * @param password
+     * @return
+     */
     public Reserva searchReserva(String name, String password) {
 
         for(Reserva reserva : reservas) {

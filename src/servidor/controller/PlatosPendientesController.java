@@ -11,6 +11,9 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
+/**
+ *
+ */
 public class PlatosPendientesController implements MouseInputListener {
 
     private MainView mainView;
@@ -19,21 +22,34 @@ public class PlatosPendientesController implements MouseInputListener {
     private String selectedItemId = "";
     private ReservaServer reservaServer;
 
+    /**
+     *
+     * @param mainView
+     * @param platosView
+     * @param pedidosManager
+     */
     public PlatosPendientesController(MainView mainView, PlatosView platosView, PedidosManager pedidosManager) {
         this.mainView = mainView;
         this.platosView = platosView;
         this.pedidosManager = pedidosManager;
     }
 
+    /**
+     *
+     * @param reservaServer
+     */
     public void registerServer(ReservaServer reservaServer) {
         this.reservaServer = reservaServer;
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().getClass().equals(CustomLabel.class)) {
             CustomLabel cl = (CustomLabel) e.getSource();
-            System.out.println(cl.getId());
             selectedItemId = cl.getId();
             platosView.setSelectedPlatoState(cl.getId(), true);
             mainView.getGestionPedidosView().setJbServeState(true);
@@ -41,36 +57,31 @@ public class PlatosPendientesController implements MouseInputListener {
 
         if (e.getSource().getClass().equals(JButton.class)) {
 
-            if (!selectedItemId.equals("")) {
-                JButton jb = (JButton) e.getSource();
+            Pedido pedido = pedidosManager.getPedidoByReservaId((long)mainView.getGestionPedidosView().
+                                                                getJtPedidos().getModel().
+                                                                getValueAt(mainView.getSelectedRow(),0));
+            pedido.servirPlato(Long.parseLong(selectedItemId));
 
-                System.out.println("SELECTED ITEM: " + selectedItemId);
+            reservaServer.sendServirPlatoToClient(Long.parseLong(selectedItemId),
+                                                 (String)mainView.getGestionPedidosView().
+                                                         getJtPedidos().getModel().
+                                                         getValueAt(mainView.getSelectedRow(), 1));
 
-                System.out.println(jb.getText() + " " +
-                                   selectedItemId + " " +
-                                   mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(
-                                   mainView.getSelectedRow(), 0));
+            mainView.getGestionPedidosView().initPlatosPendientesView(pedido.getPlatosPendientes().getPlatos());
+            mainView.getGestionPedidosView().registerPlatosPendientesController(this);
+            mainView.getGestionPedidosView().initPlatosProcesadosView(pedido.getPlatosProcesados().getPlatos());
+            //mainView.getGestionPedidosView().registerPlatosProcesadosController(new PlatosProcesadosListener(mainView.getGestionPedidosView().getPlatosProcesados()));
 
-                Pedido pedido = pedidosManager.getPedidoByReservaId((long)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(mainView.getSelectedRow(), 0));
-                pedido.servirPlato(Long.parseLong(selectedItemId));
+            mainView.getGestionPedidosView().getJtPedidos().getModel().setValueAt(pedido.getTotalPlatos(),
+                                                                                  mainView.getSelectedRow(),
+                                                                                 4);
 
-                reservaServer.sendServirPlatoToClient(Long.parseLong(selectedItemId), (String)mainView.getGestionPedidosView().getJtPedidos().getModel().getValueAt(
-                        mainView.getSelectedRow(), 1));
+            mainView.getGestionPedidosView().getJtPedidos().getModel().setValueAt(pedido.getPlatosPendientes().
+                                                                                  getPlatos().size(),
+                                                                                  mainView.getSelectedRow(),
+                                                                                 5);
 
-                mainView.getGestionPedidosView().initPlatosPendientesView(pedido.getPlatosPendientes().getPlatos());
-                mainView.getGestionPedidosView().registerPlatosPendientesController(this);
-                mainView.getGestionPedidosView().initPlatosProcesadosView(pedido.getPlatosProcesados().getPlatos());
-                //mainView.getGestionPedidosView().registerPlatosProcesadosController(new PlatosProcesadosListener(mainView.getGestionPedidosView().getPlatosProcesados()));
-
-                mainView.getGestionPedidosView().getJtPedidos().getModel().setValueAt(pedido.getTotalPlatos(), mainView.getSelectedRow(), 4);
-                mainView.getGestionPedidosView().getJtPedidos().getModel().setValueAt(pedido.getPlatosPendientes().getPlatos().size(), mainView.getSelectedRow(), 5);
-
-                selectedItemId = "";
-                mainView.getGestionPedidosView().setJbServeState(false);
-
-            } else {
-                System.out.println("Please Select Item");
-            }
+            mainView.getGestionPedidosView().setJbServeState(false);
 
         }
     }

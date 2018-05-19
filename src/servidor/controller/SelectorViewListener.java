@@ -1,26 +1,27 @@
 package servidor.controller;
 
-import servidor.model.LoginModel;
 import servidor.view.MainView;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 public class SelectorViewListener implements MouseInputListener {
 
     private MainView mainView;
-    private LoginModel loginModel;
 
-    public SelectorViewListener (MainView mainView, LoginModel loginModel) {
+    /**
+     *
+     * @param mainView
+     */
+    public SelectorViewListener (MainView mainView) {
         this.mainView = mainView;
-        this.loginModel = loginModel;
     }
 
-
-
+    /**
+     *
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().getClass().equals(JButton.class)) {
@@ -30,7 +31,6 @@ public class SelectorViewListener implements MouseInputListener {
             mainView.setSVSelectedButton(jb.getText());
             mainView.setGestionView(jb.getText());
         }
-
 
     }
 
@@ -44,6 +44,10 @@ public class SelectorViewListener implements MouseInputListener {
 
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource().getClass().equals(JButton.class)) {
@@ -54,6 +58,10 @@ public class SelectorViewListener implements MouseInputListener {
         }
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource().getClass().equals(JButton.class)) {
