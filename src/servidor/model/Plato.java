@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Plato implements Serializable {
 
+    private static final long serialVersionUID = 1113799434508676095L;
     private long id;
     private String type;
     private String title;

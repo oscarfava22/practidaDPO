@@ -19,6 +19,7 @@ public class PlatosManager {
      *
      */
     public PlatosManager() {
+        manager = BBDDManager.getInstance(Main.BBDD);
         platos = new LinkedList<>();
     }
 
@@ -27,7 +28,6 @@ public class PlatosManager {
      */
     public void loadPlatos() {
 
-        manager = BBDDManager.getInstance(Main.BBDD);
         manager.connect();
         ResultSet set = manager.readQuery("SELECT * FROM Plato;");
         if(set!=null){
