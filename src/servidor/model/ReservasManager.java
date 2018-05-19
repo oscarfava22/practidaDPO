@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- *
+ * Gestor de reservas del programa.
  */
 public class ReservasManager {
 
@@ -57,7 +57,7 @@ public class ReservasManager {
     }
 
     /**
-     *
+     * Método que permite cargar las reservar en el programa.
      */
     public void loadReservas() {
         /*try {
@@ -96,10 +96,10 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param reserva
-     * @param mesa
-     * @param request
+     * Permite añadir una nueva reserva en el gestor de reserva.
+     * @param reserva de la reserva.
+     * @param mesa de la reserva.
+     * @param request de la reserva.
      */
     public void addReserva(Reserva reserva,Mesa mesa,ReservaRequest request) {
         reservas.add(reserva);
@@ -120,9 +120,9 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param reserva
-     * @param state
+     * Permite actualizar el estado de la reserva.
+     * @param reserva reserva que se tiene que actualizar.
+     * @param state el nuevo estado de la reserva.
      */
     public void updateReservaState(Reserva reserva, int state) {
         for(int i = 0; i < reservas.size(); i++) {
@@ -138,8 +138,9 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param reservaRequest
+     * Metodo que permite verificar la solicitud procedente del cliente Entry cuando solicita una mesa para un numero
+     * determinado de comensales.
+     * @param reservaRequest la respuesta a la solicitud efectuada por el cliente.
      * @return
      */
     public ReservaResponse verifyRequest(ReservaRequest reservaRequest) {
@@ -161,8 +162,8 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @return
+     * Generador automatico de contraseñas aleatorias para las reservas realizadas.
+     * @return una cedana de texto con caracteres aleatorios de 8 caracteres de longuitud.
      */
     private String generateRndmPassword() {
         char[] availableChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
@@ -191,9 +192,9 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param randomPassword
-     * @return
+     * Método utilizado por el generador de contraseñas para asegurar la unicidad de las mismas.
+     * @param randomPassword la contraseña aleatoria generada.
+     * @return el estado de la verificacion de la unica existencia de la contraseña generada.
      * @throws SQLException
      */
     public boolean isPasswordAvailable(String randomPassword) throws SQLException {
@@ -216,13 +217,13 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param request
-     * @return
+     * Comprueba la disponibilidad de una solicitud de reserva.
+     * @param request solicitud de reserva recibida.
+     * @return una mesa asignada en caso de haber disponibilidad de mesas para la fecha y hora solicitada,
+     * null en caso contrario.
      */
     public Mesa checkAvailability(ReservaRequest request) {
         Mesa mesa=null;
-        System.out.println("Hola");
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         String query= new StringBuilder().append("SELECT * FROM Mesa as m LEFT JOIN Reserva as r ON m.id_mesa = r.id_mesa WHERE r.id_reserva IS NULL ")
@@ -245,10 +246,10 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param date
-     * @param direction
-     * @return
+     * Método utilizado para limitar la reserva de nuevas reservas a una mesa a 1 hora de diferencia.
+     * @param date fecha de la reserva.
+     * @param direction direccion.
+     * @return la fecha apartir de la cual poder realizar las reservas para una misma mesa.
      */
     private Date addAnHour(Date date, int direction){
         Calendar cal = Calendar.getInstance();
@@ -258,10 +259,10 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param name
-     * @param password
-     * @return
+     * Permite obtener una reserva segun el nombre y contraseña de la misma.
+     * @param name de la reserva.
+     * @param password de la reserva.
+     * @return la reserva encontrada, null en caso contrario.
      */
     public Reserva searchReserva(String name, String password) {
 

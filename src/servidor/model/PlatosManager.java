@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 /**
- *
+ * Gestor de platos. Contiene una lista de platos y acceso al gestor de bases de datos.
  */
 public class PlatosManager {
 
@@ -16,7 +16,7 @@ public class PlatosManager {
     private BBDDManager manager;
 
     /**
-     *
+     * Contructor que inicializa la lista de platos y la conexion con la base de datos.
      */
     public PlatosManager() {
         manager = BBDDManager.getInstance(Main.BBDD);
@@ -24,7 +24,7 @@ public class PlatosManager {
     }
 
     /**
-     *
+     * Método para cargar platos en el gestor.
      */
     public void loadPlatos() {
 
@@ -66,8 +66,8 @@ public class PlatosManager {
     }
 
     /**
-     *
-     * @param plato
+     * Permite añadir nuevos platos en el gestor.
+     * @param plato que se recibe para añadir al gestor.
      */
     public void addPlato(Plato plato) {
         manager.connect();
@@ -81,8 +81,8 @@ public class PlatosManager {
     }
 
     /**
-     *
-     * @param platos
+     * Permite añadir nuevos platos en el gestor.
+     * @param platos que se reciben para añadir en el gestor.
      */
     public void addPlatos(LinkedList<Plato> platos) {
         for(Plato plato:platos){
@@ -91,12 +91,12 @@ public class PlatosManager {
     }
 
     /**
-     *
-     * @param id
-     * @param type
-     * @param title
-     * @param price
-     * @param units
+     * Método que permite actualizar un plato.
+     * @param id del plato.
+     * @param type del plato.
+     * @param title del plato.
+     * @param price del plato.
+     * @param units del plato.
      */
     public void updatePlato(long id, String type, String title, float price, int units) {
         manager.connect();
@@ -113,8 +113,8 @@ public class PlatosManager {
     }
 
     /**
-     *
-     * @param id
+     * Permite eliminar un plato del gestor segun su id.
+     * @param id que identifica al plato que se quiere eliminar.
      */
     public void removePlato(long id) {
         manager.connect();
@@ -130,9 +130,9 @@ public class PlatosManager {
     }
 
     /**
-     *
-     * @param id
-     * @return
+     * Permite obtener un plato segun su id.
+     * @param id del plato.
+     * @return el plato si se ha encontrado en el gestor, null en caso contrario.
      */
     public Plato getPlato(long id) {
         if (platos.isEmpty()) {
@@ -149,15 +149,16 @@ public class PlatosManager {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener todos los platos en el gestor.
+     * @return lista de todos los platos.
      */
     public LinkedList<Plato> getPlatos() {
         return platos;
     }
 
     /**
-     *
+     * Permite obtener todos los platos cuyas unidades son superiores a 0.
+     * Este método es utilizado para enviar los platos al cliente, de manera que solo recibira los disponibles realmente.
      * @return
      */
     public LinkedList<Plato> getAvailablePlatos() {

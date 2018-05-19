@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * Generador automatico de "id" para productos (platos) y reservas.
  */
 public class SerialGenerator {
 
@@ -31,8 +31,8 @@ public class SerialGenerator {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener un id para una reserva mediante la base de datos.
+     * @return un id para una reserva nueva.
      * @throws SQLException
      */
     public static long getIdReserva() throws SQLException {
@@ -55,8 +55,8 @@ public class SerialGenerator {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el ultimo id asignado para evitar repeticiones.
+     * @return el ultimo id asignado.
      */
     public static long getMaxIdProduct() {
         try {
@@ -71,8 +71,8 @@ public class SerialGenerator {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener un id para un producto mediante la base de datos..
+     * @return un id para un producto nuevo.
      * @throws SQLException
      */
     public static long getIdProduct() throws SQLException {
@@ -96,16 +96,16 @@ public class SerialGenerator {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener un id para un producto nuevo.
+     * @return el id para un producto nuevo.
      */
     public static long getProductId() {
         return productId++;
     }
 
     /**
-     *
-     * @return
+     * Permite obtener un id para una reserva nueva.
+     * @return el id para una reserva nueva.
      */
     public static long getReservaId() {
         return reservaId++;

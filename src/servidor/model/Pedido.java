@@ -6,7 +6,8 @@ import servidor.model.Database.BBDDManager;
 import java.util.LinkedList;
 
 /**
- *
+ * Clase que representa un pedido.
+ * Tiene asociado una reserva y dos gestores de platos correspondientes a los pendientes y procesados.
  */
 public class Pedido {
 
@@ -15,7 +16,7 @@ public class Pedido {
     private PlatosManager platosProcesados;
 
     /**
-     *
+     * Constructor que inicializa los atributos del Pedido.
      */
     public Pedido() {
         reserva = new Reserva();
@@ -24,8 +25,8 @@ public class Pedido {
     }
 
     /**
-     *
-     * @param reserva
+     * Constructor que inicializa todos los atributos y asigna una reserva a dicho pedido.
+     * @param reserva resrva que se recibe para asignar.
      */
     public Pedido(Reserva reserva) {
         this();
@@ -33,24 +34,24 @@ public class Pedido {
     }
 
     /**
-     *
-     * @param reserva
+     * Permite asignar una reserva al pedido.
+     * @param reserva que se recibe para asignar.
      */
     public void setPedido(Reserva reserva) {
         setReserva(reserva);
     }
 
     /**
-     *
-     * @param reserva
+     * Permite asignar una reserva a la reserva del pedido.
+     * @param reserva que se recibe para asignar.
      */
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
 
     /**
-     *
-     * @param platos
+     * Metodo que permite añadir platos pendientes al pedido.
+     * @param platos que se reciben para asignar al pedido.
      */
     public void addPlatosPendientes(LinkedList<Plato> platos){
 
@@ -86,32 +87,32 @@ public class Pedido {
     }
 
     /**
-     *
-     * @return
+     * Metodo que permite conocer el numero de platos pendientes.
+     * @return el numero de platos pendiente.
      */
     public PlatosManager getPlatosPendientes() {
         return platosPendientes;
     }
 
     /**
-     *
-     * @return
+     * Permite obtener la reserva del pedido.
+     * @return la reserva del pedido.
      */
     public Reserva getReserva() {
         return reserva;
     }
 
     /**
-     *
-     * @return
+     * Metodo que permite obtener los platos procesados del pedido.
+     * @return el gestor de platos procesados.
      */
     public PlatosManager getPlatosProcesados() {
         return platosProcesados;
     }
 
     /**
-     *
-     * @param id
+     * Metodo que permite pasar un plato de los platos pendientes a platos procesados.
+     * @param id del plato que se recibe para servir.
      */
     public void servirPlato(long id) {
         Plato plato = platosPendientes.getPlato(id);
@@ -120,16 +121,16 @@ public class Pedido {
     }
 
     /**
-     *
-     * @return
+     *  Permite conocer el numero total de platos del pedido.
+     * @return el numero total de platos (pendientes + procesasdos)
      */
     public int getTotalPlatos() {
         return platosPendientes.getPlatos().size() + platosProcesados.getPlatos().size();
     }
 
     /**
-     *
-     * @return
+     * Permite convertir un pedido a un formato compatible con el JTable utilizado para representar los pedidos.
+     * @return un objeto destinado a ir al JTable de la vista de pedidos.
      */
     public Object[] toObjectArray(){
         Object[] data = new Object[6];

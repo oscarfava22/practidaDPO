@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * Clase con atributos estaticos de diferentes variables de configuracion utilizados por el programa
  */
 public class Constants {
 
