@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * Panel que ofrece 4 botones para poder seleccionar el panel que se desea visualizar en la vista principal del programa.
  */
 public class SelectorView extends JPanel {
 
@@ -17,7 +17,7 @@ public class SelectorView extends JPanel {
     private JButton jbTop5;
 
     /**
-     *
+     * Constructor que inicializa todos los componentes utilizados.
      */
     public SelectorView() {
 
@@ -54,7 +54,7 @@ public class SelectorView extends JPanel {
     }
 
     /**
-     *
+     * Permite asignar el texto de los JButtons utilizados en el panel.
      */
     public void initView() {
         jbGestionMesas.setText(Constants.gestionMesas);
@@ -64,8 +64,8 @@ public class SelectorView extends JPanel {
     }
 
     /**
-     *
-     * @param selectorViewListener
+     * Permite registar todos los componentes a un controlador.
+     * @param selectorViewListener el controlador al cual se registran los componentes.
      */
     public void registerControllers(SelectorViewListener selectorViewListener) {
         jbGestionMesas.addMouseListener(selectorViewListener);
@@ -79,8 +79,8 @@ public class SelectorView extends JPanel {
     }
 
     /**
-     *
-     * @param buttonId
+     * Método para establecer el estado de un boton en funcion del id recibido.
+     * @param buttonId id recibido que determina que ese boton ha sido apretado y cambiara su color al correspondiente.
      */
     public void setSelectedButton(String buttonId) {
 
@@ -124,9 +124,10 @@ public class SelectorView extends JPanel {
     }
 
     /**
-     *
-     * @param buttonId
-     * @param state
+     * Método utilizado para cambiar el color de la letra de los JButtons utilizados cuando se detecta un
+     * Mouse Enteres/Exited event.
+     * @param buttonId el id del boton seleccionado.
+     * @param state el estado del boton.
      */
     public void setFocusedButton(String buttonId, boolean state) {
 

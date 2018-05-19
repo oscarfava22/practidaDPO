@@ -8,7 +8,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 
 /**
- *
+ * Panel que representa la vista de un Plato.
  */
 public class PlatoView extends JPanel {
 
@@ -22,14 +22,14 @@ public class PlatoView extends JPanel {
     private CustomLabel jlUnits;
 
     /**
-     *
+     * Constructor por defecto.
      */
     public PlatoView() {
         setLayout(new GridLayout(1,5));
     }
 
     /**
-     *
+     * Constructor que recibe otro plato.
      * @param plato
      */
     public PlatoView(Plato plato) {
@@ -38,7 +38,7 @@ public class PlatoView extends JPanel {
     }
 
     /**
-     *
+     * Permite inicializar un plato mediante otro plato.
      * @param plato
      */
     public void initPlatoView(Plato plato) {
@@ -50,7 +50,7 @@ public class PlatoView extends JPanel {
     }
 
     /**
-     *
+     * Método utilizado para inicializar el estado de las etiquetas.
      * @param plato
      */
     public void initLabels(Plato plato) {
@@ -84,8 +84,8 @@ public class PlatoView extends JPanel {
     }
 
     /**
-     *
-     * @param gestionCartaViewListener
+     * Permite registrar los componentes al controlador recibido.
+     * @param gestionCartaViewListener controlador que se recibe.
      */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
 
@@ -100,47 +100,48 @@ public class PlatoView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el id del producto.
+     * @return el id del producto.
      */
     public String getJlProductId() {
         return jlProductId.getText();
     }
 
     /**
-     *
-     * @param productId
+     * Permite asignar un id al producto.
+     * @param productId para asignar al producto.
      */
     public void setJlProductId(String productId) {
         jlProductId.setText(productId);
     }
 
     /**
-     *
-     * @param title
+     * Permite asignar el nombre de un producto
+     * @param title nombre para asignar al producto.
      */
     public void setJlTitle(String title) {
         jlTitle.setText(title);
     }
 
     /**
-     *
-     * @param price
+     * Permite asignar un precio al producto.
+     * @param price precio para asignar al producto.
      */
     public void setJlPrice(String price) {
         jlPrice.setText(price);
     }
 
     /**
-     *
-     * @param units
+     * Permite asignar el numero de unidades de un producto.
+     * @param units numero de unidades del producto.
      */
     public void setJlUnits(String units) {
         jlUnits.setText(units);
     }
 
     /**
-     *
+     * Permite cambiar la apariencia de un producto cuando se hace click sobre el,
+     * diferenciandolo de los no seleccionados.
      * @param state
      */
     public void setSelectedState(boolean state) {

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
- *
+ * Panel que contiene todos los platos que le sean añadidos.
  */
 public class PlatosView extends JPanel {
 
@@ -42,8 +42,8 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param platos
+     * Permite inicializar la vista de platos.
+     * @param platos lista de platos que se recibe para mostar.
      */
     public synchronized void initPlatosView(LinkedList<Plato> platos) {
 
@@ -59,8 +59,8 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param gestionCartaViewListener
+     * Método para registrar el controlador recibido a los componentes utilizados.
+     * @param gestionCartaViewListener el controlador que se recibe para registrar.
      */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
         for (PlatoView pv : platosView) {
@@ -69,9 +69,9 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param plato
-     * @param gestionCartaViewListener
+     * Permite registar los diferentes componentes al controlador recibido.
+     * @param plato el plato recibido,
+     * @param gestionCartaViewListener el controlador que se regitrara al plato recibido.
      */
     public synchronized void addPlato(Plato plato, MouseInputListener gestionCartaViewListener) {
         platosView.add(new PlatoView(plato));
@@ -82,12 +82,12 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param id
-     * @param type
-     * @param title
-     * @param price
-     * @param units
+     * Permite actualizar todos los atributos de un plato.
+     * @param id del plato.
+     * @param type del plato.
+     * @param title del plato.
+     * @param price del plato.
+     * @param units del plato.
      */
     public synchronized void updatePlato(String id, String type, String title, String price, String units) {
         for(PlatoView pv : platosView) {
@@ -102,8 +102,8 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param productId
+     * Permite eliniar un plato del panel de plato mediante su id.
+     * @param productId el id del plato a eliminar.
      */
     public synchronized void deletePlato(String productId) {
         for(int i = 0; i < platosView.size(); i++) {
@@ -118,9 +118,9 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param id
-     * @param state
+     * Permite seleccionar un plato cambiando su apariencia, mediante su id.
+     * @param id del plato a seleccionar.
+     * @param state el estado de la seleccion.
      */
     public synchronized void setSelectedPlatoState(String id, boolean state) {
         for(PlatoView pv : platosView) {
@@ -133,8 +133,8 @@ public class PlatosView extends JPanel {
     }
 
     /**
-     *
-     * @param state
+     * Permite establecer el estado de los platos.
+     * @param state el estado para asignar.
      */
     public synchronized void setSelectedPlatosState(boolean state) {
         for(PlatoView pv : platosView) {

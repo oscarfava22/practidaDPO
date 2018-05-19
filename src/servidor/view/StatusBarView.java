@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * Panel que permite conocer el estado del programa asi como el numero de conexiones tanto con los posibles clientes
+ * "Entry" asi como clientes "Reserva".
+ * Este panel va colocado en la parte inferior de la vista principal del programa.
  */
 public class StatusBarView extends JPanel {
 
@@ -23,7 +25,7 @@ public class StatusBarView extends JPanel {
     private JPanel jpClients;
 
     /**
-     *
+     * Contructor del panel.
      */
     public StatusBarView() {
 
@@ -62,11 +64,14 @@ public class StatusBarView extends JPanel {
         jpClients.add(jpDevices);
 
         add(jpStatus, BorderLayout.LINE_START);
-        //add(jpEntry, BorderLayout.CENTER);
         add(jpClients, BorderLayout.LINE_END);
         setBackground(Color.DARK_GRAY);
     }
 
+    /**
+     * Permite establecer el estado del programa.
+     * @param state estado en funcion del cual se muestra un texto u otro.
+     */
     public void setConnectedState(boolean state) {
         if (state) {
             status.setText("Connected");
@@ -78,27 +83,19 @@ public class StatusBarView extends JPanel {
     }
 
     /**
-     *
-     * @param count
+     * Permite establecer el numero de clientes Reserva conectados.
+     * @param count el numero de clientes reserva conectados.
      */
     public void setConnectedDevices(Integer count) {
         connectedDevices.setText(count.toString());
     }
 
     /**
-     *
+     * Permite establecer el numero de clientes Entry conectados.
      * @param state
      */
     public void setEntryServerStatus(Integer state) {
-        /*if(state == 1) {
-            entryServerStatus.setText("Connected");
-            entryServerStatus.setForeground(Color.GREEN);
-        } else if (state == 0){
-            entryServerStatus.setText("Not Connected");
-            entryServerStatus.setForeground(Color.RED);
-        } else {*/
-            entryServerStatus.setText(state.toString());
-            entryServerStatus.setForeground(Color.CYAN);
-        //}
+        entryServerStatus.setText(state.toString());
+        entryServerStatus.setForeground(Color.CYAN);
     }
 }

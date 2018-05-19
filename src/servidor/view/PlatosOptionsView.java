@@ -8,7 +8,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 
 /**
- *
+ * Panel que ofrece opciones de ediciones y creacion de platos.
  */
 public class PlatosOptionsView extends JPanel {
 
@@ -51,7 +51,7 @@ public class PlatosOptionsView extends JPanel {
             BorderFactory.createEmptyBorder(10,10,10,10));
 
     /**
-     *
+     * Constructor del panel
      */
     public PlatosOptionsView() {
 
@@ -148,7 +148,7 @@ public class PlatosOptionsView extends JPanel {
     }
 
     /**
-     *
+     * Permite registar los distintos componentes del panel al controlador recibido.
      * @param gestionCartaViewListener
      */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
@@ -160,46 +160,46 @@ public class PlatosOptionsView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el id del plato.
+     * @return el id del plato.
      */
     public String getIdText() { return jtfId.getText(); }
 
     /**
-     *
-     * @return
+     * Permite obtener el tipo de plato seleccionado.
+     * @return el tipo de plato.
      */
     public String getType() {
         return String.valueOf(jcbType.getSelectedIndex());
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el nombre del plato.
+     * @return el nombre del plato.
      */
     public String getTitleText() {
         return jtfTitle.getText();
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el precio del plato.
+     * @return el precio del plato.
      */
     public String getPriceText() {
         return jtfPrice.getText();
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el numero de unidades del plato.
+     * @return el numero de unidades del plato.
      */
     public String getUnitsText() {
         return jtfUnits.getText();
     }
 
     /**
-     *
-     * @param plato
+     * Permite asignar el texto referente a cada producto en los JTextfield correspondientes.
+     * @param plato el plato del cual se obtiene la informacion para mostrar.
      */
     public void setTextFields(Plato plato) {
         jtfId.setText(String.valueOf(plato.getId()));
@@ -210,7 +210,7 @@ public class PlatosOptionsView extends JPanel {
     }
 
     /**
-     *
+     * Permite reiniciar todos campos de texto del panel de opciones.
      */
     public void resetTextFields() {
         jtfId.setText(null);
