@@ -62,7 +62,7 @@ public class PlatosOptionsView extends JPanel {
         jpPlatoOptions = new JPanel();
         jpPlatoOptions.setLayout(new BoxLayout(jpPlatoOptions, BoxLayout.Y_AXIS));
 
-        jlId = new JLabel("Id:");
+        jlId = new JLabel("ID:");
         jtfId = new JTextField();
         jtfId.setPreferredSize(new Dimension(100,30));
         jtfId.setEditable(false);

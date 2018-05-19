@@ -17,4 +17,5 @@ public class Constants {
     public final static String gestionPedidos = "Pedidos";
     public final static String top5 = "Top 5";
 
+    public final static String serverConfig = "/data/json/server/server_config.json";
 }

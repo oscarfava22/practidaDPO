@@ -58,6 +58,7 @@ public class PlatoView extends JPanel {
         jlProductId = new CustomLabel(String.valueOf(plato.getId()));
         jlProductId.setBorder(compounBorder);
         jlProductId.setOpaque(true);
+        jlProductId.setForeground(Color.ORANGE);
         jlProductId.setBackground(Color.GRAY);
         setJlProductId(String.valueOf(plato.getId()));
 
@@ -146,12 +147,14 @@ public class PlatoView extends JPanel {
 
         if (state) {
             jlProductId.setBackground(Color.ORANGE);
+            jlProductId.setForeground(Color.BLACK);
             jlTitle.setBackground(Color.ORANGE);
             jlPrice.setBackground(Color.ORANGE);
             jlUnits.setBackground(Color.ORANGE);
 
         } else {
             jlProductId.setBackground(Color.GRAY);
+            jlProductId.setForeground(Color.ORANGE);
             jlTitle.setBackground(Color.LIGHT_GRAY);
             jlPrice.setBackground(Color.LIGHT_GRAY);
             jlUnits.setBackground(Color.LIGHT_GRAY);

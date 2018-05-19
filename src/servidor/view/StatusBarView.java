@@ -15,10 +15,12 @@ public class StatusBarView extends JPanel {
 
     private JLabel entryServerLabel;
     private JLabel entryServerStatus;
-    private JPanel jpEntry;
 
     private JPanel jpStatus;
+    private JPanel jpEntry;
     private JPanel jpDevices;
+
+    private JPanel jpClients;
 
     /**
      *
@@ -29,18 +31,17 @@ public class StatusBarView extends JPanel {
 
         statusLabel = new JLabel("Status: ");
         statusLabel.setForeground(Color.GRAY);
-        status = new JLabel("Connected");
-        status.setForeground(Color.GREEN);
+        status = new JLabel();
         setConnectedState(true);
         jpStatus = new JPanel(new FlowLayout());
         jpStatus.setOpaque(false);
         jpStatus.add(statusLabel);
         jpStatus.add(status);
 
-        entryServerLabel = new JLabel("Entry Client: ");
+        entryServerLabel = new JLabel("Entry Clients: ");
         entryServerLabel.setForeground(Color.GRAY);
-        entryServerStatus = new JLabel("Not Connected");
-        entryServerStatus.setForeground(Color.RED);
+        entryServerStatus = new JLabel("0");
+        entryServerStatus.setForeground(Color.CYAN);
         jpEntry = new JPanel(new FlowLayout());
         jpEntry.setOpaque(false);
         jpEntry.add(entryServerLabel);
@@ -55,14 +56,18 @@ public class StatusBarView extends JPanel {
         jpDevices.add(connectedDevicesLabel);
         jpDevices.add(connectedDevices);
 
+        jpClients = new JPanel(new GridLayout(1,2));
+        jpClients.setBackground(Color.DARK_GRAY);
+        jpClients.add(jpEntry);
+        jpClients.add(jpDevices);
+
         add(jpStatus, BorderLayout.LINE_START);
-        add(jpEntry, BorderLayout.CENTER);
-        add(jpDevices, BorderLayout.LINE_END);
+        //add(jpEntry, BorderLayout.CENTER);
+        add(jpClients, BorderLayout.LINE_END);
         setBackground(Color.DARK_GRAY);
     }
 
-    public void setConnectedState (boolean state) {
-
+    public void setConnectedState(boolean state) {
         if (state) {
             status.setText("Connected");
             status.setForeground(Color.GREEN);
@@ -84,14 +89,16 @@ public class StatusBarView extends JPanel {
      *
      * @param state
      */
-    public void setEntryServerStatus(boolean state) {
-        if(state) {
+    public void setEntryServerStatus(Integer state) {
+        /*if(state == 1) {
             entryServerStatus.setText("Connected");
             entryServerStatus.setForeground(Color.GREEN);
-        } else {
-
+        } else if (state == 0){
             entryServerStatus.setText("Not Connected");
             entryServerStatus.setForeground(Color.RED);
-        }
+        } else {*/
+            entryServerStatus.setText(state.toString());
+            entryServerStatus.setForeground(Color.CYAN);
+        //}
     }
 }

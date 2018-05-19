@@ -73,7 +73,7 @@ public class Pedido {
                 if (found != -1) {
                     //Update Existing Plato Units
                     platosPendientes.getPlatos().get(found).updateUnits(plato.getUnits());
-                    String query = "UPDATE Plato as p SET contador=(SELECT p1.contador FROM Plato as p1 WHERE p1.id_plato"+plato.getId()+") +   1 " +
+                    String query = "UPDATE Plato as p SET contador=(SELECT p1.contador FROM Plato as p1 WHERE p1.id_plato" + plato.getId()+") +   1 " +
                             "WHERE p.id_plato = "+plato.getId();
                     manager.modificationQuery(query);
                 } else {

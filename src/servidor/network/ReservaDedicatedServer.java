@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- *
+ * Servidor dedicado para cada Reserva Client que se conecte, permite gestionar de forma independiente cada cliente,
+ * ofreciendo una comunicacion en paralelo con todos los clientes.
  */
 public class ReservaDedicatedServer extends Thread {
 
@@ -30,13 +31,13 @@ public class ReservaDedicatedServer extends Thread {
     private String password = "";
 
     /**
-     *
-     * @param reservaServer
-     * @param reservaClientSocket
-     * @param mainView
-     * @param platosManager
-     * @param reservasManager
-     * @param pedidosManager
+     * Constructor principal que prepara todas las variables que seran utilizadas por el servidor dedicado.
+     * @param reservaServer Reserva Server para permitir que este servidor dedicado notifique al principal.
+     * @param reservaClientSocket socket que ha abierto el "Reserva Server" para este servidor dedicado.
+     * @param mainView vista principal del programa.
+     * @param platosManager gestor de platos (Carta).
+     * @param reservasManager gestor de reservas.
+     * @param pedidosManager gestor de pedidos.
      */
     public ReservaDedicatedServer(ReservaServer reservaServer, Socket reservaClientSocket, MainView mainView,
                                   PlatosManager platosManager, ReservasManager reservasManager,
@@ -52,7 +53,19 @@ public class ReservaDedicatedServer extends Thread {
     }
 
     /**
-     *
+     * Metodo que inicializa el servidor dedicado, que se mantendra en ejecuccion constantemente mientras exista la
+     * conexion con el cliente Reserva.
+     * Este servidor dedicado esta en constante modo de lectura esperando a recibir un tipo de mensaje determinado
+     * que puede ser de distintas clases, de manera que para cada tipo de mensaje recibido se realiza una determinada
+     * acción.
+     * Si se recibe un objeto de la clase (String), este puede ser de 2 tipos; "PAGAR" significando que el usuario
+     * desea pagar su pedido y finalizar la conexion, en cualquier otro caso el "String" recibido será una solicitud de
+     * inicio de sesion por parte del cliente, de modo que se procedera a buscar si esa persona tiene una reserva
+     * realizada para poder autorizarle el acceso al sistema.
+     * Si el objeto recibido no es un "String" entonces será una lista de platos procedentes del cliente, que
+     * representaran el pedido realizado, y el servidor realizara una busqueda de la reserva y actualizara su estado a
+     * "2" significando que se ha recibido el pedido del cliente y se añadiran los platos enviados a la lista de
+     * platos pendientes dedicatada para cada reserva.
      */
     @Override
     public void run() {
@@ -104,7 +117,7 @@ public class ReservaDedicatedServer extends Thread {
 
                     ArrayList<Plat> plats = (ArrayList<Plat>) object;
                     LinkedList<Plato> platos = new LinkedList<>();
-
+                    System.out.println("Platos size: " + plats.size());
                     for (Plat plat : plats) {
                         Plato plato = new Plato(plat.getId(), String.valueOf(plat.getTipus()), plat.getNom(), plat.getPrice(), plat.getUnitatsSeleccionades());
                         platos.add(plato);
@@ -138,7 +151,7 @@ public class ReservaDedicatedServer extends Thread {
     }
 
     /**
-     *
+     * Metodo para enviar una actualizacion de los platos disponibles en el sistema al cliente.
      */
     public void updateMessageToClient() {
         try {
@@ -150,8 +163,8 @@ public class ReservaDedicatedServer extends Thread {
     }
 
     /**
-     *
-     * @param id
+     * Permite servir un plato al cliente enviandole el identificador del plato en cuestion.
+     * @param id del plato a servir
      */
     public void sendServirPlato(long id) {
 
@@ -164,8 +177,8 @@ public class ReservaDedicatedServer extends Thread {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el nombre de la persona que se ha conectado a traves del cliente Reserva.
+     * @return el nombre de la persona que se ha conectado.
      */
     public String getClientName() {
         return name;

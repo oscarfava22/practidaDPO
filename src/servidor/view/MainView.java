@@ -143,7 +143,7 @@ public class MainView extends JFrame implements WindowListener {
      *
      * @param state
      */
-    public void setEntryServerStatus(boolean state) {
+    public void setEntryServerStatus(Integer state) {
         statusBarView.setEntryServerStatus(state);
     }
 

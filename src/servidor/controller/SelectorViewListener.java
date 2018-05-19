@@ -6,6 +6,9 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 
+/**
+ *
+ */
 public class SelectorViewListener implements MouseInputListener {
 
     private MainView mainView;

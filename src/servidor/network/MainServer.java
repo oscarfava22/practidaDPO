@@ -8,7 +8,7 @@ import servidor.model.ReservasManager;
 import servidor.view.MainView;
 
 /**
- *
+ *Servidor Principal que inicializa el servidor Entry y el servidor Reserva.
  */
 public class MainServer {
 
@@ -16,13 +16,13 @@ public class MainServer {
     private ReservaServer reservaServer;
 
     /**
-     *
-     * @param mainView
-     * @param platosManager
-     * @param reservasManager
-     * @param pedidosManager
-     * @param pedidosListListener
-     * @param gestionCartaViewListener
+     * Constructor que prepara los servidores para ser inicializados.
+     * @param mainView vista principal del programa.
+     * @param platosManager gestor de plator.
+     * @param reservasManager gestor de reservas.
+     * @param pedidosManager gestor de pedidos.
+     * @param pedidosListListener controlador de la lista de pedidos.
+     * @param gestionCartaViewListener controlador de la carta.
      */
     public MainServer(MainView mainView, PlatosManager platosManager, ReservasManager reservasManager,
                       PedidosManager pedidosManager, PedidosListListener pedidosListListener,
@@ -34,7 +34,7 @@ public class MainServer {
     }
 
     /**
-     *
+     * Método para inicializar la ejecucion de los servidores en Threads independientes.
      */
     public void initServers() {
         entryServer.start();
@@ -43,7 +43,7 @@ public class MainServer {
 
     /**
      *
-     * @return
+     * @return el servidor "Reserva" encargado de gestionar la comunicación con los clientes "Reserva".
      */
     public ReservaServer getReservaServer() {
         return reservaServer;

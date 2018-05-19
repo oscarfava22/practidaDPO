@@ -11,6 +11,7 @@ public class Plat implements Serializable {
     private int tipus;
     private int unitatsSeleccionades; //Indica el nombre d'unitats selecionades per l'usuari a la carta.
     private boolean servit; //Indica si s'ha servit o no un plat, de cara a mostrar l'estat de la comanda.
+    private int indexPlat;
 
     /**
      * Constructor del objecto sin seleccionar unidades
@@ -36,7 +37,7 @@ public class Plat implements Serializable {
      * @param tipus tipos que indentifica si es postre, principal, entrante y bebida
      * @param unitatsSeleccionades unidades que se piden en el momento actual
      */
-    public Plat (long id, String nom, float price, int unitats, int tipus, int unitatsSeleccionades) {
+    public Plat (long id, String nom, float price, int unitats, int tipus, int unitatsSeleccionades, boolean servit, int indexPlat) {
 
         this.id = id;
         this.nom = nom;
@@ -44,6 +45,8 @@ public class Plat implements Serializable {
         this.unitats = unitats;
         this.tipus = tipus;
         this.unitatsSeleccionades = unitatsSeleccionades;
+        this.servit = servit;
+        this.indexPlat = indexPlat;
     }
 
     public long getId() {
@@ -84,6 +87,14 @@ public class Plat implements Serializable {
      */
     public int getUnitats() {
         return unitats;
+    }
+
+    public int getIndexPlat() {
+        return indexPlat;
+    }
+
+    public void setIndexPlat(int indexPlat) {
+        this.indexPlat = indexPlat;
     }
 
     /**
@@ -128,5 +139,9 @@ public class Plat implements Serializable {
      */
     public void setUnitatsSeleccionades (int unitatsSeleccionades) {
         this.unitatsSeleccionades = unitatsSeleccionades;
+    }
+
+    public void setServit () {
+        servit = true;
     }
 }
