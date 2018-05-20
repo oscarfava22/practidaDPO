@@ -13,11 +13,15 @@ import java.util.LinkedList;
 
 public class MesasView extends JPanel{
 
+    /**
+     * Atributos de la clase
+     */
     private LinkedList<MesaView> mesasView;
     private JPanel jpMain;
 
-    public static int NUMERO_FILES = 0;
-
+    /**
+     * Constructor de la clase sin parámetros
+     */
     public MesasView() {
         mesasView = new LinkedList<>();
         jpMain = new JPanel();
@@ -28,6 +32,12 @@ public class MesasView extends JPanel{
         add(jpMain, BorderLayout.PAGE_START);
     }
 
+    /**
+     * Función para inicializar las mesas mediante conexión con la base de datos y obteniendo las mesas
+     * De esta forma, con cada interacción de la pantalla que debamos cargar las mesas actuales, llamaremos a esta función
+     * y obtendremos las mesas de la base de datos. Así nos protegemos de que haya cambios en la base de datos mientras
+     * el programa está en ejecución.
+     */
     public void initMesas() {
         //Connect with bbdd to get mesas every time we refresh the view
         //Llamar al getInstance
@@ -56,6 +66,12 @@ public class MesasView extends JPanel{
         bbddManager.disconnect();
     }
 
+    /**
+     * Función que devuelve las mesas que hemos obtenido con la base de datos y que se encuentran en el resultSet
+     * @param resultSet Result Set de la query para obtener las mesas
+     * @return LinkedList de las Mesas obtenidas
+     * @throws SQLException
+     */
     public LinkedList<Mesa> leerMesasFromResultSet(ResultSet resultSet) throws SQLException {
         LinkedList<Mesa> mesas = new LinkedList<Mesa>();
 
@@ -72,6 +88,10 @@ public class MesasView extends JPanel{
         return mesas;
     }
 
+    /**
+     * Función para refrescar las mesas
+     * @param mesasViewListener
+     */
     public void refreshMesas(MesasViewListener mesasViewListener) {
         mesasView.clear();
         jpMain.removeAll();
@@ -83,6 +103,10 @@ public class MesasView extends JPanel{
 
     }
 
+    /**
+     * Función para vincular los controladores a cada una de las mesas
+     * @param mesasViewListener
+     */
     public void registerControllers(MesasViewListener mesasViewListener) {
 
         for (MesaView mv : mesasView) {
@@ -90,6 +114,11 @@ public class MesasView extends JPanel{
         }
     }
 
+    /**
+     * Función que cambia el color de fondo según una id y un state
+     * @param id
+     * @param state
+     */
     public void setLabelsBackground(String id, boolean state) {
 
         for(MesaView mv : mesasView) {
@@ -101,25 +130,30 @@ public class MesasView extends JPanel{
         }
     }
 
+    /**
+     * Función que cambia el color de fondo según un state
+     * @param state
+     */
     public void setLabelsBackground2(boolean state) {
         for(MesaView mv : mesasView) {
             mv.setLabelsBackground(state);
         }
     }
 
+    /**
+     * Getters i Setters
+     */
     public LinkedList<MesaView> getMesasView() {
         return mesasView;
     }
-
     public void setMesasView(LinkedList<MesaView> mesasView) {
         this.mesasView = mesasView;
     }
-
     public JPanel getJpMain() {
         return jpMain;
     }
-
     public void setJpMain(JPanel jpMain) {
         this.jpMain = jpMain;
     }
+
 }

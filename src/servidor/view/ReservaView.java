@@ -7,23 +7,38 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class ReservaView extends JPanel {
+    //Borde
     private Border compounBorder =  BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.DARK_GRAY),
             BorderFactory.createEmptyBorder(10,10,10,10));
 
+    /**
+     * Atributos de la clase
+     */
     private CustomLabel jlNombre;
     private CustomLabel jlFecha;
     private CustomLabel jlHora;
 
+    /**
+     * Constructor sin parámetros
+     */
     public ReservaView() {
         setLayout(new GridLayout(1, 3));
     }
 
+    /**
+     * Constructor con parámetros
+     * @param reserva
+     */
     public ReservaView(InfoResultSetReserva reserva){
         this();
         initReservas(reserva);
     }
 
+    /***
+     * Función para inicializar las reservas
+     * @param reserva
+     */
     public void initReservas(InfoResultSetReserva reserva) {
         initLabels(reserva);
         add(jlNombre);
@@ -31,6 +46,9 @@ public class ReservaView extends JPanel {
         add(jlHora);
     }
 
+    /**
+     * Crear la CustomLabel
+     */
     public void initLabels(InfoResultSetReserva reserva) {
         jlNombre = new CustomLabel(String.valueOf(reserva.getNombre()));
         jlNombre.setBorder(compounBorder);
@@ -48,24 +66,17 @@ public class ReservaView extends JPanel {
         setJlHora(String.valueOf(reserva.getTime()));
     }
 
-    public void updateReservaView(InfoResultSetReserva reserva) {
-        setJlNombre(reserva.getNombre());
-        setJlFecha(String.valueOf(reserva.getDate()));
-        setJlHora(String.valueOf(reserva.getTime()));
-    }
-
-
+    /**
+     * Setters
+     */
     public void setJlNombre(String s) {
         jlNombre.setText(s);
     }
-
     public void setJlFecha(String s) {
         jlFecha.setText(s);
     }
-
     public  void setJlHora(String s){
         jlHora.setText(s);
     }
-
 
 }

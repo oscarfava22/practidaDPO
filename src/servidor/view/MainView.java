@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Ventana principal del programa que tiene asociados otros paneles que se iran mostrando en funcion de la opcion
- * seleccionada en el Selector View.
+ *
  */
 public class MainView extends JFrame implements WindowListener {
 
@@ -29,7 +28,7 @@ public class MainView extends JFrame implements WindowListener {
     private GestionTop5ViewListener gestorTop5View;
 
     /**
-     * Constructor que incializa todas las clases vinculadas con la vista principal.
+     *
      */
     public MainView() {
 
@@ -45,10 +44,10 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Método que permite inicializar la vista principal en cualquier momento.
-     * @param platos lista de platos que se recibe para mostar.
-     * @param mesas lista de mesas que se recibe para mostart.
-     * @param pedidos lista de pedidos que se recibe para mostrar.
+     *
+     * @param platos
+     * @param mesas
+     * @param pedidos
      */
     public void initMainView(LinkedList<Plato> platos, LinkedList<Mesa> mesas, LinkedList<Pedido> pedidos) {
 
@@ -71,12 +70,12 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Permite registrar los componente aqui presentes al controlador correspondiente de los recibidos.
-     * @param selectorViewListener controlador del selector de la vista principal.
-     * @param gestionCartaViewListener controlador de la gestion de la vista de la carta y las opciones.
-     * @param gestionTop5ViewListener controlador de la gestion del Top5.
-     * @param mesasOptionsViewListener controlador de la gestion de las opciones de las mesas.
-     * @param mesasViewListener controlador de la vista de las mesas.
+     *
+     * @param selectorViewListener
+     * @param gestionCartaViewListener
+     * @param gestionTop5ViewListener
+     * @param mesasOptionsViewListener
+     * @param mesasViewListener
      */
     public void registerControllers(SelectorViewListener selectorViewListener,
                                     MouseInputListener gestionCartaViewListener,
@@ -91,7 +90,7 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Selecciona el boton apretado en el Selector View segun el nombre del boton.
+     *
      * @param button
      */
     public void setSVSelectedButton(String button) {
@@ -99,18 +98,17 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Permite activar el estado de focalizado cuando se detecta un Mouse Entered/Exited encima de un boton medianre
-     * el nombre del boton.
-     * @param button nombre del boton.
-     * @param state estado de focus.
+     *
+     * @param button
+     * @param state
      */
     public void setSVFocusedButton(String button, boolean state) {
         selectorView.setFocusedButton(button, state);
     }
 
     /**
-     * Permite activar la vista relacionada con el boton apretado en el Selector View.
-     * @param option opcion que se recibe que indica que tipo de vista activar.
+     *
+     * @param option
      */
     public void setGestionView(String option) {
 
@@ -142,23 +140,23 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Permite establecer el estado de conexion de los servidores Entry conectados.
-     * @param state el estado de los servidores dedicados a los clientes Entry.
+     *
+     * @param state
      */
     public void setEntryServerStatus(Integer state) {
         statusBarView.setEntryServerStatus(state);
     }
 
     /**
-     * Permite refrescar la vista de los platos
-     * @param mesasViewListener controlador asociados a la vista de las mesas.
+     *
+     * @param mesasViewListener
      */
     public void refreshMesas(MesasViewListener mesasViewListener){
         gestionMesasView.refreshMesas(mesasViewListener);
     }
 
     /**
-     * Permite establecer el numero de servidores dedicados de clientes de Reserva conectados.
+     *
      * @param count
      */
     public void setConnectedDevices(Integer count) {
@@ -167,48 +165,48 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Permite obtener el numero de la fila seleccionada en el JTable de los pedidos.
-     * @return el indice de la fila seleccionada.
+     *
+     * @return
      */
     public int getSelectedRow() {
         return gestionPedidosView.getSelectedRow();
     }
 
     /**
-     * Permite obtener el panel referente a la gestion de la carta.
-     * @return el panel de la gestion de la carta.
+     *
+     * @return
      */
     public GestionCartaView getGestionCartaView() {
         return gestionCartaView;
     }
 
     /**
-     * Permite obtener el panel referente a la gestion de las mesas.
-     * @return el panel de la gestion de las mesas.
+     *
+     * @return
      */
     public GestionMesasView getGestionMesasView(){
         return gestionMesasView;
     }
 
     /**
-     * Permite obtener el panel referente a la gestion del Top 5.
-     * @return el panel de la gestion del Top 5.
+     *
+     * @return
      */
     public GestionTop5View getGestionTop5View(){
         return gestionTop5View;
     }
 
     /**
-     * Permite refrescar la vista de las reservas.
-     * @param reservas lista de reservas que se recibe para actualizar.
+     *
+     * @param reservas
      */
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         gestionMesasView.refreshReservas(reservas);
     }
 
     /**
-     * Permite obtener el panel referente a la gestion de los pedidos.
-     * @return el panel de la gestion de los pedidos.
+     *
+     * @return
      */
     public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
 

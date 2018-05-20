@@ -20,10 +20,10 @@ public class AddMesaDialogListener implements ActionListener{
     private MesasViewListener listener;
 
     /**
-     * Constructor de la clase
-     * @param view
-     * @param mainView
-     * @param mesasViewListener
+     * Constructor de la clase con parámetros
+     * @param view Dialog
+     * @param mainView Vista principal
+     * @param mesasViewListener Listener
      */
     public AddMesaDialogListener(AddMesaDialogView view, MainView mainView, MesasViewListener mesasViewListener){
         this.view = view;
@@ -61,8 +61,6 @@ public class AddMesaDialogListener implements ActionListener{
                     String query = "INSERT INTO Mesa (id_mesa, num_comensales) VALUES (" + idSerialString + ", " + numComensalesString + ");";
                     bbddManager.modificationQuery(query);
 
-
-
                     // Del objeto getInstance, desconectar
                     bbddManager.disconnect();
 
@@ -76,8 +74,6 @@ public class AddMesaDialogListener implements ActionListener{
                 }else{
                     JOptionPane.showMessageDialog(null,
                             "Formato de comensales incorrecto", "Error!", JOptionPane.ERROR_MESSAGE);
-
-                    System.out.println("Numero de comensales incorrecto");
                 }
                 break;
             case AddMesaDialogView.NEGATIVE_TAG:

@@ -13,6 +13,9 @@ import javax.swing.event.ListSelectionListener;
  */
 public class PedidosListListener implements ListSelectionListener {
 
+    /**
+     * Atributos de la clase
+     */
     private MainView mainView;
     private PedidosManager pedidosManager;
     private boolean selected = true;
@@ -20,7 +23,7 @@ public class PedidosListListener implements ListSelectionListener {
     private PlatosPendientesController platosPendientesController;
 
     /**
-     *
+     * Constructor de la clase con parámetros
      * @param mainView vista principal del programa.
      * @param pedidosManager gestor de pedidos.
      * @param platosPendientesController controlador de platos pendientes.

@@ -8,16 +8,25 @@ import java.util.ArrayList;
 
 public class ReservasView extends JPanel {
 
+    /**
+     * Constantes
+     */
     public static final String NOMBRE_RESERVA_TAG = "Nombre de la Reserva";
     public static final String HORA_TAG = "Hora (hh:mm)";
     public static final String FECHA_TAG = "Fecha (dd/mm/aaaa)";
 
+    /**
+     * Atributos de la clase
+     */
     private ArrayList<ReservaView> reservasView;
     private JPanel jpMain;
     private JPanel jpTitle;
     private JPanel jpReservas;
     private JScrollPane jspReservas;
 
+    /**
+     * Constructor sin parámetros
+     */
     public ReservasView() {
         setLayout(new BorderLayout());
 
@@ -44,6 +53,10 @@ public class ReservasView extends JPanel {
         add(jpMain, BorderLayout.CENTER);
     }
 
+    /**
+     * Función que inicializa la vista a través de las reservas
+     * @param reservas
+     */
     public void initReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView = new ArrayList<ReservaView>();
         reservasView.clear();
@@ -61,6 +74,9 @@ public class ReservasView extends JPanel {
         jpMain.add(jspReservas, BorderLayout.CENTER);
     }
 
+    /**
+     * Añadir una reserva
+     */
     public void addReserva(InfoResultSetReserva reserva) {
         ReservaView reservaView = new ReservaView(reserva);
         reservasView.add(reservaView);
@@ -68,6 +84,10 @@ public class ReservasView extends JPanel {
         jpReservas.updateUI();
     }
 
+    /**
+     * Función para refrescar las reservas
+     * @param reservas
+     */
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         reservasView.clear();
         jpMain.removeAll();
