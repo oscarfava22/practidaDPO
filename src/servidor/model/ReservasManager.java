@@ -18,14 +18,20 @@ import java.util.Random;
  */
 public class ReservasManager {
 
+    /**
+     * Constante que define la longitud de la contraseña creada aleatoriamente
+     */
     public static final int PASSWORD_LENGTH = 8;
 
+    /**
+     * Atributos de la clase
+     */
     private LinkedList<Reserva> reservas;
     private SimpleDateFormat dateFormat;
     private SimpleDateFormat dateTimeFormat;
 
     /**
-     *
+     * Constructor de la clase sin parámetros
      */
     public ReservasManager() {
         reservas = new LinkedList<>();
@@ -36,11 +42,11 @@ public class ReservasManager {
     }
 
     /**
-     *
-     * @param nombre
-     * @param password
-     * @return
-     * @throws SQLException
+     * Función que mira si esa sentencia de password+nombre existe en algún usuario/reserva en la base de datos.
+     * @param nombre Es el nombre de la reserva
+     * @param password Contraseña generada aleatoriamente por el sistema
+     * @return true si existe dentro (se deberá de generar otra contraseña) y false si no existew
+     * @throws SQLException si no puede conectar con la base de datos
      */
     public static boolean isInBbdd(String nombre, String password) throws SQLException{
         boolean esta = false;
@@ -60,20 +66,7 @@ public class ReservasManager {
      * Método que permite cargar las reservar en el programa.
      */
     public void loadReservas() {
-        /*try {
-        Reserva[] reservas = (Reserva[]) JsonIO.readJson(Reserva[].class, "/data/json/reservas.json");
-        this.reservas.addAll(Arrays.asList(reservas));
 
-        System.out.println("Num Reservas: " + this.reservas.size());
-
-        for (Reserva reserva : reservas) {
-            reserva.setId(SerialGenerator.getReservaId());
-            System.out.println(reserva.toString());
-        }
-
-        } catch (IOException e) {
-          e.printStackTrace();
-        }*/
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
         ResultSet set = bbdd.readQuery("SELECT * FROM Reserva as r NATURAL JOIN Mesa as m NATURAL JOIN Cliente as c;");
@@ -200,11 +193,9 @@ public class ReservasManager {
     public boolean isPasswordAvailable(String randomPassword) throws SQLException {
         BBDDManager bbdd = BBDDManager.getInstance(Main.BBDD);
         bbdd.connect();
-        System.out.println("1--------------");
         String query= new StringBuilder().append("SELECT c.password FROM Cliente AS c WHERE c.password LIKE '")
                 .append(randomPassword)
                 .append("';").toString();
-        System.out.println("Query: " + query);
         ResultSet set = bbdd.readQuery(query);
         if (set.next()){
             bbdd.disconnect();

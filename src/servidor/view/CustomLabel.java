@@ -4,7 +4,9 @@ import javax.swing.*;
 
 public class CustomLabel extends JLabel {
 
-    //Atributos
+    /**
+     * Atributos de la clase
+     */
     private String customId;
 
     /**

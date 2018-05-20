@@ -2,7 +2,9 @@ package servidor.model;
 
 public class Mesa {
 
-    //Atributos
+    /**
+     * Atributos de la clase
+     */
     private int id;
     private int numComensales;
 

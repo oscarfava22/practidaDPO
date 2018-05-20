@@ -11,10 +11,14 @@ import java.util.ArrayList;
 
 public class GestionMesasView extends JPanel {
 
+    //Borde
     private Border compounBorder =  BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.DARK_GRAY),
             BorderFactory.createEmptyBorder(10,10,10,10));
 
+    /**
+     * Constantes de la clase
+     */
     public static final String RESERVAS_TAG = "Reservas";
     public static final String NOMBRE_RESERVA_TAG = "Nombre de la Reserva";
     public static final String HORA_TAG = "Hora (hh:mm)";
@@ -25,6 +29,9 @@ public class GestionMesasView extends JPanel {
     public static final String NINGUNA_MESA_SELECCIONADA_TAG = "Ninguna mesa seleccionada";
     public static final String MESA_SELECCIONADA = "Mesa seleccionada: ";
 
+    /**
+     * Atributos de la clase (Estructura de la vista)
+     */
     private JPanel jpLeft;
         private JScrollPane jspListaMesas;
             private JPanel jpMesas;

@@ -11,12 +11,15 @@ import java.sql.SQLException;
  */
 public class SerialGenerator {
 
+    /**
+     * Constantes que se actualizarán cuando la base de datos sea modificada
+     */
     private static long productId = getMaxIdProduct();
     private static long reservaId = getMaxIdReserva();
 
     /**
-     *
-     * @return
+     * Función para obtener el Id máximo de las reservas que se encuentran en la base de datos
+     * @return el id máximo
      */
     public static long getMaxIdReserva() {
         try {

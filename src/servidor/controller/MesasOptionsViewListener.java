@@ -15,12 +15,21 @@ import java.util.LinkedList;
 
 public class MesasOptionsViewListener implements ActionListener{
 
+    /**
+     * Atributos de la clase
+     */
     private MesasViewListener mesasViewListener;
     private MainView mainView;
     private MesasManager mesasManager;
     private AddMesaDialogView addDialog;
     private JDialog deleteDialog;
 
+    /**
+     * Cosntructor de la clase con parámetros
+     * @param mainView La view principal
+     * @param mesasManager Manager de mesas
+     * @param mesasViewListener Listener
+     */
     public MesasOptionsViewListener(MainView mainView, MesasManager mesasManager, MesasViewListener mesasViewListener){
         this.mainView = mainView;
         this.mesasManager = mesasManager;

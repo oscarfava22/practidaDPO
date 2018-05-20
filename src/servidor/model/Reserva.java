@@ -13,6 +13,9 @@ import java.util.Date;
  */
 public class Reserva implements Serializable {
 
+    /**
+     * Atributos de la clase
+     */
     private long id;
     private String name;
     private Date date;

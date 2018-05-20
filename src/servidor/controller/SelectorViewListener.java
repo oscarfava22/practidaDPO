@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
  */
 public class SelectorViewListener implements MouseInputListener {
 
+    /**
+     * Atributo de la clase
+     */
     private MainView mainView;
 
     /**

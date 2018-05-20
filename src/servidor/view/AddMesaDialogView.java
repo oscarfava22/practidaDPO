@@ -6,11 +6,14 @@ import java.awt.event.ActionListener;
 
 public class AddMesaDialogView extends JDialog{
 
-    //Constantes
+    /**
+     * COnstantes de la clase
+     */
     public static final String POSITIVE_TAG = "Positive";
     public static final String NEGATIVE_TAG = "Negative";
 
     /**
+     * Atributos de la clase
      * jbPositive (JButton) = Botón para añadir la mesa
      * jbNegative (JButton) = Botón para cancelar la operación
      * jtNumCom (JTextField) = Campo de texto para introducir el número de comensales de la mesa que será creada

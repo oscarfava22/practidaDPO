@@ -21,6 +21,9 @@ import java.util.Timer;
 
 public class MesasViewListener implements MouseInputListener{
 
+    /**
+     * Atributos de la clase
+     */
     private MainView mainView;
     private MesasManager mesasManager;
 
@@ -112,7 +115,6 @@ public class MesasViewListener implements MouseInputListener{
 
             //Ordenar las reservas según la fecha de reserva
             reservas.sort(new Comparator<InfoResultSetReserva>() {
-                //TODO: Revisar si funciona bien el Comparator
                 @Override
                 public int compare(InfoResultSetReserva o1, InfoResultSetReserva o2) {
                     Date date1 = o1.getDate();
@@ -132,7 +134,6 @@ public class MesasViewListener implements MouseInputListener{
             mainView.refreshReservas(reservas);
 
         } catch (SQLException e1) {
-            //System.out.println("Error al llegir RESULTSET");
         }
 
         //Actualizar mainview
@@ -144,7 +145,7 @@ public class MesasViewListener implements MouseInputListener{
 
     /**
      * Esta función se ejecutará para extraer la información de las reservas
-     * @param resultSet
+     * @param resultSet ResultSet
      * @return ArrayList of InfoResultSetReserva
      * @throws SQLException
      */

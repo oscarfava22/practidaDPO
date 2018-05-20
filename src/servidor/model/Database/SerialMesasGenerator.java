@@ -9,6 +9,9 @@ import java.sql.SQLException;
  * Clase para generar los ids de las mesas del restaurante
  */
 public class SerialMesasGenerator {
+    /**
+     * Valor inicial de los id de las mesas
+     */
     public static int serial = 0;
 
     /**

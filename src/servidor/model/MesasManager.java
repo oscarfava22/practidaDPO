@@ -5,7 +5,9 @@ import java.util.LinkedList;
 
 public class MesasManager {
 
-    //Atributos
+    /**
+     * Atributos de la clase
+     */
     private LinkedList<Mesa> mesas;
     private String idMesaSeleccionada;
 
