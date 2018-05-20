@@ -25,10 +25,10 @@ public class EntryServer extends Thread {
      * @param mainView vista principal del programa.
      * @param reservasManager gestor de reservas.
      */
-    public EntryServer(MainView mainView, ReservasManager reservasManager) {
+    public EntryServer(MainView mainView, ReservasManager reservasManager,Network network) {
 
         try{
-            entryServerSocket = new ServerSocket(Network.ENTRY_SERVER_PORT);
+            entryServerSocket = new ServerSocket(network.getENTRY_SERVER_PORT());
             entryDedicatedServers = new LinkedList<>();
             this.mainView = mainView;
             this.reservasManager = reservasManager;

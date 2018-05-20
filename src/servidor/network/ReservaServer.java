@@ -37,10 +37,10 @@ public class ReservaServer extends Thread {
      */
     public ReservaServer(MainView mainView, PlatosManager platosManager,
                          ReservasManager reservasManager, PedidosManager pedidosManager,
-                         PedidosListListener pedidosListListener, GestionCartaViewListener gestionCartaViewListener) {
+                         PedidosListListener pedidosListListener, GestionCartaViewListener gestionCartaViewListener,Network network) {
 
         try {
-            reservaServerSocket = new ServerSocket(Network.RESERVA_SERVER_PORT);
+            reservaServerSocket = new ServerSocket(network.getRESERVA_SERVER_PORT());
             reservaDedicatedServers = new LinkedList<>();
 
             this.mainView = mainView;

@@ -1,5 +1,7 @@
 package servidor.network;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import json.io.JsonIO;
 import servidor.model.Constants;
 
@@ -10,20 +12,29 @@ import java.io.IOException;
  */
 public class Network {
 
-    public static final String SERVER_IP = "127.0.0.1";
-    public static final Integer ENTRY_SERVER_PORT = 31415;
-    public static final Integer RESERVA_SERVER_PORT = 31417;
+    private final  String SERVER_IP;
+    private  final Integer ENTRY_SERVER_PORT;
+    private  final Integer RESERVA_SERVER_PORT;
 
     /**
      * Constructor que lee el archivo de configuracion.
      */
-    public Network() {
-        try {
-            Network network = (Network) JsonIO.readJson(Network.class, Constants.serverConfig);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @JsonCreator
+    public Network(@JsonProperty("SERVER_IP")String ip,@JsonProperty("ENTRY_SERVER_PORT_port") int port, @JsonProperty("RESERVA_SERVER_PORT") int port2) {
+        this.SERVER_IP = ip;
+        this.ENTRY_SERVER_PORT = port;
+        this.RESERVA_SERVER_PORT = port2;
     }
 
+    public String getSERVER_IP() {
+        return SERVER_IP;
+    }
 
+    public Integer getENTRY_SERVER_PORT() {
+        return ENTRY_SERVER_PORT;
+    }
+
+    public Integer getRESERVA_SERVER_PORT() {
+        return RESERVA_SERVER_PORT;
+    }
 }
