@@ -129,7 +129,11 @@ public class ReservaDedicatedServer extends Thread {
                                                 plat.getPrice(), plat.getUnitatsSeleccionades());
                         platos.add(plato);
                         //Se actualizan las unidades de los platos de la carta restando los pedidos por el cliente
-                        platosManager.getPlato(plato.getId()).updateUnits(-plato.getUnits());
+                        if (platosManager.getPlato(plato.getId()).getUnits() - plato.getId() < 0) {
+                             platosManager.getPlato(plato.getId()).setUnits(0);
+                        } else {
+                            platosManager.getPlato(plato.getId()).updateUnits(-plato.getUnits());
+                        }
                     }
 
                     //Se aprovecha el metodo del Reserva Server para actualizar la vista de los platos de la carta
