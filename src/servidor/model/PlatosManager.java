@@ -108,6 +108,7 @@ public class PlatosManager {
         for(Plato pl : platos) {
             if (pl.getId() == id) {
                 pl.updatePlato(type, title, price, units);
+                break;
             }
         }
     }
