@@ -92,7 +92,7 @@ public class StatusBarView extends JPanel {
 
     /**
      * Permite establecer el numero de clientes Entry conectados.
-     * @param state
+     * @param state valor que determina el estado.
      */
     public void setEntryServerStatus(Integer state) {
         entryServerStatus.setText(state.toString());
