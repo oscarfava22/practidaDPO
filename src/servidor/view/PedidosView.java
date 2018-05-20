@@ -9,7 +9,8 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
- *
+ * Panel que contiene la informacion visual de todos los pedidos disponibles en el programa.
+ * Este panel utiliza un JTable para representar la informacion referente a los pedidos.
  */
 public class PedidosView extends JPanel {
 
@@ -24,7 +25,7 @@ public class PedidosView extends JPanel {
     private JTable jtPedidos;
 
     /**
-     *
+     * Contructor que inicializa los componentes necesario.
      */
     public PedidosView() {
 
@@ -56,8 +57,8 @@ public class PedidosView extends JPanel {
     }
 
     /**
-     *
-     * @param pedidosList
+     * Permite inicializar la vista de pedidos con la lista de pedidos que se recibe como parametro.
+     * @param pedidosList lista que se recibe de la cual extraer informacion y mostrarla por pantalla.
      */
     public void initView(LinkedList<Pedido> pedidosList) {
 
@@ -106,7 +107,7 @@ public class PedidosView extends JPanel {
     }
 
     /**
-     *
+     * Permite registrar todos los componentes relevantes al controlador que se reciba como parametro.
      * @param pedidosListListener
      */
     public void registerControllers (PedidosListListener pedidosListListener) {
@@ -117,16 +118,16 @@ public class PedidosView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el JTable relativo a los pedidos.
+     * @return JTable de los pedidos.
      */
     public JTable getJtPedidos () {
         return jtPedidos;
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el valor numerico de la fila seleccionada en el JTable de los pedidos.
+     * @return el indice de la fila seleccionada.
      */
     public int getSelectedRow() {
         return jtPedidos.getSelectedRow();

@@ -13,11 +13,11 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class MainView extends JFrame implements WindowListener {
 
-    /**
-     * Atributos de la clase
-     */
     private SelectorView selectorView;
     private JPanel jpGestionView;
     private GestionMesasView gestionMesasView;
@@ -28,7 +28,7 @@ public class MainView extends JFrame implements WindowListener {
     private GestionTop5ViewListener gestorTop5View;
 
     /**
-     * Cosntructor sin parámetros
+     *
      */
     public MainView() {
 
@@ -44,7 +44,7 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Función para inicializar la vista
+     *
      * @param platos
      * @param mesas
      * @param pedidos
@@ -70,8 +70,7 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Función para vincular los listeners con los respectivos elementos de la vista y vincular los consecuentes
-     *  listeners a los elementos de cada una de las vistas de la pantalla principal
+     *
      * @param selectorViewListener
      * @param gestionCartaViewListener
      * @param gestionTop5ViewListener
@@ -83,6 +82,7 @@ public class MainView extends JFrame implements WindowListener {
                                     GestionTop5ViewListener gestionTop5ViewListener,
                                     MesasOptionsViewListener mesasOptionsViewListener,
                                     MesasViewListener mesasViewListener) {
+
         selectorView.registerControllers(selectorViewListener);
         gestionMesasView.registerControllers(mesasOptionsViewListener, mesasViewListener);
         gestionCartaView.registerControllers(gestionCartaViewListener);
@@ -90,14 +90,26 @@ public class MainView extends JFrame implements WindowListener {
     }
 
     /**
-     * Settters & Getters
+     *
+     * @param button
      */
     public void setSVSelectedButton(String button) {
         selectorView.setSelectedButton(button);
     }
+
+    /**
+     *
+     * @param button
+     * @param state
+     */
     public void setSVFocusedButton(String button, boolean state) {
         selectorView.setFocusedButton(button, state);
     }
+
+    /**
+     *
+     * @param option
+     */
     public void setGestionView(String option) {
 
         switch (option) {
@@ -126,37 +138,77 @@ public class MainView extends JFrame implements WindowListener {
                 break;
         }
     }
+
+    /**
+     *
+     * @param state
+     */
     public void setEntryServerStatus(Integer state) {
         statusBarView.setEntryServerStatus(state);
     }
-    public void setConnectedDevices(Integer count) {
-        statusBarView.setConnectedDevices(count);
-        statusBarView.updateUI();
-    }
-    public int getSelectedRow() {
-        return gestionPedidosView.getSelectedRow();
-    }
-    public GestionCartaView getGestionCartaView() {
-        return gestionCartaView;
-    }
-    public GestionMesasView getGestionMesasView(){
-        return gestionMesasView;
-    }
-    public GestionTop5View getGestionTop5View(){
-        return gestionTop5View;
-    }
-    public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
 
     /**
-     * Refresh mesas & Refresh reservas
+     *
+     * @param mesasViewListener
      */
     public void refreshMesas(MesasViewListener mesasViewListener){
         gestionMesasView.refreshMesas(mesasViewListener);
     }
+
+    /**
+     *
+     * @param count
+     */
+    public void setConnectedDevices(Integer count) {
+        statusBarView.setConnectedDevices(count);
+        statusBarView.updateUI();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getSelectedRow() {
+        return gestionPedidosView.getSelectedRow();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public GestionCartaView getGestionCartaView() {
+        return gestionCartaView;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public GestionMesasView getGestionMesasView(){
+        return gestionMesasView;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public GestionTop5View getGestionTop5View(){
+        return gestionTop5View;
+    }
+
+    /**
+     *
+     * @param reservas
+     */
     public void refreshReservas(ArrayList<InfoResultSetReserva> reservas) {
         gestionMesasView.refreshReservas(reservas);
     }
 
+    /**
+     *
+     * @return
+     */
+    public GestionPedidosView getGestionPedidosView() { return gestionPedidosView; }
 
     @Override
     public void windowOpened(WindowEvent e) {

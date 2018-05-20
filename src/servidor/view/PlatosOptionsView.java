@@ -9,6 +9,8 @@ import java.awt.*;
 
 /**
  * Panel que ofrece opciones de ediciones y creacion de platos.
+ * Este panel tiene 2 modos principales de visualizacion que desactivan ciertos botones en funcion del modo, que puede
+ * ser de edicion o de creacion de un producto.
  */
 public class PlatosOptionsView extends JPanel {
 
@@ -221,7 +223,7 @@ public class PlatosOptionsView extends JPanel {
     }
 
     /**
-     *
+     * Permite obtener el estado de edicion del panel de opciones.
      * @return
      */
     public boolean getEditState() {
@@ -229,8 +231,9 @@ public class PlatosOptionsView extends JPanel {
     }
 
     /**
-     *
-     * @param state
+     * Permite establecer el modo de edicion del panel, que desacctivara los botones que no son utiles cuando se apreta
+     * el boton editar o los activara si el estado es false.
+     * @param state el estado que determinad el modo Edit.
      */
     public void setEditState(boolean state) {
 
@@ -249,15 +252,16 @@ public class PlatosOptionsView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el estado de Añadir producto del panel de opciones.
+     * @return el estado del modo Add Product
      */
     public boolean getAddState() {
         return addState;
     }
 
     /**
-     * 
+     * Permite establecer el modo de edicion del panel, que desacctivara los botones que no son utiles cuando se apreta
+     * el boton add product o los activara si el estado es false.
      * @param state
      */
     public void setAddProductState(boolean state) {

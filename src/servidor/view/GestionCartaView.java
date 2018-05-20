@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 /**
- *
+ * Panel que contiene la vista de los platos y la vista de las opciones de edicion para cada plato.
  */
 public class GestionCartaView extends JPanel {
 
@@ -16,7 +16,7 @@ public class GestionCartaView extends JPanel {
     private PlatosOptionsView platosOptionsView;
 
     /**
-     *
+     * Constructor que inicializa el panel.
      */
     public GestionCartaView() {
 
@@ -27,8 +27,8 @@ public class GestionCartaView extends JPanel {
     }
 
     /**
-     *
-     * @param platos
+     * Método que permite incializar la vista del panel en cualquier momento.
+     * @param platos lista de platos que se recibe para cargar en la vista de platos.
      */
     public void initView(LinkedList<Plato> platos) {
         platosView.initPlatosView(platos);
@@ -37,8 +37,8 @@ public class GestionCartaView extends JPanel {
     }
 
     /**
-     *
-     * @param gestionCartaViewListener
+     * Permite registrar los paneles al controlador que se recibe como parametro.
+     * @param gestionCartaViewListener controlador que se recibe para registar a los paneles asociados.
      */
     public void registerControllers(MouseInputListener gestionCartaViewListener) {
         platosView.registerControllers(gestionCartaViewListener);
@@ -46,16 +46,16 @@ public class GestionCartaView extends JPanel {
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el panel referente a las opciones de edicion.
+     * @return el panel de las opciones de edicion.
      */
     public PlatosOptionsView getPlatosOptionsView() {
         return platosOptionsView;
     }
 
     /**
-     *
-     * @return
+     * Permite obtener el paner referente a los platos.
+     * @return el panel de los platos.
      */
     public PlatosView getPlatosView() {
         return platosView;
